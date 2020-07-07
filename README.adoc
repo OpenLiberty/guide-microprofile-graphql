@@ -56,14 +56,14 @@ The artist and album resources are provided in JSON files.
 ///////////////////////////
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/gitclone.adoc[]
+link:{common-includes}/gitclone.adoc[]
 
 ///////////////////////////
 // Try what you’ll build
 ///////////////////////////
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/twyb-intro.adoc[]
+link:{common-includes}/twyb-intro.adoc[]
 
 //--** Describe what user should run and expect to see after running the complete version of the application.
 You are provided with Graphiql, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server.
@@ -121,7 +121,7 @@ mutation {
 Access {schema-url}[{schema-url}^] to view the API schema.
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/twyb-end.adoc[]
+link:{common-includes}/twyb-end.adoc[]
 
 /////////////////////////////
 //== Building the application
@@ -130,7 +130,7 @@ link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/twyb-end
 Navigate to the `start` directory
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-start.adoc[]
+link:{common-includes}/devmode-start.adoc[]
 
 === Enabling GraphQL
 
@@ -321,7 +321,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/ArtistService.java[]
 == Running the application
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-build.adoc[]
+link:{common-includes}/devmode-build.adoc[]
 
 Access {schema-url}[{schema-url}^] to view the API schema.
 
@@ -650,16 +650,16 @@ include::finish/src/test/java/io/openliberty/guides/graphql/ArtistServiceIT.java
 ----
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-test.adoc[]
+link:{common-includes}/devmode-test.adoc[]
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-quit.adoc[]
+link:{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
 EXAMPLE: You have just completed building a simple artist management application using MicroProfile GraphQL and
 GraphQL client in Open Liberty.
 
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/attribution.adoc[]
+link:{common-includes}/attribution.adoc[]
 
 // ------------ END ------------
