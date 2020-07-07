@@ -55,14 +55,14 @@ The artist and album resources are provided in JSON files.
 ///////////////////////////
 
 [role='command']
-link:{common-includes}/gitclone.adoc[]
+include::{common-includes}/gitclone.adoc[]
 
 ///////////////////////////
 // Try what you’ll build
 ///////////////////////////
 
 [role='command']
-link:{common-includes}/twyb-intro.adoc[]
+include::{common-includes}/twyb-intro.adoc[]
 
 //--** Describe what user should run and expect to see after running the complete version of the application.
 You are provided with Graphiql, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server.
@@ -120,7 +120,7 @@ mutation {
 Access {schema-url}[{schema-url}^] to view the API schema.
 
 [role='command']
-link:{common-includes}/twyb-end.adoc[]
+include::{common-includes}/twyb-end.adoc[]
 
 /////////////////////////////
 //== Building the application
@@ -129,7 +129,7 @@ link:{common-includes}/twyb-end.adoc[]
 Navigate to the `start` directory
 
 [role='command']
-link:{common-includes}/devmode-start.adoc[]
+include::{common-includes}/devmode-start.adoc[]
 
 === Enabling GraphQL
 
@@ -320,7 +320,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/ArtistService.java[]
 == Running the application
 
 [role='command']
-link:{common-includes}/devmode-build.adoc[]
+include::{common-includes}/devmode-build.adoc[]
 
 Access {schema-url}[{schema-url}^] to view the API schema.
 
@@ -649,16 +649,16 @@ include::finish/src/test/java/io/openliberty/guides/graphql/ArtistServiceIT.java
 ----
 
 [role='command']
-link:{common-includes}/devmode-test.adoc[]
+include::{common-includes}/devmode-test.adoc[]
 
 [role='command']
-link:{common-includes}/devmode-quit.adoc[]
+include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
 EXAMPLE: You have just completed building a simple artist management application using MicroProfile GraphQL and
 GraphQL client in Open Liberty.
 
-link:{common-includes}/attribution.adoc[]
+include::{common-includes}/attribution.adoc[]
 
 // ------------ END ------------
