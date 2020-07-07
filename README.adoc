@@ -317,8 +317,6 @@ ArtistService.java
 include::finish/src/main/java/io/openliberty/guides/graphql/ArtistService.java[]
 ----
 
-== Running the application
-
 [role='command']
 include::{common-includes}/devmode-build.adoc[]
 
