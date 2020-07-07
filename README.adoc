@@ -11,13 +11,15 @@
 :page-duration: 15 minutes
 :page-releasedate: 2020-06-17
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
+:page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
 :guide-author: Open Liberty
 :page-related-guides: ['cdi-intro', 'rest-intro']
 :page-guide-category: microprofile
 :page-essential: false
 :page-permalink: /guides/{projectid}
-:common-includes: ../guides-common/
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :imagesdir: /img/guide/{projectid}
+:source-highlighter: prettify
 :page-seo-title: Creating a GraphQL service and GrahQL client
 :page-seo-description: Find out how to create and test a GraphQL service on Open Liberty
 = Creating and consuming a GraphQL web service
