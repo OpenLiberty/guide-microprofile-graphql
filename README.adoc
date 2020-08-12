@@ -19,7 +19,7 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 :page-seo-title: Creating a GraphQL service and GrahQL client
-:page-seo-description: Find out how to create and test a GraphQL service on Open Liberty
+:page-seo-description: Find out how to create and test a GraphQL web service on Open Liberty
 :guide-author: Open Liberty
 = Creating and consuming a GraphQL web service
 
@@ -122,9 +122,7 @@ Access {schema-url}[{schema-url}^] to view the API schema.
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
 
-/////////////////////////////
-//== Building the application
-/////////////////////////////
+== Building the application
 
 Navigate to the `start` directory
 
