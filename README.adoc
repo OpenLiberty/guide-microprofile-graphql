@@ -129,7 +129,7 @@ Navigate to the `start` directory
 [role='command']
 include::{common-includes}/devmode-start.adoc[]
 
-=== Enabling GraphQL
+== Enabling GraphQL
 
 The MicroProfile GraphQL feature enables GraphQL support for your application.
 This feature is already enabled in the [hotspot=graphQLFeature]`configuration file`.
@@ -140,7 +140,7 @@ ArtistService.java
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
-=== Creating the GraphQL API
+== Creating the GraphQL API
 
 In GraphQL, a single class should represent a single resource, or a group of resources of the same type.
 In this application, artists and albums are the two resources. Since the two resources are related, they can be
@@ -225,7 +225,7 @@ Album.java
 include::finish/src/main/java/io/openliberty/guides/graphql/models/Album.java[]
 ----
 
-=== Queries
+=== Creating the GraphQL Queries
 
 The `ArtistService` class contains two queries, [hotspot=queryAnnotationGetArtist]`artist` and
 [hotspot=queryAnnotationGetArtists]`artists`.
@@ -253,7 +253,7 @@ ArtistService.java
 include::finish/src/main/java/io/openliberty/guides/graphql/ArtistService.java[]
 ----
 
-=== Mutations
+=== Creating the GraphQL Mutations
 
 The `ArtistService` class contains two mutations,
 [hotspot=mutationAnnotationAddArtist hotspot=nameAnnotationAddArtist file=0]`addArtist` and
