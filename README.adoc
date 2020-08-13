@@ -19,15 +19,15 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 :page-seo-title: Creating a GraphQL service and GrahQL client
-:page-seo-description: Find out how to create and test a GraphQL web service on Open Liberty
+:page-seo-description: Find out how to create and test a GraphQL microservice on Open Liberty
 :guide-author: Open Liberty
-= Creating and consuming a GraphQL web service
+= Creating and consuming a GraphQL microservice
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to create a GraphQL web service and consume a GraphQL web service using template interfaces.
+Explore how to create a GraphQL microservice and consume a GraphQL microservice using template interfaces.
 
 :graphiql-url: http://localhost:9080/api/graphiql.html
 :schema-url: http://localhost:9080/api/graphql/schema.graphql
@@ -46,7 +46,7 @@ to being defined by endpoints like REST APIs. This enables GraphQL APIs to opera
 single query whereas REST APIs would require loading the data from multiple URLs through multiple round-trips to the
 server.
 
-You will create a GraphQL web service that stores, queries and manipulates album and artist information.
+You will create a GraphQL microservice that stores, queries and manipulates album and artist information.
 The artist and album resources are provided in JSON files.
 
 ///////////////////////////
@@ -64,7 +64,7 @@ include::{common-includes}/gitclone.adoc[]
 include::{common-includes}/twyb-intro.adoc[]
 
 //--** Describe what user should run and expect to see after running the complete version of the application.
-You are provided with Graphiql, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server,
+You are provided with GraphiQL, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server,
 to assist in development and testing of the API.
 
 Once the server is running, access {graphiql-url}[{graphiql-url}^].
@@ -73,7 +73,7 @@ Run the following query to get the artist data for Drake:
 [role='command']
 ----
 query {
-    artist(artist: "Drake") {
+    artist(name: "Drake") {
         name
         genres
         albums {
@@ -90,7 +90,7 @@ Run the following query to request only the `name` and `genres` field of artists
 [role='command']
 ----
 query {
-  artists(artists: ["Drake", "Rihanna"]) {
+  artists(names: ["Drake", "Rihanna"]) {
     name
     genres
   }
@@ -130,8 +130,8 @@ include::{common-includes}/devmode-start.adoc[]
 
 == Enabling GraphQL
 
-The MicroProfile GraphQL feature enables GraphQL support for your application.
-This feature is already enabled in the [hotspot=graphQLFeature]`configuration file`.
+The MicroProfile GraphQL feature enables the GraphQL runtime and use of GraphQL API for your application.
+This feature is already enabled in the [hotspot=graphQLFeature]`server.xml` configuration file.
 
 ArtistService.java
 [source,xml,linenums,role='code_column hide_tags=comment']
@@ -370,7 +370,7 @@ The [hotspot=signatureAlbumCount file=0]`@Source` annotation applied on the [hot
 argument of [hotspot=albumCount file=0]`albumCount()` associates the return value of the method, an integer, to the
 `albumCount` field of the GraphQL type Artist.
 
-Access {graphiql-url}[{graphiql-url}^] to open Graphiql.
+Access {graphiql-url}[{graphiql-url}^] to open GraphiQL.
 
 When you run a GraphQL query, you are required to specify the properties you want for an entity. The result object
 has only the specified properties.
