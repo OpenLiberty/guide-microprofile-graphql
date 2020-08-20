@@ -6,47 +6,47 @@
 // Contributors:
 //     IBM Corporation
 //
-:page-layout: guide-multipane
 :projectid: graphql-intro
-:page-duration: 15 minutes
-:page-releasedate: 2020-06-17
-:page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
-:guide-author: Open Liberty
-:page-related-guides: ['cdi-intro', 'rest-intro']
-:page-guide-category: microprofile
+:page-layout: guide-multipane
+:page-duration: 25 minutes
+:page-releasedate: 2018-07-02
+:page-guide-category: 2020-06-17
 :page-essential: false
+:page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
+:page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
+:page-related-guides: ['rest-intro']
 :page-permalink: /guides/{projectid}
-:common-includes: ../guides-common/
-:imagesdir: /img/guide/{projectid}
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:source-highlighter: prettify
 :page-seo-title: Creating a GraphQL service and GrahQL client
-:page-seo-description: Find out how to create and test a GraphQL service on Open Liberty
-= Creating and consuming a GraphQL web service
+:page-seo-description: Find out how to create and test a GraphQL microservice on Open Liberty
+:guide-author: Open Liberty
+= Creating and consuming a GraphQL microservice
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to create a GraphQL web service and consume a GraphQL web service using template interfaces.
+Explore how to create a GraphQL microservice and consume a GraphQL microservice using template interfaces.
 
 :graphiql-url: http://localhost:9080/api/graphiql.html
 :schema-url: http://localhost:9080/api/graphql/schema.graphql
 
 == What you'll learn
 
-You'll learn how to create and test a microservice using MicroProfile GraphQL and Open Liberty.
-You'll use Maven throughout the guide to build the microservice and deploy it
-to run on the Open Liberty application server.
+You'll learn how to build and test a simple microservice with MicroProfile GraphQL, which stores and retrieves data about
+musicians and their albums.
 
 === What is GraphQL
-GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling these queries with
-existing data.
+GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling these queries.
 
 GraphQL queries specify the shape of the response data, which allows users to get exactly what data they want.
 GraphQL APIs contain a single endpoint that handles queries. GraphQL APIs are defined by Types and Fields as opposed
-to being defined by endpoints like REST APIs. This enables GraphQL APIs to operate on multiple resources in the single
-query where REST APIs would require loading the data from multiple URLs.
+to being defined by endpoints like REST APIs. This enables GraphQL APIs to operate on multiple related resources in a
+single query whereas REST APIs would require loading the data from multiple URLs through multiple round-trips to the
+server.
 
-You will create a GraphQL web service that queries, manipulates and stores album and artist information.
+You will create a GraphQL microservice that stores, queries and manipulates album and artist information.
 The artist and album resources are provided in JSON files.
 
 ///////////////////////////
@@ -54,18 +54,18 @@ The artist and album resources are provided in JSON files.
 ///////////////////////////
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/gitclone.adoc[]
+include::{common-includes}/gitclone.adoc[]
 
 ///////////////////////////
 // Try what you’ll build
 ///////////////////////////
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/twyb-intro.adoc[]
+include::{common-includes}/twyb-intro.adoc[]
 
 //--** Describe what user should run and expect to see after running the complete version of the application.
-You are provided with Graphiql, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server.
-You can use Graphiql to perform queries in with an interactive interface to assist in development and testing of the API.
+You are provided with GraphiQL, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server,
+to assist in development and testing of the API.
 
 Once the server is running, access {graphiql-url}[{graphiql-url}^].
 Run the following query to get the artist data for Drake:
@@ -73,7 +73,7 @@ Run the following query to get the artist data for Drake:
 [role='command']
 ----
 query {
-    artist(artist: "Drake") {
+    artist(name: "Drake") {
         name
         genres
         albums {
@@ -90,7 +90,7 @@ Run the following query to request only the `name` and `genres` field of artists
 [role='command']
 ----
 query {
-  artists(artists: ["Drake", "Rihanna"]) {
+  artists(names: ["Drake", "Rihanna"]) {
     name
     genres
   }
@@ -119,21 +119,19 @@ mutation {
 Access {schema-url}[{schema-url}^] to view the API schema.
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/twyb-end.adoc[]
+include::{common-includes}/twyb-end.adoc[]
 
-/////////////////////////////
-//== Building the application
-/////////////////////////////
+== Building the application
 
 Navigate to the `start` directory
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-start.adoc[]
+include::{common-includes}/devmode-start.adoc[]
 
-=== Enabling GraphQL
+== Enabling GraphQL
 
-The MicroProfile GraphQL feature enables GraphQL support for your application.
-This feature is already enabled in the [hotspot=graphQLFeature]`configuration file`.
+The MicroProfile GraphQL feature enables the GraphQL runtime and use of GraphQL API for your application.
+This feature is already enabled in the [hotspot=graphQLFeature]`server.xml` configuration file.
 
 ArtistService.java
 [source,xml,linenums,role='code_column hide_tags=comment']
@@ -141,7 +139,7 @@ ArtistService.java
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
-=== Creating the GraphQL API
+== Creating the GraphQL API
 
 In GraphQL, a single class should represent a single resource, or a group of resources of the same type.
 In this application, artists and albums are the two resources. Since the two resources are related, they can be
@@ -226,7 +224,7 @@ Album.java
 include::finish/src/main/java/io/openliberty/guides/graphql/models/Album.java[]
 ----
 
-=== Queries
+=== Creating the GraphQL Queries
 
 The `ArtistService` class contains two queries, [hotspot=queryAnnotationGetArtist]`artist` and
 [hotspot=queryAnnotationGetArtists]`artists`.
@@ -254,7 +252,7 @@ ArtistService.java
 include::finish/src/main/java/io/openliberty/guides/graphql/ArtistService.java[]
 ----
 
-=== Mutations
+=== Creating the GraphQL Mutations
 
 The `ArtistService` class contains two mutations,
 [hotspot=mutationAnnotationAddArtist hotspot=nameAnnotationAddArtist file=0]`addArtist` and
@@ -316,10 +314,8 @@ ArtistService.java
 include::finish/src/main/java/io/openliberty/guides/graphql/ArtistService.java[]
 ----
 
-== Running the application
-
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-build.adoc[]
+include::{common-includes}/devmode-build.adoc[]
 
 Access {schema-url}[{schema-url}^] to view the API schema.
 
@@ -374,7 +370,7 @@ The [hotspot=signatureAlbumCount file=0]`@Source` annotation applied on the [hot
 argument of [hotspot=albumCount file=0]`albumCount()` associates the return value of the method, an integer, to the
 `albumCount` field of the GraphQL type Artist.
 
-Access {graphiql-url}[{graphiql-url}^] to open Graphiql.
+Access {graphiql-url}[{graphiql-url}^] to open GraphiQL.
 
 When you run a GraphQL query, you are required to specify the properties you want for an entity. The result object
 has only the specified properties.
@@ -648,16 +644,16 @@ include::finish/src/test/java/io/openliberty/guides/graphql/ArtistServiceIT.java
 ----
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-test.adoc[]
+include::{common-includes}/devmode-test.adoc[]
 
 [role='command']
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/devmode-quit.adoc[]
+include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
 EXAMPLE: You have just completed building a simple artist management application using MicroProfile GraphQL and
 GraphQL client in Open Liberty.
 
-link:https://raw.githubusercontent.com/OpenLiberty/guides-common/master/attribution.adoc[]
+include::{common-includes}/attribution.adoc[]
 
 // ------------ END ------------

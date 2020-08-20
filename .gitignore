@@ -10,6 +10,7 @@ start/target/
 .apt_generated/
 
 *.iml
+.idea/
 
 finish/.gitignore
 start/.gitignore
