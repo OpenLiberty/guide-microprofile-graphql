@@ -43,6 +43,104 @@ GraphQL client.
 2. Two guides for GraphQL: one for GraphQL and another for GraphQL client. First guide builds the service, has Graphiql as "frontend" and no testing.
 Second guide only constructs GraphQL client and integration test.
 
+This branch contains the summaries for proposal one.
+
+=== What you'll learn
+
+- You'll learn how to build and test a simple microservice with MicroProfile GraphQL, which stores and retrieves data about
+musicians and their albums.
+- Explain the files in `start` directory.
+
+
+==== What is GraphQL
+
+- Explain what GraphQL is, advantages over REST
+- Explain what MicroProfile GraphQL is
+- Explain the application
+
+=== Getting started
+
+- Git clone
+
+==== Try what you'll build
+
+- `mvn liberty:run`
+- Curl command to send a POST request with some queries to the GraphQL endpoint
+- `mvn liberty:stop`
+
+=== Building the application
+
+- `mvn liberty:dev`
+
+=== Enabling GraphQL
+
+- Replace `server.xml` to include the `mpGraphQL-1.0` feature
+
+=== Creating the GraphQL API
+
+- Create the `ArtistService.java` class
+- What is GraphQL Entity
+
+==== Creating the GraphQL Queries
+
+- Explain what a GraphQL query is
+- Describe the `Query` annotation
+- Describe the two `@Query` methods: `getArtist()` and `getArtists()`
+- Talk about `GraphQLException` and partial results
+
+==== Creating the GraphQL Mutations
+
+- Explain what a GraphQL mutation is
+- Describe the `Mutation` annotation
+- Describe the two `@Mutation` methods: `addArtist()` and `reset()`
+- Describe the `@NotNull` annotation and validation during deserializing
+
+==== Modifying the Artist entity
+
+- Explain the `@Name` annotation and how it changes the schema for queries and mutations
+- Explain the `@Name` annotation and how it changes the entities
+- Explain the `@Source` annotation and how that relates to entities
+
+=== Running the application
+
+- Since we started in dev mode, the changes are automatically picked up
+- Curl requests for sending GraphQL queries for each method
+- Explain error handling in detail: compare sending multiple `getArtist()` queries in one request vs one `getArtists()` query
+
+This section will be a lot easier to see if we used the frontend
+
+=== Build the GraphQL client
+
+- Replace `pom.xml` to include dependencies for the GraphQL client
+- Explain that GraphQL client requires a template interface
+    - Each property in the return type of the interface method is requested in the corresponding query
+    - This means that we need a new model class to request `albumCount`
+
+==== Creating additional model classes
+
+- Create the `ArtistWithAlbumCount` class
+- Explain the changes
+    - New `albumCount` property
+    - Why we need `@NotNull`
+
+==== Creating the template interface
+
+- Create the `ArtistServiceAPI` interface
+- Explain the changes
+    - Describe the queries and mutation methods and the annotations
+    - Reiterate why there's two methods for the same query with different return types
+
+=== Testing the application
+
+==== Creating the test class
+
+- Create the `ArtistServiceIT` test class
+- Explain how to use the `ArtistServiceAPI` client interface to test the API
+
+==== Running the tests
+
+- Hit enter to run integration tests in dev mode
+
 == What you'll learn
 
 You'll learn how to build and test a simple microservice with MicroProfile GraphQL, which stores and retrieves data about
