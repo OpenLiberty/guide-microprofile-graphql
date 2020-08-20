@@ -32,6 +32,17 @@ Explore how to create a GraphQL microservice and consume a GraphQL microservice 
 :graphiql-url: http://localhost:9080/api/graphiql.html
 :schema-url: http://localhost:9080/api/graphql/schema.graphql
 
+== Design Review
+
+NOTE: This section is for design review purposes and will be removed after the reivew.
+Please review the title, description, SEO metadata, and the following outlines.
+
+=== Proposals
+1. A single guide for GraphQL and GraphQL client. No "frontend" to try the service out. Testing the service using SmallRye
+GraphQL client.
+2. Two guides for GraphQL: one for GraphQL and another for GraphQL client. First guide builds the service, has Graphiql as "frontend" and no testing.
+Second guide only constructs GraphQL client and integration test.
+
 == What you'll learn
 
 You'll learn how to build and test a simple microservice with MicroProfile GraphQL, which stores and retrieves data about
