@@ -12,14 +12,14 @@
 :page-releasedate: 2018-07-02
 :page-guide-category: 2020-06-17
 :page-essential: false
-:page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
+:page-description: Learn how to create a GraphQL service using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
 :page-related-guides: ['rest-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-:page-seo-title: Creating a GraphQL service and GrahQL client
-:page-seo-description: Find out how to create and test a GraphQL microservice on Open Liberty
+:page-seo-title: Creating a GraphQL service
+:page-seo-description: Find out how to create a GraphQL microservice on Open Liberty
 :guide-author: Open Liberty
 = Creating and consuming a GraphQL microservice
 
@@ -27,7 +27,7 @@
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to create a GraphQL microservice and consume a GraphQL microservice using template interfaces.
+Explore how to create a GraphQL microservice.
 
 :graphiql-url: http://localhost:9080/api/graphiql.html
 :schema-url: http://localhost:9080/api/graphql/schema.graphql
@@ -42,6 +42,81 @@ Please review the title, description, SEO metadata, and the following outlines.
 GraphQL client.
 2. Two guides for GraphQL: one for GraphQL and another for GraphQL client. First guide builds the service, has Graphiql as "frontend" and no testing.
 Second guide only constructs GraphQL client and integration test.
+
+This branch contains the summaries for proposal two.
+
+=== What you'll learn
+
+- You'll learn how to build a simple microservice with MicroProfile GraphQL, which stores and retrieves data about
+musicians and their albums.
+- Explain the files in `start` directory.
+
+
+==== What is GraphQL
+
+- Explain what GraphQL is, advantages over REST
+- Explain what MicroProfile GraphQL is
+- Explain what Graphiql is, how to get Graphiql
+- Explain the application
+
+=== Getting started
+
+- Git clone
+
+==== Try what you'll build
+
+- `mvn liberty:run`
+- Run queries/mutations using Graphiql
+- `mvn liberty:stop`
+
+=== Building the application
+
+- `mvn liberty:dev`
+
+=== Enabling GraphQL
+
+- Replace `server.xml` to include the `mpGraphQL-1.0` feature
+
+=== Creating the GraphQL API
+
+- Create the `ArtistService.java` class
+- What is GraphQL Entity
+
+==== Creating the GraphQL Queries
+
+- Explain what a GraphQL query is
+- Describe the `Query` annotation
+- Describe the two `@Query` methods: `getArtist()` and `getArtists()`
+- Talk about `GraphQLException` and partial results
+
+==== Creating the GraphQL Mutations
+
+- Explain what a GraphQL mutation is
+- Describe the `Mutation` annotation
+- Describe the two `@Mutation` methods: `addArtist()` and `reset()`
+- Describe the `@NotNull` annotation and validation during deserializing
+
+==== Naming the GraphQL Queries and Mutations
+
+- Using the `@Name` annotation vs using `@JsonbProperty`
+
+==== Modifying the Artist entity
+
+- Explain the `@Name` annotation and how it changes the schema for queries and mutations
+- Explain the `@Name` annotation and how it changes the entities
+- Using the `@Name` annotation vs using `@JsonbProperty`
+- Explain the `@Source` annotation and how that relates to entities
+
+=== Running the application
+
+- Since we started in dev mode, the changes are automatically picked up
+- Graphiql queries for each query/mutation
+- Explain error handling in detail: compare sending multiple `getArtist()` queries in one request vs one `getArtists()`
+query
+
+=== Testing the application
+
+- Manual testing
 
 == What you'll learn
 

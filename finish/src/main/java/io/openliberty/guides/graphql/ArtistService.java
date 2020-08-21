@@ -86,7 +86,8 @@ public class ArtistService {
     // Source makes return value part of schema of Source
     // tag::albumCount[]
     // tag::signatureAlbumCount[]
-    public int albumCount(@Source Artist artist) {
+    @Name("albumCount")
+    public int getAlbumCount(@Source Artist artist) {
     // end::signatureAlbumCount[]
         return artist.getAlbums().size();
     }
