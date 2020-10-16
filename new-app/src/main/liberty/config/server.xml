@@ -1,6 +1,7 @@
 <server description="Sample Liberty server">
 
   <featureManager>
+    <feature>mpGraphQL-1.0</feature>
     <feature>jaxrs-2.1</feature>
     <feature>jsonp-1.1</feature>
     <feature>cdi-2.0</feature>
