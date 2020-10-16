@@ -17,6 +17,8 @@ import java.util.Objects;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 
@@ -24,15 +26,44 @@ public class SystemLoad {
 
     private static final Jsonb jsonb = JsonbBuilder.create();
 
-    public String hostname;
-    public Double loadAverage;
-        
-    public SystemLoad(String hostname, Double cpuLoadAvg) {
+    @NotNull
+    private String hostname;
+
+    @NotNull
+    private Double loadAverage;
+
+    private String note;
+
+    public SystemLoad() {}
+
+    public SystemLoad(String hostname, Double loadAverage) {
         this.hostname = hostname;
-        this.loadAverage = cpuLoadAvg;
+        this.loadAverage = loadAverage;
     }
 
-    public SystemLoad() {
+    public SystemLoad(String hostname, Double loadAverage, String note) {
+        this(hostname, loadAverage);
+        this.note = note;
+    }
+    
+    public String getHostname() {
+        return this.hostname;
+    }
+    
+    public Double getLoadAverage() {
+        return this.loadAverage;
+    }
+    
+    public void setLoadAverage(Double newLoad) {
+        this.loadAverage = newLoad;
+    }
+    
+    public String getNote() {
+        return this.note;
+    }
+    
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override
@@ -41,29 +72,27 @@ public class SystemLoad {
         if (!(o instanceof SystemLoad)) return false;
         SystemLoad sl = (SystemLoad) o;
         return Objects.equals(hostname, sl.hostname)
-                && Objects.equals(loadAverage, sl.loadAverage);
+                && Objects.equals(loadAverage, sl.loadAverage)
+                && Objects.equals(note, sl.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(hostname, loadAverage);
+        return Objects.hash(hostname, loadAverage, note);
     }
     
     @Override
     public String toString() {
-        return "CpuLoadAverage: " + jsonb.toJson(this);
+        return "SystemLoad: " + jsonb.toJson(this);
     }
     
-    //tag::jsonbSerializer[]
     public static class SystemLoadSerializer implements Serializer<Object> {
         @Override
         public byte[] serialize(String topic, Object data) {
           return jsonb.toJson(data).getBytes();
         }
     }
-    //end::jsonbSerializer[]
-      
-    //tag::jsonbDeSerializer[]
+
     public static class SystemLoadDeserializer implements Deserializer<SystemLoad> {
         @Override
         public SystemLoad deserialize(String topic, byte[] data) {
@@ -72,5 +101,4 @@ public class SystemLoad {
             return jsonb.fromJson(new String(data), SystemLoad.class);
         }
     }
-    //end::jsonbDeSerializer[]
 }
