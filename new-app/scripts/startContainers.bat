@@ -44,17 +44,8 @@ start /b docker run -d ^
 
 start /b docker run -d ^
   -e MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS=%KAFKA_SERVER% ^
-  -p 9085:9085 ^
+  -p 9080:9080 ^
   --network=%NETWORK% ^
   --name=inventory ^
   --rm ^
   inventory:1.0-SNAPSHOT 
-
-start /b docker run -d ^
-  -e InventoryClient_mp_rest_url=http://inventory:9085 \
-  -e MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS=%KAFKA_SERVER% ^
-  -p 9080:9080 ^
-  --network=%NETWORK% ^
-  --name=query ^
-  --rm ^
-  query:1.0-SNAPSHOT 
