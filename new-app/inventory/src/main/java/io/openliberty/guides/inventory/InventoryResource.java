@@ -19,15 +19,12 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.GraphQLException;
+import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 
@@ -54,7 +51,7 @@ public class InventoryResource {
     
     // Get multiple systems
     @Query("systems")
-    public List<SystemLoad> getSystems(@Name("names") String[] hostnames) throws GraphQLException {
+    public List<SystemLoad> getSystems(@Name("systems") String[] hostnames) throws GraphQLException {
         List<SystemLoad> output = new ArrayList<SystemLoad>();
         List<String> missingHosts = new ArrayList<String>();
         
@@ -78,14 +75,18 @@ public class InventoryResource {
         
         return output;
     }
-
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response resetSystems() {
-        manager.resetSystems();
-        return Response
-                .status(Response.Status.OK)
-                .build();
+    
+    // Manually update system with note
+    @Mutation
+    public boolean updateSystem(@Name("system") SystemLoad sl) throws GraphQLException {
+        try {
+            manager.upsertSystem(sl);
+        } catch ( Exception e) {
+            logger.severe("Could not update system " + sl);
+            logger.severe("Caused by: " + e.getStackTrace());
+            throw new GraphQLException("Could not update system " + sl);
+        }
+        return true;
     }
 
     @Incoming("systemLoad")

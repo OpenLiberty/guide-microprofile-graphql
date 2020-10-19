@@ -32,24 +32,24 @@ import io.openliberty.guides.models.SystemLoad.SystemLoadDeserializer;
 @SharedContainerConfig(AppContainerConfig.class)
 public class SystemServiceIT {
 
-    @KafkaConsumerClient(valueDeserializer = SystemLoadDeserializer.class,
-            groupId = "system-load-status",
-            topics = "systemLoadTopic",
-            properties = ConsumerConfig.AUTO_OFFSET_RESET_CONFIG + "=earliest")
-    public static KafkaConsumer<String, SystemLoad> consumer;
-
-    @Test
-    public void testCpuStatus() {
-        ConsumerRecords<String, SystemLoad> records =
-                consumer.poll(Duration.ofMillis(60 * 1000));
-        System.out.println("Polled " + records.count() + " records from Kafka:");
-
-        for (ConsumerRecord<String, SystemLoad> record : records) {
-            SystemLoad sl = record.value();
-            System.out.println(sl);
-            assertNotNull(sl.hostname);
-            assertNotNull(sl.loadAverage);
-        }
-        consumer.commitAsync();
-    }
+//    @KafkaConsumerClient(valueDeserializer = SystemLoadDeserializer.class,
+//            groupId = "system-load-status",
+//            topics = "systemLoadTopic",
+//            properties = ConsumerConfig.AUTO_OFFSET_RESET_CONFIG + "=earliest")
+//    public static KafkaConsumer<String, SystemLoad> consumer;
+//
+//    @Test
+//    public void testCpuStatus() {
+//        ConsumerRecords<String, SystemLoad> records =
+//                consumer.poll(Duration.ofMillis(60 * 1000));
+//        System.out.println("Polled " + records.count() + " records from Kafka:");
+//
+//        for (ConsumerRecord<String, SystemLoad> record : records) {
+//            SystemLoad sl = record.value();
+//            System.out.println(sl);
+//            assertNotNull(sl.hostname);
+//            assertNotNull(sl.loadAverage);
+//        }
+//        consumer.commitAsync();
+//    }
 }
