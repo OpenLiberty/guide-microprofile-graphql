@@ -17,36 +17,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import io.openliberty.guides.models.SystemLoad;
+
 @ApplicationScoped
 public class InventoryManager {
     
-    private Map<String, Properties> systems = Collections.synchronizedMap(new TreeMap<String, Properties>());
+    private Map<String, SystemLoad> systems = Collections.synchronizedMap(new TreeMap<String, SystemLoad>());
 
-    public void addSystem(String hostname, Double systemLoad) {
-        if (!systems.containsKey(hostname)) {
-            Properties p = new Properties();
-            p.put("hostname", hostname);
-            p.put("systemLoad", systemLoad);
-            systems.put(hostname, p);
-        }
+    public void upsertSystem(SystemLoad systemLoad) {
+        String hostname = systemLoad.getHostname();
+        systems.put(hostname, systemLoad);
     }
 
-    public void updateCpuStatus(String hostname, Double systemLoad) {
-        Optional<Properties> p = getSystem(hostname);
-        if (p.isPresent()) {
-            if (p.get().getProperty(hostname) == null && hostname != null)
-                p.get().put("systemLoad", systemLoad);
-        }
-    }
-
-    public Optional<Properties> getSystem(String hostname) {
-        Properties p = systems.get(hostname);
-        return Optional.ofNullable(p);
+    public Optional<SystemLoad> getSystem(String hostname) {
+        SystemLoad sl = systems.get(hostname);
+        return Optional.ofNullable(sl);
     }
 
     public List<String> getSystems() {

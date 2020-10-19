@@ -38,14 +38,21 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-        <!-- tag::reactiveMessaging[] -->
+        <!-- GraphQL API dependencies -->
+        <!-- tag::graphql-api -->
+        <dependency>
+            <groupId>org.eclipse.microprofile.graphql</groupId>
+            <artifactId>microprofile-graphql-api</artifactId>
+            <version>1.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- end::graphql-api -->
         <dependency>
             <groupId>org.eclipse.microprofile.reactive.messaging</groupId>
             <artifactId>microprofile-reactive-messaging-api</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- end::reactiveMessaging[] -->
         
         <!--  Required dependencies -->
         <dependency>
@@ -86,6 +93,23 @@
             <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- tag::graphQlClientDependency[] -->
+        <dependency>
+            <groupId>io.smallrye</groupId>
+            <artifactId>smallrye-graphql-client</artifactId>
+            <version>1.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::graphQlClientDependency[] -->
+        <!-- tag::graphQlClientApiDependency[] -->
+        <dependency>
+            <groupId>io.smallrye</groupId>
+            <artifactId>smallrye-graphql-client-api</artifactId>
+            <version>1.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::graphQlClientApiDependency[] -->
     </dependencies>
 
     <build>
