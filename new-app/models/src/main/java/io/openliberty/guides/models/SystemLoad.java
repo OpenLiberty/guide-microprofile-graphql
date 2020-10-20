@@ -17,19 +17,22 @@ import java.util.Objects;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
-import javax.validation.constraints.NotNull;
-
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
+import org.eclipse.microprofile.graphql.Description;
+import org.eclipse.microprofile.graphql.NonNull;
+import org.eclipse.microprofile.graphql.Type;
 
+@Type("System")
+@Description("A single system's information")
 public class SystemLoad {
 
     private static final Jsonb jsonb = JsonbBuilder.create();
 
-    @NotNull
+    @NonNull
     private String hostname;
 
-    @NotNull
+    @NonNull
     private Double loadAverage;
 
     private String note;
@@ -39,6 +42,7 @@ public class SystemLoad {
     public SystemLoad(String hostname, Double loadAverage) {
         this.hostname = hostname;
         this.loadAverage = loadAverage;
+        this.note = "";
     }
 
     public SystemLoad(String hostname, Double loadAverage, String note) {
