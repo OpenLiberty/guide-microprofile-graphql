@@ -34,6 +34,15 @@ public class InventoryManager {
         System.out.println("Upserted system " + systemLoad + " for " + hostname);
     }
     
+    public boolean updateLoadAverage(String hostname, Double loadAverage) {
+        if (systems.containsKey(hostname)) {
+            systems.get(hostname).setLoadAverage(loadAverage);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public boolean updateNote(String hostname, String note) {
         if (systems.containsKey(hostname)) {
             systems.get(hostname).setNote(note);

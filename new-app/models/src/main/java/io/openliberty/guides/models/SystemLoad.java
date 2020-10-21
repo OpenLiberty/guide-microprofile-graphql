@@ -43,17 +43,12 @@ public class SystemLoad {
         super();
     }
 
-    public SystemLoad(String hostname, Double loadAverage) {
-        this.hostname = hostname;
-        this.loadAverage = loadAverage;
-        this.note = "";
-    }
-
     @JsonbCreator
     public SystemLoad(@JsonbProperty("hostname") String hostname, 
             @JsonbProperty("loadAverage") Double loadAverage, 
             @JsonbProperty("note") String note) {
-        this(hostname, loadAverage);
+        this.hostname = hostname;
+        this.loadAverage = loadAverage;
         this.note = note;
     }
     

@@ -95,11 +95,13 @@ public class InventoryResource {
     @Incoming("systemLoad")
     public void updateStatus(SystemLoad sl)  {
         String hostname = sl.getHostname();
+        Double loadAverage = sl.getLoadAverage();
         if (manager.getSystem(hostname).isPresent()) {
             logger.info("Host " + hostname + " was updated: " + sl);
+            manager.updateLoadAverage(hostname, loadAverage);
         } else {
             logger.info("Host " + hostname + " was added: " + sl);
+            manager.upsertSystem(sl);
         }
-        manager.upsertSystem(sl);
     }
 }
