@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>2.5.0</version>
+            <version>2.5.1</version>
         </dependency>
         <!-- end::kafka[] -->
         <!-- tag::rxjava[] -->
@@ -93,23 +93,6 @@
             <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
-        
-        <!-- tag::graphQlClientDependency[] -->
-        <dependency>
-            <groupId>io.smallrye</groupId>
-            <artifactId>smallrye-graphql-client</artifactId>
-            <version>1.0.2</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- end::graphQlClientDependency[] -->
-        <!-- tag::graphQlClientApiDependency[] -->
-        <dependency>
-            <groupId>io.smallrye</groupId>
-            <artifactId>smallrye-graphql-client-api</artifactId>
-            <version>1.0.2</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- end::graphQlClientApiDependency[] -->
     </dependencies>
 
     <build>
