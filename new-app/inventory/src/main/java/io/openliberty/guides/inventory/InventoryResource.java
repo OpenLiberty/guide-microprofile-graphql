@@ -49,33 +49,6 @@ public class InventoryResource {
         }
     }
     
-    // Get multiple systems
-    @Query("systems")
-    public List<SystemLoad> getSystems(@Name("hostnames") String[] hostnames) throws GraphQLException {
-        List<SystemLoad> output = new ArrayList<SystemLoad>();
-        List<String> missingHosts = new ArrayList<String>();
-        
-        for (String hostname : hostnames) {
-            Optional<SystemLoad> sl = manager.getSystem(hostname);
-            if (sl.isPresent()) {
-                output.add(sl.get());
-            } else {
-                missingHosts.add(hostname);
-            }
-        }
-        
-        if (missingHosts.size() > 0) {
-            String errorDetails = String.join(", ", missingHosts);
-            logger.severe("Cannot find following hosts: " + errorDetails);
-            throw new GraphQLException(
-                    "Cannot find following hosts: " + errorDetails,
-                    output
-            );
-        }
-        
-        return output;
-    }
-    
     // Get a list of all the hostnames available
     @Query("hostnames")
     public List<String> getHostnames() {
@@ -94,6 +67,7 @@ public class InventoryResource {
 
     @Incoming("systemLoad")
     public void updateStatus(SystemLoad sl)  {
+        System.out.println("Inventory received " + sl);
         String hostname = sl.getHostname();
         Double loadAverage = sl.getLoadAverage();
         if (manager.getSystem(hostname).isPresent()) {
