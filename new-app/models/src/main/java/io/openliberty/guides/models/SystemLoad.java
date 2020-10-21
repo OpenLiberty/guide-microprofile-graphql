@@ -16,6 +16,8 @@ import java.util.Objects;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.annotation.JsonbCreator;
+import javax.json.bind.annotation.JsonbProperty;
 
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
@@ -37,7 +39,9 @@ public class SystemLoad {
 
     private String note;
 
-    public SystemLoad() {}
+    public SystemLoad() {
+        super();
+    }
 
     public SystemLoad(String hostname, Double loadAverage) {
         this.hostname = hostname;
@@ -45,7 +49,10 @@ public class SystemLoad {
         this.note = "";
     }
 
-    public SystemLoad(String hostname, Double loadAverage, String note) {
+    @JsonbCreator
+    public SystemLoad(@JsonbProperty("hostname") String hostname, 
+            @JsonbProperty("loadAverage") Double loadAverage, 
+            @JsonbProperty("note") String note) {
         this(hostname, loadAverage);
         this.note = note;
     }
@@ -75,9 +82,9 @@ public class SystemLoad {
         if (this == o) return true;
         if (!(o instanceof SystemLoad)) return false;
         SystemLoad sl = (SystemLoad) o;
-        return Objects.equals(hostname, sl.hostname)
-                && Objects.equals(loadAverage, sl.loadAverage)
-                && Objects.equals(note, sl.note);
+        return Objects.equals(this.hostname, sl.hostname)
+                && Objects.equals(this.loadAverage, sl.loadAverage)
+                && Objects.equals(this.note, sl.note);
     }
 
     @Override
@@ -93,13 +100,14 @@ public class SystemLoad {
     public static class SystemLoadSerializer implements Serializer<Object> {
         @Override
         public byte[] serialize(String topic, Object data) {
-          return jsonb.toJson(data).getBytes();
+            return jsonb.toJson(data).getBytes();
         }
     }
 
     public static class SystemLoadDeserializer implements Deserializer<SystemLoad> {
         @Override
         public SystemLoad deserialize(String topic, byte[] data) {
+            System.out.println(new String(data));
             if (data == null)
                 return null;
             return jsonb.fromJson(new String(data), SystemLoad.class);

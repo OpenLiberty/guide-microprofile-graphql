@@ -41,7 +41,7 @@ public class InventoryResource {
     
     // Get a single system
     @Query("system")
-    public SystemLoad getSystem(@Name("system") String hostname) throws GraphQLException {
+    public SystemLoad getSystem(@Name("hostname") String hostname) throws GraphQLException {
         if (manager.getSystem(hostname).isPresent()) {
             return manager.getSystem(hostname).get();
         } else {
@@ -51,7 +51,7 @@ public class InventoryResource {
     
     // Get multiple systems
     @Query("systems")
-    public List<SystemLoad> getSystems(@Name("systems") String[] hostnames) throws GraphQLException {
+    public List<SystemLoad> getSystems(@Name("hostnames") String[] hostnames) throws GraphQLException {
         List<SystemLoad> output = new ArrayList<SystemLoad>();
         List<String> missingHosts = new ArrayList<String>();
         
@@ -76,17 +76,20 @@ public class InventoryResource {
         return output;
     }
     
-    // Manually update system with note
+    // Get a list of all the hostnames available
+    @Query("hostnames")
+    public List<String> getHostnames() {
+        return manager.getSystems();
+    }
+    
+    // Add note to system
     @Mutation
-    public boolean updateSystem(@Name("system") SystemLoad sl) throws GraphQLException {
-        try {
-            manager.upsertSystem(sl);
-        } catch ( Exception e) {
-            logger.severe("Could not update system " + sl);
-            logger.severe("Caused by: " + e.getStackTrace());
-            throw new GraphQLException("Could not update system " + sl);
+    public boolean addNote(String hostname, String note) throws GraphQLException {
+        if (manager.updateNote(hostname, note)) {
+            return true;
+        } else {
+            throw new GraphQLException(hostname + " not found in inventory");
         }
-        return true;
     }
 
     @Incoming("systemLoad")

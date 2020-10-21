@@ -14,10 +14,10 @@ package io.openliberty.guides.inventory;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -26,11 +26,21 @@ import io.openliberty.guides.models.SystemLoad;
 @ApplicationScoped
 public class InventoryManager {
     
-    private Map<String, SystemLoad> systems = Collections.synchronizedMap(new TreeMap<String, SystemLoad>());
+    private Map<String, SystemLoad> systems = Collections.synchronizedMap(new HashMap<String, SystemLoad>());
 
     public void upsertSystem(SystemLoad systemLoad) {
         String hostname = systemLoad.getHostname();
         systems.put(hostname, systemLoad);
+        System.out.println("Upserted system " + systemLoad + " for " + hostname);
+    }
+    
+    public boolean updateNote(String hostname, String note) {
+        if (systems.containsKey(hostname)) {
+            systems.get(hostname).setNote(note);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Optional<SystemLoad> getSystem(String hostname) {

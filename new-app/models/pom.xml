@@ -33,6 +33,15 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
+        <!-- GraphQL API dependencies -->
+        <!-- tag::graphql-api -->
+        <dependency>
+            <groupId>org.eclipse.microprofile.graphql</groupId>
+            <artifactId>microprofile-graphql-api</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- end::graphql-api -->
     </dependencies>
 
     <properties>
