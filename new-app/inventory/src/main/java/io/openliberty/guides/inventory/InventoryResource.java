@@ -12,12 +12,9 @@
 // end::copyright[]
 package io.openliberty.guides.inventory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -31,7 +28,6 @@ import org.eclipse.microprofile.graphql.Query;
 import io.openliberty.guides.models.SystemLoad;
 
 @GraphQLApi
-@ApplicationScoped
 public class InventoryResource {
 
     private static Logger logger = Logger.getLogger(InventoryResource.class.getName());
@@ -45,7 +41,7 @@ public class InventoryResource {
         if (manager.getSystem(hostname).isPresent()) {
             return manager.getSystem(hostname).get();
         } else {
-            throw new GraphQLException("");
+            throw new GraphQLException(hostname + " not found in inventory");
         }
     }
     

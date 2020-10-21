@@ -44,7 +44,8 @@ public class SystemLoad {
     }
 
     @JsonbCreator
-    public SystemLoad(@JsonbProperty("hostname") String hostname, 
+    public SystemLoad(
+            @JsonbProperty("hostname") String hostname, 
             @JsonbProperty("loadAverage") Double loadAverage, 
             @JsonbProperty("note") String note) {
         this.hostname = hostname;
@@ -102,7 +103,6 @@ public class SystemLoad {
     public static class SystemLoadDeserializer implements Deserializer<SystemLoad> {
         @Override
         public SystemLoad deserialize(String topic, byte[] data) {
-            System.out.println(new String(data));
             if (data == null)
                 return null;
             return jsonb.fromJson(new String(data), SystemLoad.class);

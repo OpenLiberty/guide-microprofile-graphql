@@ -31,7 +31,6 @@ public class InventoryManager {
     public void upsertSystem(SystemLoad systemLoad) {
         String hostname = systemLoad.getHostname();
         systems.put(hostname, systemLoad);
-        System.out.println("Upserted system " + systemLoad + " for " + hostname);
     }
     
     public boolean updateLoadAverage(String hostname, Double loadAverage) {
