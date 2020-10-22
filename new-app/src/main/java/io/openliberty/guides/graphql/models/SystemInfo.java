@@ -36,6 +36,13 @@ public class SystemInfo {
     public SystemInfo() {
         super();
     }
+    
+    public SystemInfo(OperatingSystem os, JavaInfo java, String timezone, String username) {
+        this.os = os;
+        this.java = java;
+        this.timezone = timezone;
+        this.username = username;
+    }
 
     public JavaInfo getJava() {
         return this.java;

@@ -12,27 +12,32 @@
 // end::copyright[]
 package io.openliberty.guides.graphql;
 
-import javax.ws.rs.core.Response;
+import java.util.Properties;
 
-import javax.enterprise.context.RequestScoped;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.Query;
 
-import org.eclipse.microprofile.metrics.annotation.Counted;
-import org.eclipse.microprofile.metrics.annotation.Timed;
+import io.openliberty.guides.graphql.models.JavaInfo;
+import io.openliberty.guides.graphql.models.OperatingSystem;
+import io.openliberty.guides.graphql.models.SystemInfo;
 
-@RequestScoped
-@Path("/properties")
+@GraphQLApi
 public class SystemResource {
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(name = "getPropertiesTime", description = "Time needed to get the JVM system properties")
-	@Counted(absolute = true, description = "Number of times the JVM system properties are requested")
-	public Response getProperties() {
-	    return Response.ok(System.getProperties()).build();
-	}
+    @Query("system")
+    public SystemInfo getSystemInfo() {
+        Properties rawProperties = System.getProperties();
+        OperatingSystem os = new OperatingSystem(
+                rawProperties.getProperty("os.arch"), 
+                rawProperties.getProperty("os.name"), 
+                rawProperties.getProperty("os.version"));
+        JavaInfo java = new JavaInfo(
+                rawProperties.getProperty("java.version"), 
+                rawProperties.getProperty("java.vendor"));
+        return new SystemInfo(os, java, 
+                rawProperties.getProperty("user.timezone"), 
+                rawProperties.getProperty("user.name"));
+    }
 
 }
