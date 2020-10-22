@@ -3,8 +3,6 @@
         <!-- tag::graphql[] -->
         <feature>mpGraphQL-1.0</feature>
         <!-- end::graphql[] -->
-        <feature>jaxrs-2.1</feature>
-        <feature>jsonp-1.1</feature>
         <feature>cdi-2.0</feature>
         <feature>mpHealth-2.2</feature>
     </featureManager>
