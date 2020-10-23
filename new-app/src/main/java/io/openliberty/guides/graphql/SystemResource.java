@@ -35,9 +35,18 @@ public class SystemResource {
         JavaInfo java = new JavaInfo(
                 rawProperties.getProperty("java.version"), 
                 rawProperties.getProperty("java.vendor"));
-        return new SystemInfo(os, java, 
+        SystemInfo output = new SystemInfo(os, java, 
                 rawProperties.getProperty("user.timezone"), 
                 rawProperties.getProperty("user.name"));
+        if (rawProperties.containsKey("note")) {
+            output.setNote(rawProperties.getProperty("note"));
+        }
+        return output;
     }
 
+    @Mutation("editNote")
+    public boolean editNote(String note) {
+        System.setProperty("note", note);
+        return true;
+    }
 }
