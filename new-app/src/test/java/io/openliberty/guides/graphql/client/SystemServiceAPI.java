@@ -11,9 +11,9 @@ import org.eclipse.microprofile.graphql.Query;
 @GraphQlClientApi
 public interface SystemServiceAPI {
     
-    @Query
+    @Query("system")
     SystemInfo getSystemInfo();
     
-    @Mutation
+    @Mutation("editNote")
     boolean editNote(@Name("note") String note);
 }

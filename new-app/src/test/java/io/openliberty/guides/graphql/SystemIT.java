@@ -22,7 +22,7 @@ public class SystemIT {
     public static void setUp() {
         systemServiceApi = GraphQlClientBuilder
                 .newBuilder()
-                .endpoint("http://localhost:9080/api/graphql")
+                .endpoint("http://localhost:9080/graphql")
                 .build(SystemServiceAPI.class);
     }
     
