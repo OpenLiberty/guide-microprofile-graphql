@@ -9,8 +9,7 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2018-07-02
-:page-guide-category: 2020-06-17
+:page-releasedate: 2020-12-21
 :page-essential: false
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
@@ -18,8 +17,8 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-:page-seo-title: Creating a GraphQL service and GrahQL client
-:page-seo-description: Find out how to create and test a GraphQL microservice on Open Liberty
+:page-seo-title: Creating a GraphQL service using Microprofile GraphQL
+:page-seo-description: Find out how to create and test a GraphQL service on Open Liberty using Microprofile GraphQL
 :guide-author: Open Liberty
 = Creating and consuming a GraphQL microservice
 
@@ -27,27 +26,23 @@
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to create a GraphQL microservice and consume a GraphQL microservice using template interfaces.
-
-:graphiql-url: http://localhost:9080/api/graphiql.html
-:schema-url: http://localhost:9080/api/graphql/schema.graphql
+Explore how to create a GraphQL service using Microprofile GraphQL on Open Liberty
 
 == What you'll learn
 
-You'll learn how to build and test a simple microservice with MicroProfile GraphQL, which stores and retrieves data about
-musicians and their albums.
+You will learn how to build and test a simple GraphQL service with Microprofile GraphQL. 
+The service will respond to `POST` requests made to the `http://localhost:9080/graphql` URL. 
+The `POST` requests will contain a query with a requested object and a list of fields within that object.
+GraphQL will respond with the desired object and only the fields listed. 
 
-=== What is GraphQL
-GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling these queries.
+This is beneficial when dealing with large objects or objects which contain fields that are expensive to calculate. 
+By returning only the requested fields, GraphQL reduces the size of the responses. 
+For objects that contain fields that are expensive to calculate such as other nested objects, GraphQL reduces processing time by only calculating them if requested. 
 
-GraphQL queries specify the shape of the response data, which allows users to get exactly what data they want.
-GraphQL APIs contain a single endpoint that handles queries. GraphQL APIs are defined by Types and Fields as opposed
-to being defined by endpoints like REST APIs. This enables GraphQL APIs to operate on multiple related resources in a
-single query whereas REST APIs would require loading the data from multiple URLs through multiple round-trips to the
-server.
+Unlike REST services, all GraphQL requests go to the same endpoint. 
+Requests are differentiated by the contents of the request, which can simplify your application. 
 
-You will create a GraphQL microservice that stores, queries and manipulates album and artist information.
-The artist and album resources are provided in JSON files.
+You can learn more about GraphQL by visiting https://graphql.org/[their webpage^].
 
 ///////////////////////////
 // Getting started
@@ -56,67 +51,95 @@ The artist and album resources are provided in JSON files.
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
-///////////////////////////
-// Try what you’ll build
-///////////////////////////
-
 [role='command']
 include::{common-includes}/twyb-intro.adoc[]
 
-//--** Describe what user should run and expect to see after running the complete version of the application.
-You are provided with GraphiQL, an interactive in-browser GraphQL IDE, which is served by the Open Liberty server,
-to assist in development and testing of the API.
+The application contains a service called GraphiQL. 
+GraphiQL is a webpage served by the Open Liberty server and can be used to assist in development and testing of the service.
+GraphiQL allows you to easily make `POST` requests to the service and see the responses.
 
-Once the server is running, access {graphiql-url}[{graphiql-url}^].
-Run the following query to get the artist data for Drake:
+Once the server is running, access the schema at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+The schema informs you of the queries available in the service as well as the possible objects that can be returned. 
+Open GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
+Run the following `query` command in GraphiQL to get every property available. 
 
 [role='command']
 ----
 query {
-    artist(name: "Drake") {
-        name
-        genres
-        albums {
-            title
-            year
-            ntracks
-        }
+  system {
+    java {
+      vendor
+      version
     }
-}
-----
-
-Run the following query to request only the `name` and `genres` field of artists Drake and Rihanna.
-
-[role='command']
-----
-query {
-  artists(names: ["Drake", "Rihanna"]) {
-    name
-    genres
+    operatingSystem {
+      arch
+      version
+      name
+    }
+    username
+    timezone
   }
 }
 ----
 
-Run the following query to add a new artist to the service:
+The output will be similar to the following:
+
+[role='no_copy']
+----
+{
+  "data": {
+    "system": {
+      "java": {
+        "vendor": "Oracle Corporation",
+        "version": "13.0.2"
+      },
+      "operatingSystem": {
+        "arch": "x86_64",
+        "version": "10.15.6",
+        "name": "Mac OS X"
+      },
+      "username": "admin",
+      "timezone": "America/Toronto"
+    }
+  }
+}
+----
+
+Run the following `mutation` command to add a note to the system.
 
 [role='command']
 ----
 mutation {
-  addArtist(artist: {
-    name: "Elvis Presley",
-    genres: "Rock and Roll",
-    albums: [
-      {
-        title: "Elvis Presley"
-        ntracks: 12
-        year: "1956"
-      }
-    ]
-  })
+  editNote(note:"I am trying out GraphQL on OpenLiberty!")
 }
 ----
 
-Access {schema-url}[{schema-url}^] to view the API schema.
+You will receive a response containing the boolean `true` to notify you that the request was processed.
+You can see the note you added by running the following query.
+
+[role='command']
+----
+query {
+  system {
+    note
+  }
+}
+----
+
+The response will be similar to the following:
+
+[role='no_copy']
+----
+{
+  "data": {
+    "system": {
+      "note": "I am trying out GraphQL on OpenLiberty!"
+    }
+  }
+}
+----
+
+Notice that this time, only the `note` property is returned, as it was the only field in the `query` request. 
 
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
