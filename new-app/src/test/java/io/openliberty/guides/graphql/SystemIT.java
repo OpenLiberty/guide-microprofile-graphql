@@ -2,6 +2,9 @@ package io.openliberty.guides.graphql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import javax.inject.Inject;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -16,6 +19,7 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
     
+    @Inject
     private static SystemServiceAPI systemServiceApi;
     
     @BeforeAll
@@ -36,8 +40,8 @@ public class SystemIT {
     @Test
     @Order(2)
     public void testEditNote() {
-        String expectedNote = "This is a test note";
-        systemServiceApi.editNote(expectedNote);
+        String expectedNote = "Time: " + System.currentTimeMillis();
+        assertTrue(systemServiceApi.editNote(expectedNote));
         String actualNote = systemServiceApi.getSystemInfo().getNote();
         assertEquals(expectedNote, actualNote, "Returned note not the same as input note");
     }
