@@ -14,9 +14,13 @@ package io.openliberty.guides.graphql;
 
 import java.util.Properties;
 
+import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.Name;
+import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Query;
+import org.eclipse.microprofile.graphql.Source;
 
 import io.openliberty.guides.graphql.models.JavaInfo;
 import io.openliberty.guides.graphql.models.OperatingSystem;
@@ -26,16 +30,11 @@ import io.openliberty.guides.graphql.models.SystemInfo;
 public class SystemResource {
 
     @Query("system")
+    @NonNull
+    @Description("Gets information about the system")
     public SystemInfo getSystemInfo() {
         Properties rawProperties = System.getProperties();
-        OperatingSystem os = new OperatingSystem(
-                rawProperties.getProperty("os.arch"), 
-                rawProperties.getProperty("os.name"), 
-                rawProperties.getProperty("os.version"));
-        JavaInfo java = new JavaInfo(
-                rawProperties.getProperty("java.version"), 
-                rawProperties.getProperty("java.vendor"));
-        SystemInfo output = new SystemInfo(os, java, 
+        SystemInfo output = new SystemInfo(
                 rawProperties.getProperty("user.timezone"), 
                 rawProperties.getProperty("user.name"));
         if (rawProperties.containsKey("note")) {
@@ -45,8 +44,30 @@ public class SystemResource {
     }
 
     @Mutation("editNote")
-    public boolean editNote(String note) {
+    @Description("Changes the note set for the system")
+    public boolean editNote(@Name("note") String note) {
         System.setProperty("note", note);
         return true;
+    }
+    
+    // Nested objects, these are more expensive to obtain
+    
+    @NonNull
+    public OperatingSystem operatingSystem(@Source @Name("system") SystemInfo systemInfo) {
+        Properties rawProperties = System.getProperties();
+        return new OperatingSystem(
+                rawProperties.getProperty("os.arch"), 
+                rawProperties.getProperty("os.name"), 
+                rawProperties.getProperty("os.version")
+        );
+    }
+    
+    @NonNull
+    public JavaInfo java (@Source @Name("system") SystemInfo systemInfo) {
+        Properties rawProperties = System.getProperties();
+        return new JavaInfo(
+                rawProperties.getProperty("java.version"), 
+                rawProperties.getProperty("java.vendor")
+        );
     }
 }

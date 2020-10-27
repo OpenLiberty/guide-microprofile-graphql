@@ -13,6 +13,7 @@
 package io.openliberty.guides.graphql.models;
 
 import org.eclipse.microprofile.graphql.Description;
+import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
@@ -20,38 +21,28 @@ import org.eclipse.microprofile.graphql.Type;
 @Description("Information about a single system")
 public class SystemInfo {
 
-    @NonNull
-    private OperatingSystem os;
-
-    @NonNull
-    private JavaInfo java;
-
+    @Name("timezone")
     private String timezone;
 
     @NonNull
+    @Name("username")
     private String username;
 
+    @Name("note")
     private String note;
 
     public SystemInfo() {
         super();
     }
     
-    public SystemInfo(OperatingSystem os, JavaInfo java, String timezone, String username) {
-        this.os = os;
-        this.java = java;
+    public SystemInfo(
+            String timezone, 
+            String username) {
         this.timezone = timezone;
         this.username = username;
     }
 
-    public JavaInfo getJava() {
-        return this.java;
-    }
-
-    public OperatingSystem getOperatingSystem() {
-        return this.os;
-    }
-
+    @Name("note")
     public String getNote() {
         return this.note;
     }
@@ -60,10 +51,12 @@ public class SystemInfo {
         this.note = note;
     }
 
+    @Name("timezone")
     public String getTimezone() {
         return this.timezone;
     }
 
+    @Name("username")
     public String getUsername() {
         return this.username;
     }

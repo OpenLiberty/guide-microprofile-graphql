@@ -13,6 +13,7 @@
 package io.openliberty.guides.graphql.models;
 
 import org.eclipse.microprofile.graphql.Description;
+import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
@@ -20,17 +21,15 @@ import org.eclipse.microprofile.graphql.Type;
 @Description("Information about a Java installation")
 public class JavaInfo {
 
+    @Name("vendor")
     private String vendor = null;
 
     @NonNull
+    @Name("version")
     private String version;
 
-    public JavaInfo(String version) {
-        this.version = version;
-    }
-
     public JavaInfo(String version, String vendor) {
-        this(version);
+        this.version = version;
         this.vendor = vendor;
     }
 
