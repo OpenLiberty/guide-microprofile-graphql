@@ -20,12 +20,6 @@
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.30</version>
-        </dependency>
         <!-- Provided dependencies -->
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -53,14 +47,19 @@
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-graphql-client</artifactId>
-            <version>1.0.14</version>
+            <version>1.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-graphql-client-api</artifactId>
-            <version>1.0.14</version>
+            <version>1.0.3</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
