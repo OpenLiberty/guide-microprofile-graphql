@@ -153,11 +153,16 @@ include::{common-includes}/devmode-start.adoc[]
 
 == Enabling GraphQL
 
-The MicroProfile GraphQL feature enables the GraphQL runtime and use of GraphQL API for your application.
-This feature is already enabled in the [hotspot=graphQLFeature]`server.xml` configuration file.
+Adding the [hotspot=graphql]`mpGraphQL` feature enables the GraphQL runtime and use of GraphQL API for your application.
 
-ArtistService.java
-[source,xml,linenums,role='code_column hide_tags=comment']
+[role="code_command hotspot" ,subs="quotes"]
+----
+#Replace the `server.xml` file.#
+`finish/src/main/liberty/config/server.xml`
+----
+
+SystemApplication.java
+[source, xml, linenums, role='code_column hide_tags=comment']
 ----
 include::finish/src/main/liberty/config/server.xml[]
 ----
