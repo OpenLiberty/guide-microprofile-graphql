@@ -54,7 +54,7 @@ include::{common-includes}/gitclone.adoc[]
 [role='command']
 include::{common-includes}/twyb-intro.adoc[]
 
-The application contains a service called GraphiQL. 
+Included with the application is a service called GraphiQL. 
 GraphiQL is a webpage served by the Open Liberty server and can be used to assist in development and testing of the service.
 GraphiQL allows you to easily make `POST` requests to the service and see the responses.
 
