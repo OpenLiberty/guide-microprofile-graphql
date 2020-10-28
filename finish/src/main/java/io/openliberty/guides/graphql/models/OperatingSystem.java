@@ -13,20 +13,40 @@
 package io.openliberty.guides.graphql.models;
 
 import org.eclipse.microprofile.graphql.Description;
+import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
+// tag::type[]
 @Type("OperatingSystem")
+// end::type[]
+// tag::description[]
 @Description("Information about an operating system")
+// end::description[]
 public class OperatingSystem {
 
+    // tag::nonnull1[]
     @NonNull
+    // end::nonnull1[]
+    // tag::name1[]
+    @Name("arch")
+    // end::name1[]
     private String arch;
     
+    // tag::nonnull2[]
     @NonNull
+    // end::nonnull2[]
+    // tag::name2[]
+    @Name("name")
+    // end::name2[]
     private String name;
     
+    // tag::nonnull3[]
     @NonNull
+    // end::nonnull3[]
+    // tag::name3[]
+    @Name("version")
+    // end::name3[]
     private String version;
     
     public OperatingSystem(String arch, String name, String version) {

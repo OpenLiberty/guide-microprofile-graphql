@@ -42,7 +42,6 @@ public class SystemInfo {
         this.username = username;
     }
 
-    @Name("note")
     public String getNote() {
         return this.note;
     }
@@ -51,12 +50,10 @@ public class SystemInfo {
         this.note = note;
     }
 
-    @Name("timezone")
     public String getTimezone() {
         return this.timezone;
     }
 
-    @Name("username")
     public String getUsername() {
         return this.username;
     }
