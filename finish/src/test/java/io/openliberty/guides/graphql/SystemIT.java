@@ -31,30 +31,42 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
     
+    // tag::inject[]
     @Inject
     private static SystemServiceAPI systemServiceApi;
+    // end::inject[]
     
     @BeforeAll
     public static void setUp() {
+        // tag::client[]
         systemServiceApi = GraphQlClientBuilder
                 .newBuilder()
                 .endpoint("http://localhost:9080/graphql")
                 .build(SystemServiceAPI.class);
+        // end::client[]
     }
     
+    // tag::test1[]
     @Test
+    // end::test1[]
     @Order(1)
+    // tag::testGet[]
     public void testGetSystem() {
         SystemInfo sys = systemServiceApi.getSystemInfo();
         assertNotNull(sys, "No system info received");
     }
+    // end::testGet[]
     
+    // tag::test2[]
     @Test
+    // end::test2[]
     @Order(2)
+    // tag::testEdit[]
     public void testEditNote() {
         String expectedNote = "Time: " + System.currentTimeMillis();
         assertTrue(systemServiceApi.editNote(expectedNote));
         String actualNote = systemServiceApi.getSystemInfo().getNote();
         assertEquals(expectedNote, actualNote, "Returned note not the same as input note");
     }
+    // end::testEdit[]
 }
