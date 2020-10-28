@@ -171,14 +171,14 @@ enables the GraphQL runtime and use of GraphQL API for your application.
 
 // file 0
 server.xml
-[source, xml, linenums, role='code_column hide_tags=comment']
+[source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
 // file 1
 pom.xml
-[source, xml, linenums, role='code_column hide_tags=comment']
+[source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/pom.xml[]
 ----
@@ -232,21 +232,21 @@ The [hotspot file=1]`JavaInfo` and [hotspot file=2]`SystemInfo` classes are simi
 
 // file 0
 OperatingSystem.java
-[source, Java, linenums, role='code_column hide_tags=comment']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
 ----
 
 // file 1
 JavaInfo.java
-[source, Java, linenums, role='code_column hide_tags=comment']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
 ----
 
 // file 2
 SystemInfo.java
-[source, Java, linenums, role='code_column hide_tags=comment']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
 ----
@@ -284,7 +284,7 @@ Here it adds the `JavaInfo` and `OperatingSystem` classes as fields to the resou
 These fields are more expensive to calculate so the code in these methods would only be run if these fields are requested. 
 
 SystemResource.java
-[source, Java, linenums, role='code_column hide_tags=comment']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
 ----
@@ -320,7 +320,7 @@ The [hotspot=editNote file=1]`@Name` annotation maps the parameter of the functi
 
 // file 0
 pom.xml
-[source, xml, linenums, role='code_column hide_tags=comment']
+[source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/pom.xml[]
 ----
