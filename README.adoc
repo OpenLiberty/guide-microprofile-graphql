@@ -32,15 +32,15 @@ Explore how to create a GraphQL service using Microprofile GraphQL on Open Liber
 
 You will learn how to build and test a simple GraphQL service with Microprofile GraphQL. 
 The service will respond to `POST` requests made to the `http://localhost:9080/graphql` URL. 
-The `POST` requests will contain a query with a requested object and a list of fields within that object.
-GraphQL will respond with the desired object and only the fields listed. 
+The `POST` requests will contain a query with a requested resource and a list of properties within that resource.
+GraphQL will respond with the desired resource and only the properties listed. 
 
-This is beneficial when dealing with large objects or objects which contain fields that are expensive to calculate. 
-By returning only the requested fields, GraphQL reduces the size of the responses. 
-For objects that contain fields that are expensive to calculate such as other nested objects, GraphQL reduces processing time by only calculating them if requested. 
+This is beneficial when dealing with large resources or ones which contain properties that are expensive to calculate. 
+By returning only the requested properties, GraphQL reduces the size of the responses. 
+For resources that contain properties that are expensive to calculate such as other nested resources, GraphQL reduces processing time by only calculating them if requested. 
 
 Unlike REST services, all GraphQL requests go to the same endpoint. 
-Requests are differentiated by the contents of the request, which can simplify your application. 
+Requests are differentiated by the contents of the request rather than the endpoint, which can simplify your application. 
 
 You can learn more about GraphQL by visiting https://graphql.org/[their webpage^].
 
@@ -56,10 +56,10 @@ include::{common-includes}/twyb-intro.adoc[]
 
 Included with the application is a service called GraphiQL. 
 GraphiQL is a webpage served by the Open Liberty server and can be used to assist in development and testing of the service.
-GraphiQL allows you to easily make `POST` requests to the service and see the responses.
+GraphiQL allows you to easily make `POST` requests to the GraphQL service and see the responses.
 
 Once the server is running, access the schema at the http://localhost:9080/graphql/schema.graphql[^] URL. 
-The schema informs you of the queries available in the service as well as the possible objects that can be returned. 
+The schema informs you of the queries available in the service as well as the possible resources that can be retrieved. 
 Open GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
 Run the following `query` command in GraphiQL to get every property available. 
 
@@ -139,7 +139,7 @@ The response will be similar to the following:
 }
 ----
 
-Notice that this time, only the `note` property is returned, as it was the only field in the `query` request. 
+Notice that this time, only the `note` property is returned, as it was the only property in the `query` request. 
 
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
@@ -167,7 +167,74 @@ SystemApplication.java
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
-== Creating the GraphQL API
+== Creating GraphQL resources
+
+In GraphQL resources are defined using Java classes. 
+Each resource should have a single Java class describing it. 
+Annotations are used to denote which properties and methods GraphQL should use.
+
+The first class we will create will describe the operating system installed on the machine. 
+
+[role="code_command hotspot file=0", subs="quotes"]
+----
+#Create the `OperatingSystem` class.#
+`src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
+----
+
+The [hotspot=type file=0]`@Type` annotation maps the `OperatingSystem` class to a GraphQL resource of the same name. 
+
+The [hotspot=description file=0]`@Description` annotation gives the `OperatingSystem` resource a description in the GraphQL schema. 
+
+The [hotspot=nonnull1 hotspot=nonnull2 hotspot=nonnull3 file=0]`@NonNull` annotation marks properties as non-nullable.
+This means that if these properties are requested, GraphQL guarantees the properties will not be `null`. 
+Data types that are primitives such as `int` do not need the `@NonNull` annotation.
+GraphQL will automatically mark such properties as non-nullable. 
+
+The [hotspot=name1 hotspot=name2 hotspot=name3 file=0]`@Name` annotation specifies what the name of the property will be in GraphQL.
+This can be different from the name of the variable in the Java class. 
+
+The `@NonNull` and `@Name` annotations can be placed on either the properties themselves or its getters and setters.
+If applied on only the getter or setter, they will only affect those operations. 
+If applied on the property, the annotation will apply to both the getter and setter if applicable. 
+In this example, the annotations are applied to properties. 
+
+[role="code_command hotspot file=1", subs="quotes"]
+----
+#Create the `JavaInfo` class.#
+`src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
+----
+
+[role="code_command hotspot file=2", subs="quotes"]
+----
+#Create the `SystemInfo` class.#
+`src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
+----
+
+The [hotspot file=1]`JavaInfo` and [hotspot file=1]`SystemInfo` classes are similar to the `OperatingSystem` class. 
+`JavaInfo` describes the Java installation on the machine. 
+`SystemInfo` describes general system information. 
+
+// file 0
+OperatingSystem.java
+[source,java,linenums,role='code_column hide_tags=comment']
+----
+include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
+----
+
+// file 1
+JavaInfo.java
+[source,java,linenums,role='code_column hide_tags=comment']
+----
+include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
+----
+
+// file 2
+SystemInfo.java
+[source,java,linenums,role='code_column hide_tags=comment']
+----
+include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
+----
+
 
 
 == Great work! You're done!
