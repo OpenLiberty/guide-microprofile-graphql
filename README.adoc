@@ -156,15 +156,31 @@ include::{common-includes}/devmode-start.adoc[]
 [role="code_command hotspot" ,subs="quotes"]
 ----
 #Replace the `server.xml` file.#
-`finish/src/main/liberty/config/server.xml`
+`src/main/liberty/config/server.xml`
 ----
 
-Adding the [hotspot=graphql]`mpGraphQL` feature enables the GraphQL runtime and use of GraphQL API for your application.
+[role="code_command hotspot" ,subs="quotes"]
+----
+#Replace the `pom.xml` file.#
+`pom.xml`
+----
 
+Adding the [hotspot=graphql file=0]`mpGraphQL` feature to the [hotspot file=0]`server.xml` 
+and the [hotspot=graphQLDependency file=1]`microprofile-graphql-api` dependency to the [hotspot file=1]`pom.xml` 
+enables the GraphQL runtime and use of GraphQL API for your application. 
+
+// file 0
 server.xml
 [source, xml, linenums, role='code_column hide_tags=comment']
 ----
 include::finish/src/main/liberty/config/server.xml[]
+----
+
+// file 1
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=comment']
+----
+include::finish/pom.xml[]
 ----
 
 == Creating GraphQL resources
