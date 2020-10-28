@@ -153,13 +153,13 @@ include::{common-includes}/devmode-start.adoc[]
 
 == Enabling GraphQL
 
-Adding the [hotspot=graphql]`mpGraphQL` feature enables the GraphQL runtime and use of GraphQL API for your application.
-
 [role="code_command hotspot" ,subs="quotes"]
 ----
 #Replace the `server.xml` file.#
 `finish/src/main/liberty/config/server.xml`
 ----
+
+Adding the [hotspot=graphql]`mpGraphQL` feature enables the GraphQL runtime and use of GraphQL API for your application.
 
 SystemApplication.java
 [source, xml, linenums, role='code_column hide_tags=comment']
