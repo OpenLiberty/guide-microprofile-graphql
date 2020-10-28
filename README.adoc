@@ -235,7 +235,43 @@ SystemInfo.java
 include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
 ----
 
+== Creating the GraphQL API
 
+GraphQL has two kinds of operations.
+
+`Query` operations retrieve data from the service.
+`Mutation` operations modify data in the service.
+This includes inserting data and modifying already existing data. 
+
+All operations are defined with methods in a Java class.
+
+[role="code_command hotspot", subs="quotes"]
+----
+#Create the `SystemResource` class.#
+`src/main/java/io/openliberty/guides/graphql/SystemResource.java`
+----
+
+The [hotspot=graphqlapi]`@GraphQLApi` annotation means GraphQL will use the methods defined in this class. 
+
+The [hotspot=nonnull1 hotspot=nonnull2 hotspot=nonnull3]`@NonNull` and [hotspot=description1 hotspot=description2]`@Description` annotations
+act similarly to how they act when defining models.
+
+The [hotspot=query]`@Query` annotation maps the `getSystemInfo()` method to the `system` query operation in GraphQL. 
+
+The [hotspot=mutation]`@Mutation` annotation maps the `editNote()` method to the `editNote` mutation operation in GraphQL. 
+
+The [hotspot=editNoteHeader]`@Name` annotation here names an input for an operation. 
+
+The [hotspot=operatingSystemHeader hotspot=javaHeader]`@Source` annotation is used for creating more complex objects.
+The `@Source` annotation adds to the resource defined by the `SystemInfo` class. 
+Here it adds the `JavaInfo` and `OperatingSystem` classes as fields to the resource. 
+These fields are more expensive to calculate so the code in these methods would only be run if these fields are requested. 
+
+SystemResource.java
+[source,java,linenums,role='code_column hide_tags=comment']
+----
+include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
+----
 
 == Great work! You're done!
 

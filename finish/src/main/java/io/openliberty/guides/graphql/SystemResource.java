@@ -26,12 +26,20 @@ import io.openliberty.guides.graphql.models.JavaInfo;
 import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemInfo;
 
+// tag::graphqlapi[]
 @GraphQLApi
+// end::graphqlapi[]
 public class SystemResource {
 
+    // tag::query[]
     @Query("system")
+    // end::query[]
+    // tag::nonnull1[]
     @NonNull
+    // end::nonnull1[]
+    // tag::description1[]
     @Description("Gets information about the system")
+    // end::description1[]
     public SystemInfo getSystemInfo() {
         Properties rawProperties = System.getProperties();
         SystemInfo output = new SystemInfo(
@@ -43,17 +51,27 @@ public class SystemResource {
         return output;
     }
 
+    // tag::mutation[]
     @Mutation("editNote")
+    // end::mutation[]
+    // tag::description2[]
     @Description("Changes the note set for the system")
+    // end::description2[]
+    // tag::editNoteHeader[]
     public boolean editNote(@Name("note") String note) {
+    // end::editNoteHeader[]
         System.setProperty("note", note);
         return true;
     }
     
     // Nested objects, these are more expensive to obtain
     
+    // tag::nonnull2[]
     @NonNull
+    // end::nonnull2[]
+    // tag::operatingSystemHeader[]
     public OperatingSystem operatingSystem(@Source @Name("system") SystemInfo systemInfo) {
+    // end::operatingSystemHeader[]
         Properties rawProperties = System.getProperties();
         return new OperatingSystem(
                 rawProperties.getProperty("os.arch"), 
@@ -62,8 +80,12 @@ public class SystemResource {
         );
     }
     
+    // tag::nonnull3[]
     @NonNull
+    // end::nonnull3[]
+    // tag::javaHeader[]
     public JavaInfo java (@Source @Name("system") SystemInfo systemInfo) {
+    // end::javaHeader[]
         Properties rawProperties = System.getProperties();
         return new JavaInfo(
                 rawProperties.getProperty("java.version"), 
