@@ -307,7 +307,7 @@ Manual tests can be done using GraphiQL, but automated tests are a better approa
 In this example we will write tests using JUnit to call the application server directly. 
 We will use the SmallRye GraphQL client added in [hotspot=smallrye file=0]`pom.xml` to automatically make calls to our service. 
 
-[role="code_command hotspot", subs="quotes"]
+[role="code_command hotspot file=1", subs="quotes"]
 ----
 #Create the `SystemServiceAPI` interface.#
 `src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java`
@@ -319,7 +319,7 @@ The [hotspot=query file=1]`@Query` and [hotspot=mutation file=1]`@Mutation` anno
 
 The [hotspot=editNote file=1]`@Name` annotation maps the parameter of the function to a parameter of the mutation operation. 
 
-[role="code_command hotspot", subs="quotes"]
+[role="code_command hotspot file=2", subs="quotes"]
 ----
 #Create the `SystemIT` class.#
 `src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java`
@@ -331,7 +331,7 @@ The [hotspot=client file=2]`GraphQlClientBuilder` class builds a client based on
 
 The test methods are annotated with the [hotspot=test1 hotspot=test2 file=2]`@Test` annotation. 
 The [hotspot=testGet file=2]`testGetSystem()` method does a basic query and asserts it is not empty. 
-The [hotspot=testEdit]`testEditNote()` method sets a note on the system with the current time. 
+The [hotspot=testEdit file=2]`testEditNote()` method sets a note on the system with the current time. 
 It then does a query on the GraphQL service to assert that the time was saved. 
 
 // file 0
