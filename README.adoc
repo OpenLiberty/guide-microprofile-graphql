@@ -210,7 +210,7 @@ In this example, the annotations are applied to properties.
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot file=1]`JavaInfo` and [hotspot file=1]`SystemInfo` classes are similar to the `OperatingSystem` class. 
+The [hotspot file=1]`JavaInfo` and [hotspot file=2]`SystemInfo` classes are similar to the `OperatingSystem` class. 
 `JavaInfo` describes the Java installation on the machine. 
 `SystemInfo` describes general system information. 
 
