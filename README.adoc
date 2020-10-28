@@ -327,7 +327,7 @@ include::finish/pom.xml[]
 
 // file 1
 SystemServiceAPI.java
-[source, Java, linenums, role='code_column hide_tags=comment']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java[]
 ----
