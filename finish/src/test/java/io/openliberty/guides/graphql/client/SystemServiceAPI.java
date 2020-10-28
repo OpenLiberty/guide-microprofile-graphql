@@ -20,12 +20,20 @@ import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 
+// tag::graphQLClientApi
 @GraphQlClientApi
+// end::graphQLClientApi
 public interface SystemServiceAPI {
     
+    // tag::query[]
     @Query("system")
+    // end::query[]
     SystemInfo getSystemInfo();
     
+    // tag::mutation[]
     @Mutation("editNote")
+    // end::mutation[]
+    // tag::editNote]
     boolean editNote(@Name("note") String note);
+    // end::editNote[]
 }

@@ -296,6 +296,45 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 [role='command']
 include::{common-includes}/devmode-build.adoc[]
 
+Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
+View your GraphQL schema at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+
+== Testing the application
+
+Manual tests can be done using GraphiQL, but automated tests are a better approach because they trigger a failure if a change introduces a bug.
+
+In this example we will write tests to call the application server directly. 
+We will use the SmallRye GraphQL client added in [hotspot=smallrye file=0]`pom.xml` to automatically make calls to our service. 
+
+[role="code_command hotspot", subs="quotes"]
+----
+#Create the `SystemServiceAPI` interface.#
+`src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java`
+----
+
+The [hotspot=graphQLClientApi file=1]`@GraphQlClientApi` annotation marks this interface for use as a GraphQL client.
+
+The [hotspot=query file=1]`@Query` and [hotspot=mutation file=1]`@Mutation` annotations map these functions to the specified query and mutation operations in the GraphQL service. 
+
+The [hotspot=editNote file=1]`@Name` annotation maps the parameter of the function to a parameter of the mutation operation. 
+
+// file 0
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=comment']
+----
+include::finish/pom.xml[]
+----
+
+// file 1
+SystemServiceAPI.java
+[source, Java, linenums, role='code_column hide_tags=comment']
+----
+include::finish/src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java[]
+----
+
+[role='command']
+include::{common-includes}/devmode-test.adoc[]
+
 == Great work! You're done!
 
 You just created a basic GraphQL service using Microprofile GraphQL in Open Liberty!
