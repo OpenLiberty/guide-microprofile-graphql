@@ -273,6 +273,13 @@ SystemResource.java
 include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
 ----
 
+///////////////////////////
+// Running the application
+///////////////////////////
+
+[role='command']
+include::{common-includes}/devmode-build.adoc[]
+
 == Great work! You're done!
 
 You just created a basic GraphQL service using Microprofile GraphQL in Open Liberty!
