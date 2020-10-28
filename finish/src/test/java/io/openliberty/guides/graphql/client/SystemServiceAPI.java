@@ -20,9 +20,9 @@ import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 
-// tag::graphQLClientApi
+// tag::graphQLClientApi[]
 @GraphQlClientApi
-// end::graphQLClientApi
+// end::graphQLClientApi[]
 public interface SystemServiceAPI {
     
     // tag::query[]
@@ -33,7 +33,7 @@ public interface SystemServiceAPI {
     // tag::mutation[]
     @Mutation("editNote")
     // end::mutation[]
-    // tag::editNote]
+    // tag::editNote[]
     boolean editNote(@Name("note") String note);
     // end::editNote[]
 }
