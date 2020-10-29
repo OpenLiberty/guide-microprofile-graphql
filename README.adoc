@@ -105,7 +105,7 @@ The output will be similar to the following:
 }
 ----
 
-Run the following `mutation` command to add a note to the system.
+Run the following mutation command to add a note to the system.
 
 [role='command']
 ----
@@ -153,13 +153,13 @@ include::{common-includes}/devmode-start.adoc[]
 
 == Enabling GraphQL
 
-[role="code_command hotspot" ,subs="quotes"]
+[role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the `server.xml` file.#
 `src/main/liberty/config/server.xml`
 ----
 
-[role="code_command hotspot" ,subs="quotes"]
+[role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the `pom.xml` file.#
 `pom.xml`
@@ -226,7 +226,7 @@ In this example, the annotations are applied to properties.
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot file=1]`JavaInfo` and [hotspot file=2]`SystemInfo` classes are similar to the `OperatingSystem` class. 
+The [hotspot file=1]`JavaInfo` and [hotspot file=2]`SystemInfo` classes are similar to the [hotspot file=0]`OperatingSystem` class. 
 `JavaInfo` describes the Java installation on the machine. 
 `SystemInfo` describes general system information. 
 

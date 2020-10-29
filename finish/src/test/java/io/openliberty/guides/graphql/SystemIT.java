@@ -64,7 +64,8 @@ public class SystemIT {
     // tag::testEdit[]
     public void testEditNote() {
         String expectedNote = "Time: " + System.currentTimeMillis();
-        assertTrue(systemServiceApi.editNote(expectedNote));
+        boolean editSuccessful = systemServiceApi.editNote(expectedNote);
+        assertTrue(editSuccessful);
         String actualNote = systemServiceApi.getSystemInfo().getNote();
         assertEquals(expectedNote, actualNote, "Returned note not the same as input note");
     }
