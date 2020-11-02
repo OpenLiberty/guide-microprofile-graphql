@@ -16,33 +16,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
+import org.apache.http.Consts;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import io.openliberty.guides.graphql.client.SystemServiceAPI;
 import io.openliberty.guides.graphql.models.SystemInfo;
-import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
     
-    // tag::inject[]
-    @Inject
-    private static SystemServiceAPI systemServiceApi;
-    // end::inject[]
+    private static String URL;
     
     @BeforeAll
     public static void setUp() {
         // tag::client[]
-        systemServiceApi = GraphQlClientBuilder
-                .newBuilder()
-                .endpoint("http://localhost:9080/graphql")
-                .build(SystemServiceAPI.class);
+        String port = System.getProperty("http.port");
+        URL = "http://localhost:" + port + "/graphql";
         // end::client[]
     }
     
@@ -51,9 +55,14 @@ public class SystemIT {
     // end::test1[]
     @Order(1)
     // tag::testGet[]
-    public void testGetSystem() {
-        SystemInfo sys = systemServiceApi.getSystemInfo();
-        assertNotNull(sys, "No system info received");
+    public void testGetSystem() throws ClientProtocolException, IOException {
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost post = new HttpPost(URL);
+        StringEntity entity = new StringEntity("query { system {username} }", 
+                ContentType.create("plain/text", Consts.UTF_8));
+        post.setEntity(entity);
+        HttpResponse response = httpClient.execute(post);
+        assertNotNull(response.getEntity(), "No system info received");
     }
     // end::testGet[]
     
@@ -62,12 +71,23 @@ public class SystemIT {
     // end::test2[]
     @Order(2)
     // tag::testEdit[]
-    public void testEditNote() {
+    public void testEditNote() throws ClientProtocolException, IOException {
         String expectedNote = "Time: " + System.currentTimeMillis();
-        boolean editSuccessful = systemServiceApi.editNote(expectedNote);
-        assertTrue(editSuccessful);
-        String actualNote = systemServiceApi.getSystemInfo().getNote();
-        assertEquals(expectedNote, actualNote, "Returned note not the same as input note");
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost mutation = new HttpPost(URL);
+        StringEntity mutationBody = new StringEntity("{ \"query\": \"mutation ($noteArg: String!) {editNote(note: $noteArg)}\", \"variables\": {\"noteArg\": \""+ expectedNote +"\"} }", 
+                ContentType.create("application/json", Consts.UTF_8));
+        mutation.setEntity(mutationBody);
+        HttpResponse mutateResponse = httpClient.execute(mutation);
+        System.out.println(EntityUtils.toString(mutateResponse.getEntity()));
+        assertNotNull(mutateResponse.getEntity());
+        
+        HttpPost query = new HttpPost(URL);
+        StringEntity queryBody = new StringEntity("query { system { note } }", 
+                ContentType.create("plain/text", Consts.UTF_8));
+        query.setEntity(queryBody);
+        HttpResponse queryResponse = httpClient.execute(query);
+        assertNotNull(queryResponse.getEntity());
     }
     // end::testEdit[]
 }
