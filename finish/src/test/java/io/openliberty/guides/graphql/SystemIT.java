@@ -12,14 +12,11 @@
 // end::copyright[]
 package io.openliberty.guides.graphql;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-
-import javax.inject.Inject;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
@@ -35,8 +32,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-
-import io.openliberty.guides.graphql.models.SystemInfo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
