@@ -1,0 +1,35 @@
+name: Test application
+
+on:
+  pull_request:
+    branches: [ qa ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jdk: [ 8 ]
+    defaults:
+      run:
+        working-directory: finish
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.jdk }}
+    - run: unset _JAVA_OPTIONS
+    - name: Run tests
+      run: sudo ../scripts/testApp.sh
+      - name: Post tests
+        if: always()
+        run: |
+             logsPath=$(find . -name "console.log");
+             cat $logsPath | grep Launching
+      - name: Archive server logs if failed
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: server-logs
+          path: finish/target/liberty/wlp/usr/servers/defaultServer/logs/
