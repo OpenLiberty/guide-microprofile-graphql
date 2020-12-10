@@ -18,7 +18,7 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 :page-seo-title: Implementing GraphQL using Microprofile GraphQL in Open Liberty
-:page-seo-description: Learn how to create a basic application that implements the GraphQL query language using Open Liberty and Microprofile GraphQL
+:page-seo-description: Learn how to create an application that implements the GraphQL query language using Open Liberty and Microprofile GraphQL
 :guide-author: Open Liberty
 = Creating and consuming a GraphQL microservice
 
