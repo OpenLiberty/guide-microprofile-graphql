@@ -12,8 +12,6 @@
 // end::copyright[]
 package io.openliberty.guides.graphql;
 
-import java.util.Properties;
-
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
@@ -41,13 +39,7 @@ public class SystemResource {
     @Description("Gets information about the system")
     // end::description1[]
     public SystemInfo getSystemInfo() {
-        Properties rawProperties = System.getProperties();
-        SystemInfo output = new SystemInfo(
-                rawProperties.getProperty("user.timezone"), 
-                rawProperties.getProperty("user.name"));
-        if (rawProperties.containsKey("note")) {
-            output.setNote(rawProperties.getProperty("note"));
-        }
+        SystemInfo output = new SystemInfo(System.getProperties());
         return output;
     }
 
@@ -63,33 +55,22 @@ public class SystemResource {
         System.setProperty("note", note);
         return true;
     }
-    
+
     // Nested objects, these are more expensive to obtain
-    
-    // tag::nonnull2[]
     @NonNull
-    // end::nonnull2[]
     // tag::operatingSystemHeader[]
     public OperatingSystem operatingSystem(@Source @Name("system") SystemInfo systemInfo) {
     // end::operatingSystemHeader[]
-        Properties rawProperties = System.getProperties();
-        return new OperatingSystem(
-                rawProperties.getProperty("os.arch"), 
-                rawProperties.getProperty("os.name"), 
-                rawProperties.getProperty("os.version")
-        );
+        return new OperatingSystem(System.getProperties());
     }
-    
+
     // tag::nonnull3[]
     @NonNull
     // end::nonnull3[]
     // tag::javaHeader[]
     public JavaInfo java (@Source @Name("system") SystemInfo systemInfo) {
     // end::javaHeader[]
-        Properties rawProperties = System.getProperties();
-        return new JavaInfo(
-                rawProperties.getProperty("java.version"), 
-                rawProperties.getProperty("java.vendor")
-        );
+        return new JavaInfo(System.getProperties());
     }
+
 }

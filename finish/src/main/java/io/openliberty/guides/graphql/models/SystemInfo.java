@@ -12,9 +12,12 @@
 // end::copyright[]
 package io.openliberty.guides.graphql.models;
 
+import java.util.Properties;
+
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
+import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.graphql.Type;
 
 @Type("System")
@@ -35,19 +38,14 @@ public class SystemInfo {
         super();
     }
     
-    public SystemInfo(
-            String timezone, 
-            String username) {
-        this.timezone = timezone;
-        this.username = username;
+    public SystemInfo(Properties systemProperties) {
+        this.username = systemProperties.getProperty("user.name");
+        this.timezone = systemProperties.getProperty("user.timezone");
+        this.note = systemProperties.getProperty("note");
     }
 
     public String getNote() {
         return this.note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public String getTimezone() {
@@ -57,4 +55,5 @@ public class SystemInfo {
     public String getUsername() {
         return this.username;
     }
+
 }
