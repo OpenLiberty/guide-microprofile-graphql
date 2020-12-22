@@ -45,12 +45,16 @@ public class JavaInfo {
         this.vendor = systemProperties.getProperty("java.vendor");
     }
 
+    //tag::getVendor[]
     public String getVendor() {
         return this.vendor;
     }
+    //end::getVersion[]
 
+    //tag::getVersion[]
     public String getVersion() {
         return this.version;
     }
+    //end::getVersion[]
 
 }
