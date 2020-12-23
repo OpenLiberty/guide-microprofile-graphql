@@ -148,9 +148,6 @@ include::{common-includes}/twyb-end.adoc[]
 
 Navigate to the `start` directory
 
-[role='command']
-include::{common-includes}/devmode-start.adoc[]
-
 == Enabling GraphQL
 
 [role="code_command hotspot file=0" ,subs="quotes"]
@@ -282,8 +279,8 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 Manual tests can be done using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
 However, automated tests are a better approach because they trigger a failure if a change introduces a bug.
 
-[role='command']
-include::{common-includes}/devmode-test.adoc[]
+We will write tests using JUnit to call the application server directly. 
+
 
 You will see the following output:
 
@@ -299,8 +296,12 @@ Results:
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ----
 
-[role='command']
-include::{common-includes}/devmode-quit.adoc[]
+// file 3
+SystemResource.java
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
+----
 
 == Great work! You're done!
 
