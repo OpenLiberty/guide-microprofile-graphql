@@ -19,12 +19,12 @@ import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
-//tag::type[]
+// tag::type[]
 @Type("Java")
 // end::type[]
-//tag::description[]
+// tag::description[]
 @Description("Information about a Java installation")
-//end::description[]
+// end::description[]
 public class JavaInfo {
 
     // tag::name1[]
@@ -45,16 +45,16 @@ public class JavaInfo {
         this.vendor = systemProperties.getProperty("java.vendor");
     }
 
-    //tag::getVendor[]
+    // tag::getVendor[]
     public String getVendor() {
         return this.vendor;
     }
-    //end::getVersion[]
+    // end::getVersion[]
 
-    //tag::getVersion[]
+    // tag::getVersion[]
     public String getVersion() {
         return this.version;
     }
-    //end::getVersion[]
+    // end::getVersion[]
 
 }

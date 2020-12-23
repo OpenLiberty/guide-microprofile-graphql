@@ -167,7 +167,7 @@ include::{common-includes}/devmode-start.adoc[]
 
 Adding the [hotspot=graphql file=0]`mpGraphQL` feature to the [hotspot file=0]`server.xml` 
 and the [hotspot=graphQLDependency file=1]`microprofile-graphql-api` dependency to the [hotspot file=1]`pom.xml` 
-enables the GraphQL runtime and use of GraphQL API for your application. 
+enables the GraphQL runtime and use of the GraphQL API for your application. 
 
 // file 0
 server.xml
@@ -183,177 +183,104 @@ pom.xml
 include::finish/pom.xml[]
 ----
 
-== Creating GraphQL resources
+== Implementing GraphQL
 
-In GraphQL resources are defined using Java classes. 
-Each resource should have a single Java class describing it. 
-Annotations are used to denote which properties and methods GraphQL should use.
+In GraphQL the available functions of the application are described by a schema. 
+When the application is running, the schema can be viewed at the `http://localhost:9080/graphql/schema.graphql` URL. 
+The schema will describe available object types and resolvers.
 
-The first class we will create will describe the operating system installed on the machine. 
+Object types define the structure of the data that can be returned by GraphQL.
 
-[role="code_command hotspot file=0", subs="quotes"]
+[role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `OperatingSystem` class.#
-`src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
-----
-
-The [hotspot=type file=0]`@Type` annotation maps the `OperatingSystem` class to a GraphQL resource of the same name. 
-
-The [hotspot=description file=0]`@Description` annotation gives the `OperatingSystem` resource a description in the GraphQL schema. 
-
-The [hotspot=nonnull1 hotspot=nonnull2 hotspot=nonnull3 file=0]`@NonNull` annotation marks properties as non-nullable.
-This means that if these properties are requested, GraphQL guarantees the properties will not be `null`. 
-Data types that are primitives such as `int` do not need the `@NonNull` annotation.
-GraphQL will automatically mark such properties as non-nullable. 
-
-The [hotspot=name1 hotspot=name2 hotspot=name3 file=0]`@Name` annotation specifies what the name of the property will be in GraphQL.
-This can be different from the name of the variable in the Java class. 
-
-The `@NonNull` and `@Name` annotations can be placed on either the properties themselves or its getters and setters.
-If applied on only the getter or setter, they will only affect those operations. 
-If applied on the property, the annotation will apply to both the getter and setter if applicable. 
-In this example, the annotations are applied to properties. 
-
-[role="code_command hotspot file=1", subs="quotes"]
-----
-#Create the `JavaInfo` class.#
+#Create the `JavaInfo.java` file.#
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
-[role="code_command hotspot file=2", subs="quotes"]
+The [hotspot file=0]`JavaInfo.java` file will configure the `Java` object in GraphQL.
+This object will describe information about the system's Java installation. 
+The [hotspot=type file=0]`@Type` annotation maps the [hotspot file=0]`JavaInfo.java` file to defining the `Java` object in GraphQL. 
+
+The [hotspot=description file=0]`@Description` annotation gives a description to the `Java` object in GraphQL. 
+
+The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `Java` object in GraphQL. 
+Any of these properties can also be marked with the [hotspot=nonnull file=0]`@NonNull` annotation.
+This makes it so that when they're requested by GraphQL, they're guaranteed to not be `null`.
+The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
+
+[role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `SystemInfo` class.#
+#Create the `OperatingSystem.java` file.#
+`src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
+----
+[role="code_command hotspot file=2" ,subs="quotes"]
+----
+#Create the `SystemInfo.java` file.#
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot file=1]`JavaInfo` and [hotspot file=2]`SystemInfo` classes are similar to the [hotspot file=0]`OperatingSystem` class. 
-`JavaInfo` describes the Java installation on the machine. 
-`SystemInfo` describes general system information. 
+The [hotspot file=1]`OperatingSystem.java` and [hotspot file=2]`SystemInfo.java` files will be very similar to the [hotspot file=0]`JavaInfo.java` file.
+[hotspot file=1]`OperatingSystem.java` will configure the `OperatingSystem` object in GraphQL to describe information about the operating system the application is running on. 
+[hotspot file=2]`SystemInfo.java` will configure the `System` object in GraphQL to describe information about the operating system the application is running on. 
 
 // file 0
-OperatingSystem.java
-[source, Java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
-----
-
-// file 1
 JavaInfo.java
-[source, Java, linenums, role='code_column hide_tags=copyright']
+[source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
 ----
 
+// file 1
+OperatingSystem.java
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
+----
+
 // file 2
 SystemInfo.java
-[source, Java, linenums, role='code_column hide_tags=copyright']
+[source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
 ----
 
-== Creating the GraphQL API
+Resolvers are functions that will define what operations can be performed to retrieve or modify data. 
 
-GraphQL has two kinds of operations.
-
-Query operations retrieve data from the service.
-Mutation operations modify data in the service.
-This includes inserting data and modifying already existing data. 
-
-All operations are defined with methods in a Java class.
-
-[role="code_command hotspot", subs="quotes"]
+[role="code_command hotspot file=3" ,subs="quotes"]
 ----
-#Create the `SystemResource` class.#
+#Create the `SystemResource.java` file.#
 `src/main/java/io/openliberty/guides/graphql/SystemResource.java`
 ----
 
-The [hotspot=graphqlapi]`@GraphQLApi` annotation means GraphQL will use the methods defined in this class. 
+The resolvers are defined in the [hotspot file=3]`SystemResource.java` file.
+The [hotspot=graphqlapi file=3]`@GraphQLApi` annotation makes it so that GraphQL will use the methods defined in this class. 
 
-The [hotspot=nonnull1 hotspot=nonnull2 hotspot=nonnull3]`@NonNull` and [hotspot=description1 hotspot=description2]`@Description` annotations
-act similarly to how they act when defining models.
+The [hotspot=query file=3]`@Query` annotation maps the [hotspot=getSystemInfo file=3]`getSystemInfo()` function to handling `system` requests. 
 
-The [hotspot=query]`@Query` annotation maps the `getSystemInfo()` method to the `system` query operation in GraphQL. 
+The [hotspot=mutation file=3]`@Mutation` annotation maps the [hotspot=editNote file=3]`editNote()` function to handling `editNote` requests. 
+The [hotspot=editNoteHeader file=3]`@Name` annotation denotes inputs for the mutation request. 
+Here the input will determine a note to write into the system properties. 
 
-The [hotspot=mutation]`@Mutation` annotation maps the `editNote()` method to the `editNote` mutation operation in GraphQL. 
+Each resolver function has an [hotspot=description1 hotspot=description2 file=3]`@Description` annotation which gives it a description in the schema. 
 
-The [hotspot=editNoteHeader]`@Name` annotation here names an input for an operation. 
+Thhe [hotspot=operatingSystemHeader hotspot=javaHeader file=3]`@Source` annotation is used to add properties to object types. 
+Here it adds [hotspot=java file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` objects as properties 
+to the `SystemInfo` object that is returned for the `system` request defined earlier.
+This annotation is used for any properties that are expensive to calculate or look up.
+These properties will only be calculated or looked up if requested, saving server time and resources. 
+Here is it used for the [hotspot=java file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` object types. 
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader]`@Source` annotation is used for creating more complex objects.
-The `@Source` annotation adds to the resource defined by the `SystemInfo` class. 
-Here it adds the `JavaInfo` and `OperatingSystem` classes as fields to the resource. 
-These fields are more expensive to calculate so the code in these methods would only be run if these fields are requested. 
-
+// file 3
 SystemResource.java
-[source, Java, linenums, role='code_column hide_tags=copyright']
+[source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
 ----
 
-///////////////////////////
-// Running the application
-///////////////////////////
-
-[role='command']
-include::{common-includes}/devmode-build.adoc[]
-
-You can make `POST` requests to the service at the http://localhost:9080/graphql[^] endpoint. 
-You can also make requests with a UI using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
-View your GraphQL schema at the http://localhost:9080/graphql/schema.graphql[^] URL. 
-
 == Testing the application
 
-Manual tests can be done using GraphiQL, but automated tests are a better approach because they trigger a failure if a change introduces a bug.
-
-In this example we will write tests using JUnit to call the application server directly. 
-We will use the SmallRye GraphQL client added in [hotspot=smallrye file=0]`pom.xml` to automatically make calls to our service. 
-
-[role="code_command hotspot file=1", subs="quotes"]
-----
-#Create the `SystemServiceAPI` interface.#
-`src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java`
-----
-
-The [hotspot=graphQLClientApi file=1]`@GraphQlClientApi` annotation marks this interface for use as a GraphQL client.
-
-The [hotspot=query file=1]`@Query` and [hotspot=mutation file=1]`@Mutation` annotations map these functions to the specified query and mutation operations in the GraphQL service. 
-
-The [hotspot=editNote file=1]`@Name` annotation maps the parameter of the function to a parameter of the mutation operation. 
-
-[role="code_command hotspot file=2", subs="quotes"]
-----
-#Create the `SystemIT` class.#
-`src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java`
-----
-
-The [hotspot file=2]`SystemIT` class will use the [hotspot file=1]`SystemServiceAPI` interface to create and use a client to interact with our GraphQL service for testing. 
-The [hotspot=inject file=2]`@Inject` annotation injects the `SystemServiceAPI` interface for use.
-The [hotspot=client file=2]`GraphQlClientBuilder` class builds a client based on the `SystemServiceAPI` interface and the provided URL and port for our service. 
-
-The test methods are annotated with the [hotspot=test1 hotspot=test2 file=2]`@Test` annotation. 
-The [hotspot=testGet file=2]`testGetSystem()` method does a basic query and asserts it is not empty. 
-The [hotspot=testEdit file=2]`testEditNote()` method sets a note on the system with the current time. 
-It then does a query on the GraphQL service to assert that the time was saved. 
-
-// file 0
-pom.xml
-[source, xml, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/pom.xml[]
-----
-
-// file 1
-SystemServiceAPI.java
-[source, Java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/src/test/java/io/openliberty/guides/graphql/client/SystemServiceAPI.java[]
-----
-
-// file 2
-SystemIT.java
-[source, Java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
-----
+Manual tests can be done using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
+However, automated tests are a better approach because they trigger a failure if a change introduces a bug.
 
 [role='command']
 include::{common-includes}/devmode-test.adoc[]

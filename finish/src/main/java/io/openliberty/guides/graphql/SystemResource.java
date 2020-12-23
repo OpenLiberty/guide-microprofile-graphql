@@ -38,10 +38,12 @@ public class SystemResource {
     // tag::description1[]
     @Description("Gets information about the system")
     // end::description1[]
+    // tag::getSystemInfo[]
     public SystemInfo getSystemInfo() {
         SystemInfo output = new SystemInfo(System.getProperties());
         return output;
     }
+    // end::getSystemInfo[]
 
     // tag::mutation[]
     @Mutation("editNote")
@@ -49,28 +51,34 @@ public class SystemResource {
     // tag::description2[]
     @Description("Changes the note set for the system")
     // end::description2[]
+    // tag::editNote[]
     // tag::editNoteHeader[]
     public boolean editNote(@Name("note") String note) {
     // end::editNoteHeader[]
         System.setProperty("note", note);
         return true;
     }
+    // end::editNote[]
 
     // Nested objects, these are more expensive to obtain
     @NonNull
+    // tag::os[]
     // tag::operatingSystemHeader[]
     public OperatingSystem operatingSystem(@Source @Name("system") SystemInfo systemInfo) {
     // end::operatingSystemHeader[]
         return new OperatingSystem(System.getProperties());
     }
+    // end::os[]
 
     // tag::nonnull3[]
     @NonNull
     // end::nonnull3[]
+    // tag::java[]
     // tag::javaHeader[]
     public JavaInfo java (@Source @Name("system") SystemInfo systemInfo) {
     // end::javaHeader[]
         return new JavaInfo(System.getProperties());
     }
+    // end::java[]
 
 }
