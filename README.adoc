@@ -222,21 +222,21 @@ The [hotspot file=1]`OperatingSystem.java` and [hotspot file=2]`SystemInfo.java`
 
 // file 0
 JavaInfo.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
 ----
 
 // file 1
 OperatingSystem.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
 ----
 
 // file 2
 SystemInfo.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
 ----
@@ -269,7 +269,7 @@ Here is it used for the [hotspot=java file=3]`JavaInfo` and [hotspot=os file=3]`
 
 // file 3
 SystemResource.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
 ----
@@ -333,7 +333,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
 // file 0
 SystemIT.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
 ----
