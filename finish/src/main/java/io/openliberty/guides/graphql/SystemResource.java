@@ -60,7 +60,7 @@ public class SystemResource {
     }
     // end::editNoteFunction[]
 
-    // Nested objects, these are more expensive to obtain
+    // Nested objects, these can be expensive to obtain
     @NonNull
     // tag::os[]
     // tag::operatingSystemHeader[]
