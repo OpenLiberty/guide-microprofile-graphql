@@ -49,7 +49,7 @@ public class JavaInfo {
     public String getVendor() {
         return this.vendor;
     }
-    // end::getVersion[]
+    // end::getVendor[]
 
     // tag::getVersion[]
     public String getVersion() {

@@ -73,12 +73,12 @@ public class SystemResource {
     // tag::nonnull3[]
     @NonNull
     // end::nonnull3[]
-    // tag::java[]
+    // tag::javaFunction[]
     // tag::javaHeader[]
     public JavaInfo java (@Source @Name("system") SystemInfo systemInfo) {
     // end::javaHeader[]
         return new JavaInfo(System.getProperties());
     }
-    // end::java[]
+    // end::javaFunction[]
 
 }

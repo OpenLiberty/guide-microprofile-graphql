@@ -253,17 +253,17 @@ The [hotspot=graphqlapi file=3]`@GraphQLApi` annotation makes it so that GraphQL
 The [hotspot=query file=3]`@Query` annotation maps the [hotspot=getSystemInfo file=3]`getSystemInfo()` function to handling `system` requests. 
 
 The [hotspot=mutation file=3]`@Mutation` annotation maps the [hotspot=editNote file=3]`editNote()` function to handling `editNote` requests. 
-The [hotspot=editNoteHeader file=3]`@Name` annotation denotes inputs for the mutation request. 
+The [hotspot=editNoteHeader file=3]`@Name` annotation in this context denotes inputs for the mutation request. 
 Here the input will determine a note to write into the system properties. 
 
 Each resolver function has an [hotspot=description1 hotspot=description2 file=3]`@Description` annotation which gives it a description in the schema. 
 
-Thhe [hotspot=operatingSystemHeader hotspot=javaHeader file=3]`@Source` annotation is used to add properties to object types. 
-Here it adds [hotspot=java file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` objects as properties 
-to the `SystemInfo` object that is returned for the `system` request defined earlier.
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=3]`@Source` annotation is used to add properties to object types. 
+Here it adds [hotspot=javaFunction file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` objects as properties 
+to the `SystemInfo` object that is returned for the `system` request defined earlier by the [hotspot=getSystemInfo file=3]`getSystemInfo()` function.
 This annotation is used for any properties that are expensive to calculate or look up.
 These properties will only be calculated or looked up if requested, saving server time and resources. 
-Here is it used for the [hotspot=java file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` object types. 
+Here is it used for the [hotspot=javaFunction file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` object types. 
 
 // file 3
 SystemResource.java
