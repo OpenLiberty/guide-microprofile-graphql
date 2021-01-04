@@ -146,12 +146,7 @@ include::{common-includes}/twyb-end.adoc[]
 
 == Enabling GraphQL
 
-Navigate to the `start` directory.
-
-[role='command']
-```
-cd ../start
-```
+Navigate to the `start` directory to begin.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
