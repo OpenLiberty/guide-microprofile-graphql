@@ -328,14 +328,11 @@ include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
 
 === Running the tests
 
-Run the following commands to test your application.
+Use the provided `testApp.sh` script to rebuild and test your application.
 
 [role='command']
 ----
-mvn -q package liberty:create liberty:install-feature liberty:deploy
-mvn liberty:start
-mvn failsafe:integration-test liberty:stop
-mvn failsafe:verify
+../scripts/testApp.sh
 ----
 
 You will see the following output:
