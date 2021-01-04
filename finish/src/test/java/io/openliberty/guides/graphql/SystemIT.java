@@ -55,15 +55,15 @@ public class SystemIT {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(URL);
         StringEntity entity = new StringEntity(
-                "{ \"query\": " 
-                    + "\"query { " 
-                        + "system { " 
-                            + "username timezone " 
-                            + "java { version vendor } " 
-                            + "operatingSystem {arch name version} " 
-                        + "} " 
-                    + "}" 
-                + "\"}", 
+                "{ \"query\": " + 
+                    "\"query { " + 
+                        "system { " + 
+                            "username timezone " +
+                            "java { version vendor } " +
+                            "operatingSystem {arch name version} " +
+                        "} " +
+                    "}" +
+                "\"}", 
                 ContentType.create("application/json", Consts.UTF_8));
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
@@ -82,22 +82,32 @@ public class SystemIT {
         String expectedNote = "Time: " + System.currentTimeMillis();
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost mutation = new HttpPost(URL);
-        StringEntity mutationBody = new StringEntity("{ \"query\": \"mutation ($noteArg: String!) {editNote(note: $noteArg)}\", \"variables\": {\"noteArg\": \""+ expectedNote +"\"} }", 
-                ContentType.create("application/json", Consts.UTF_8));
+        StringEntity mutationBody = new StringEntity(
+                "{ \"query\": " +
+                    "\"mutation ($noteArg: String!) {" +
+                        "editNote(note: $noteArg)" +
+                    "}\", " +
+                    "\"variables\": {\"" +
+                        "noteArg\": \""+ expectedNote +"\"" +
+                    "}" +
+                "}", 
+                ContentType.create("application/json", 
+                Consts.UTF_8));
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
         assertNotNull(mutateResponse.getEntity());
         
         HttpPost query = new HttpPost(URL);
         StringEntity queryBody = new StringEntity(
-                "{ \"query\": " 
-                    + "\"query { " 
-                        + "system { " 
-                            + "note" 
-                        + "} " 
-                    + "}" 
-                + "\"}", 
-                ContentType.create("application/json", Consts.UTF_8));
+                "{ \"query\": " + 
+                    "\"query { " + 
+                        "system { " + 
+                            "note" + 
+                        "} " + 
+                    "}" +
+                "\"}", 
+                ContentType.create("application/json", 
+                Consts.UTF_8));
         query.setEntity(queryBody);
         HttpResponse queryResponse = httpClient.execute(query);
         assertNotNull(queryResponse.getEntity(), "No system info received");
