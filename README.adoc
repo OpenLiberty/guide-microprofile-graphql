@@ -144,7 +144,7 @@ Notice that this time, only the `note` property is returned, as it was the only 
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
 
-== Building the application
+== Enabling GraphQL
 
 Navigate to the `start` directory.
 
@@ -152,8 +152,6 @@ Navigate to the `start` directory.
 ```
 cd ../start
 ```
-
-=== Enabling GraphQL
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -185,7 +183,7 @@ pom.xml
 include::finish/pom.xml[]
 ----
 
-=== Implementing GraphQL
+== Implementing GraphQL
 
 In GraphQL the available functions of the application are described by a schema. 
 When the application is running, the schema can be viewed at the `http://localhost:9080/graphql/schema.graphql` URL. 
