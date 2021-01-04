@@ -278,8 +278,7 @@ Run the following commands to package and start the application.
 
 [role='command']
 ----
-mvn package
-mvn liberty:start
+mvn liberty:run
 ----
 
 GraphiQL has been set up and included for you.
@@ -288,7 +287,8 @@ Queries made through GraphiQL will be the same as queries made through `POST` re
 
 Your schema will be visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
 
-After you have finished trying your application, stop it by running the following command.
+After you have finished trying your application, stop it by pressing `CTRL+C` in the command-line session where you ran the server. 
+Alternatively, run the following command in the `finish` directory in another command-line-session.
 
 [role='command']
 ----
@@ -332,6 +332,7 @@ Run the following commands to test your application.
 
 [role='command']
 ----
+mvn -q package liberty:create liberty:install-feature liberty:deploy
 mvn liberty:start
 mvn failsafe:integration-test liberty:stop
 mvn failsafe:verify
