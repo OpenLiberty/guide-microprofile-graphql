@@ -252,7 +252,7 @@ The [hotspot=graphqlapi file=3]`@GraphQLApi` annotation makes it so that GraphQL
 
 The [hotspot=query file=3]`@Query` annotation maps the [hotspot=getSystemInfo file=3]`getSystemInfo()` function to handling `system` requests. 
 
-The [hotspot=mutation file=3]`@Mutation` annotation maps the [hotspot=editNote file=3]`editNote()` function to handling `editNote` requests. 
+The [hotspot=mutation file=3]`@Mutation` annotation maps the [hotspot=editNoteFunction file=3]`editNote()` function to handling `editNote` requests. 
 The [hotspot=editNoteHeader file=3]`@Name` annotation in this context denotes inputs for the mutation request. 
 Here the input will determine a note to write into the system properties. 
 
@@ -302,7 +302,7 @@ However, automated tests are a better approach because they trigger a failure if
 
 We will write tests using JUnit to call the application server directly. 
 
-[role="code_command hotspot file=3" ,subs="quotes"]
+[role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Create the `SystemIT.java` file.#
 `src/test/java/io/openliberty/guides/graphql/SystemIT.java`
@@ -318,6 +318,13 @@ It then verifies that the response is not empty and that it is free of errors.
 The [hotspot=testEdit file=0]`testEditNote()` method makes a query using the `editNote` resolver.
 It will try to set the note to be the current system time. 
 Then it makes a query using the `system` resolver to ensure the note was saved correctly. 
+
+// file 0
+SystemIT.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
+----
 
 === Running the tests
 

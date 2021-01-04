@@ -51,14 +51,14 @@ public class SystemResource {
     // tag::description2[]
     @Description("Changes the note set for the system")
     // end::description2[]
-    // tag::editNote[]
+    // tag::editNoteFunction[]
     // tag::editNoteHeader[]
     public boolean editNote(@Name("note") String note) {
     // end::editNoteHeader[]
         System.setProperty("note", note);
         return true;
     }
-    // end::editNote[]
+    // end::editNoteFunction[]
 
     // Nested objects, these are more expensive to obtain
     @NonNull
