@@ -276,10 +276,11 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Running the application
 
-Run the following command to start the application.
+Run the following commands to package and start the application.
 
 [role='command']
 ----
+mvn package
 mvn liberty:start
 ----
 
@@ -288,6 +289,13 @@ Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
 Queries made through GraphiQL will be the same as queries made through `POST` requests. 
 
 Your schema will be visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+
+After you have finished trying your application, stop it by running the following command.
+
+[role='command']
+----
+mvn liberty:stop
+----
 
 == Testing the application
 
@@ -315,7 +323,14 @@ Then it makes a query using the `system` resolver to ensure the note was saved c
 
 === Running the tests
 
+Run the following commands to test your application.
 
+[role='command']
+----
+mvn liberty:start
+mvn failsafe:integration-test liberty:stop
+mvn failsafe:verify
+----
 
 You will see the following output:
 
