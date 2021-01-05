@@ -57,7 +57,7 @@ include::{common-includes}/twyb-intro.adoc[]
 Included with the application is a service called GraphiQL. 
 GraphiQL is a webpage served by the Open Liberty server and can be used to assist in development and testing of the service.
 GraphiQL allows you to easily make `POST` requests to the GraphQL service and see the responses.
-In GraphiQL you only have to type the body of the `POST` request, which can simplify manual tests. 
+In GraphiQL you only need to type the body of the `POST` request, which can simplify manual tests. 
 You're also able to view a history of your previous requests and repeat any of them.
 
 In GraphiQL you will also be able to view the application's documentation by clicking `Docs`. 
@@ -205,7 +205,8 @@ This is what will appear in the schema and the documentation.
 
 The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `Java` object in GraphQL. 
 Any of these properties can also be marked with the [hotspot=nonnull file=0]`@NonNull` annotation.
-This makes it so that when they're requested by GraphQL, they're guaranteed to not be `null`.
+All data types in GraphQL are nullable by default.
+The [hotspot=nonnull file=0]`@NonNull` annotation marks a field as non-nullable. 
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
@@ -261,7 +262,7 @@ The [hotspot=mutation file=3]`@Mutation` annotation maps the [hotspot=editNoteFu
 The [hotspot=editNoteHeader file=3]`@Name` annotation in this context denotes inputs for the mutation request. 
 Here the input will determine a note to write into the system properties. 
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=3]`@Description` annotation which gives the description to be used for the schema. 
+Each resolver function has an [hotspot=description1 hotspot=description2 file=3]`@Description` annotation, which gives the description to be used for the schema. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=3]`@Source` annotation is used to add properties to object types. 
 Here it adds [hotspot=javaFunction file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` objects as properties 
