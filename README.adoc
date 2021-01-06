@@ -55,14 +55,14 @@ include::{common-includes}/gitclone.adoc[]
 include::{common-includes}/twyb-intro.adoc[]
 
 Included with the application is a service called GraphiQL. 
-GraphiQL is a webpage served by the Open Liberty server and can be used to assist in development and testing of the service.
+GraphiQL is a webpage served by the Open Liberty server and can be used to aid development and testing of the service.
 GraphiQL allows you to easily make `POST` requests to the GraphQL service and see the responses.
 In GraphiQL you only need to type the body of the `POST` request, which can simplify manual tests. 
 You're also able to view a history of your previous requests and repeat any of them.
 
-In GraphiQL you will also be able to view the application's documentation by clicking `Docs`. 
+In GraphiQL you'll also be able to view the application's documentation by clicking `Docs`. 
 The documentation will describe the GraphQL schema.
-This gives details on the various operations available and descriptions of them. 
+The schema gives details on the various operations available and descriptions of them. 
 If any data types are mentioned, you'll also be able to see descriptions of them and the fields contained within them if applicable. 
 
 Run the following query operation in GraphiQL to get every property available. 
@@ -118,7 +118,7 @@ mutation {
 }
 ----
 
-You'll receive a response containing the boolean `true` to notify you that the request was successfully processed.
+You'll receive a response containing the boolean `true` to let you know that the request was successfully processed.
 You can see the note you added by running the following query operation.
 
 [role='command']
