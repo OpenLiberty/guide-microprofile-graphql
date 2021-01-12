@@ -42,7 +42,7 @@ For resources that contain properties that are expensive to calculate such as ot
 Unlike REST services, all GraphQL requests go to the same endpoint. 
 Requests are differentiated by the contents of the request rather than the endpoint, which can simplify your application. 
 
-You can learn more about GraphQL at https://graphql.org/[their webpage^].
+You can learn more about GraphQL at https://graphql.org/[the GraphQL website^].
 
 ///////////////////////////
 // Getting started
