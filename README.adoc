@@ -154,13 +154,13 @@ Navigate to the `start` directory to begin.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Replace the `server.xml` file.#
+#Replace the server configuration file.#
 `src/main/liberty/config/server.xml`
 ----
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Replace the `pom.xml` file.#
+#Replace the Maven project file.#
 `pom.xml`
 ----
 
