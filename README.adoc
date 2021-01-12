@@ -192,7 +192,7 @@ include::finish/pom.xml[]
 Object types define the structure of the data that can be returned by GraphQL.
 Object types are defined by annotated Java classes. 
 
-[role="code_command hotspot file=0" ,subs="quotes"]
+[role="code_command hotspot file=0", subs="quotes"]
 ----
 #Create the `JavaInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
@@ -251,31 +251,31 @@ include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.ja
 
 Resolvers are functions that will define what operations can be performed to retrieve or modify data. 
 
-[role="code_command hotspot file=3" ,subs="quotes"]
+[role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Create the `SystemResource` class.#
 `src/main/java/io/openliberty/guides/graphql/SystemResource.java`
 ----
 
-The resolvers are defined in the [hotspot file=3]`SystemResource.java` file.
-The [hotspot=graphqlapi file=3]`@GraphQLApi` annotation makes it so that GraphQL will use the methods defined in this class as resolvers. 
+The resolvers are defined in the [hotspot file=0]`SystemResource.java` file.
+The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation makes it so that GraphQL will use the methods defined in this class as resolvers. 
 
-The [hotspot=query file=3]`@Query` annotation maps the [hotspot=getSystemInfo file=3]`getSystemInfo()` function to handling `system` requests. 
+The [hotspot=query file=0]`@Query` annotation maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests. 
 
-The [hotspot=mutation file=3]`@Mutation` annotation maps the [hotspot=editNoteFunction file=3]`editNote()` function to handling `editNote` requests. 
-The [hotspot=editNoteHeader file=3]`@Name` annotation in this context denotes inputs for the mutation request. 
+The [hotspot=mutation file=0]`@Mutation` annotation maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` requests. 
+The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes inputs for the mutation request. 
 Here the input will determine a note to write into the system properties. 
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=3]`@Description` annotation, which gives the description to be used for the schema. 
+Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which gives the description to be used for the schema. 
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=3]`@Source` annotation is used to add properties to object types. 
-Here it adds [hotspot=javaFunction file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` objects as properties 
-to the `SystemInfo` object that is returned for the `system` request defined earlier by the [hotspot=getSystemInfo file=3]`getSystemInfo()` function.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=3]`@Source` annotation is used for any properties that are expensive to calculate or look up.
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
+Here it adds [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` objects as properties 
+to the `SystemInfo` object that is returned for the `system` request defined earlier by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or look up.
 These properties will only be calculated or looked up if requested, saving server time and resources. 
-Here it's used for the [hotspot=javaFunction file=3]`JavaInfo` and [hotspot=os file=3]`OperatingSystem` object types. 
+Here it's used for the [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` object types. 
 
-// file 3
+// file 0
 SystemResource.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
