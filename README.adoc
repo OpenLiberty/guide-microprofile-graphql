@@ -189,7 +189,7 @@ Object types are defined by annotated Java classes.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `JavaInfo.java` file.#
+#Create the `JavaInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
@@ -208,12 +208,12 @@ The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getV
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `OperatingSystem.java` file.#
+#Create the `OperatingSystem` class.#
 `src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
 ----
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
-#Create the `SystemInfo.java` file.#
+#Create the `SystemInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
@@ -248,7 +248,7 @@ Resolvers are functions that will define what operations can be performed to ret
 
 [role="code_command hotspot file=3" ,subs="quotes"]
 ----
-#Create the `SystemResource.java` file.#
+#Create the `SystemResource` class.#
 `src/main/java/io/openliberty/guides/graphql/SystemResource.java`
 ----
 
@@ -309,7 +309,7 @@ We'll write tests using JUnit to call the application server directly.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `SystemIT.java` file.#
+#Create the `SystemIT` class.#
 `src/test/java/io/openliberty/guides/graphql/SystemIT.java`
 ----
 
