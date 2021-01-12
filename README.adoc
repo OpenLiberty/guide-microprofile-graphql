@@ -163,15 +163,16 @@ Navigate to the `start` directory to begin.
 `src/main/liberty/config/server.xml`
 ----
 
+Adding the [hotspot=graphql file=0]`mpGraphQL` feature to the [hotspot file=0]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
+
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the Maven project file.#
 `pom.xml`
 ----
 
-Adding the [hotspot=graphql file=0]`mpGraphQL` feature to the [hotspot file=0]`server.xml` 
-and the [hotspot=graphQLDependency file=1]`microprofile-graphql-api` dependency to the [hotspot file=1]`pom.xml` 
-enables the GraphQL runtime and use of the GraphQL API for your application. 
+Adding the [hotspot=graphQLDependency file=1]`microprofile-graphql-api` dependency to the [hotspot file=1]`pom.xml` 
+enables the use of the GraphQL annotations to develop the application. 
 
 // file 0
 server.xml
