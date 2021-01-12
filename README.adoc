@@ -293,7 +293,7 @@ Queries made through GraphiQL will be the same as queries made through `POST` re
 Your schema will be visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
 
 After you have finished trying your application, stop it by pressing `CTRL+C` in the command-line session where you ran the server. 
-Alternatively, run the following command in the `finish` directory in another command-line-session.
+Alternatively, run the following command in the `start` directory in another command-line-session.
 
 [role='command']
 ----
