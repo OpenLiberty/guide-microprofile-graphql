@@ -217,15 +217,21 @@ The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getV
 #Create the `OperatingSystem` class.#
 `src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
 ----
+
+The [hotspot file=1]`OperatingSystem.java` file will be set up similarly.
+It will describe the operating system running on the machine the application is running on. 
+
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
 #Create the `SystemInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot file=1]`OperatingSystem.java` and [hotspot file=2]`SystemInfo.java` files will be very similar to the [hotspot file=0]`JavaInfo.java` file.
-[hotspot file=1]`OperatingSystem.java` will define the `OperatingSystem` object type in GraphQL to describe information about the operating system the application is running on. 
-[hotspot file=2]`SystemInfo.java` will define the `System` object type in GraphQL to describe information about the operating system the application is running on. 
+The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
+It will describe overall information about the machine the application is running on.
+This object type will include the [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` objects as nested objects.
+However, these object types are not included here.
+They will instead be added as part of implementing the resolver functions.
 
 // file 0
 JavaInfo.java
@@ -274,7 +280,7 @@ Here it adds [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`Ope
 to the `SystemInfo` object that is returned for the `system` request defined earlier by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or look up.
 These properties will only be calculated or looked up if requested, saving server time and resources. 
-Here it's used for the [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` object types. 
+Here it's used to add the [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` object types as nested objects. 
 
 // file 0
 SystemResource.java
