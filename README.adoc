@@ -295,6 +295,7 @@ Run the following commands to package and start the application.
 
 [role='command']
 ----
+mvn package
 mvn liberty:run
 ----
 
@@ -345,11 +346,14 @@ include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
 
 === Running the tests
 
-Use the provided `testApp.sh` script to rebuild and test your application.
+Use the following commands to rebuild and test your application.
 
 [role='command']
 ----
-../scripts/testApp.sh
+mvn package
+mvn liberty:start
+mvn failsafe:integration-test liberty:stop
+mvn failsafe:verify
 ----
 
 You will see the following output:
