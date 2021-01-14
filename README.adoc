@@ -294,7 +294,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Running the application
 
-Restart the application by typing `r` and press the `enter/return` key.
+Because you started Open Liberty in dev mode, type `r` and press the `enter/return` key to restart the application.
 
 GraphiQL has been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
