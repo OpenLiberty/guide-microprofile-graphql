@@ -91,7 +91,7 @@ Object types define the structure of the data that can be returned by GraphQL.
 
 The [hotspot file=1]`JavaInfo.java` file will define the `Java` object type in GraphQL.
 This object type will describe information about the system's Java installation. 
-The [hotspot=type file=1]`@Type` annotation maps the [hotspot file=0]`JavaInfo.java` file to defining the `Java` object type in GraphQL. 
+The [hotspot=type file=1]`@Type` annotation maps the [hotspot file=1]`JavaInfo.java` file to defining the `Java` object type in GraphQL. 
 
 The [hotspot=description file=1]`@Description` annotation gives a description to the `Java` object type in GraphQL.
 This is what will appear in the schema and the documentation.  
@@ -102,7 +102,7 @@ All data types in GraphQL are nullable by default.
 The [hotspot=nonnull file=1]`@NonNull` annotation marks a property as non-nullable. 
 The [hotspot=getVendor file=1]`getVendor()` and [hotspot=getVersion file=1]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
 
-[role="code_command hotspot file=1" ,subs="quotes"]
+[role="code_command hotspot file=2" ,subs="quotes"]
 ----
 #Create the `OperatingSystem` class.#
 `src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
@@ -111,7 +111,7 @@ The [hotspot=getVendor file=1]`getVendor()` and [hotspot=getVersion file=1]`getV
 The [hotspot file=2]`OperatingSystem.java` file will be set up similarly.
 It will describe the operating system running on the machine the application is running on. 
 
-[role="code_command hotspot file=2" ,subs="quotes"]
+[role="code_command hotspot file=3" ,subs="quotes"]
 ----
 #Create the `SystemInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
