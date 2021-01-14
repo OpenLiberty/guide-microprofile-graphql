@@ -71,13 +71,13 @@ Navigate to the `start` directory to begin.
 [role='command']
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
-[role="code_command hotspot file=1" ,subs="quotes"]
+[role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the Maven project file.#
 `pom.xml`
 ----
 
-Adding the [hotspot=graphQLDependency file=1]`microprofile-graphql-api` dependency to the [hotspot file=1]`pom.xml` 
+Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
 enables the use of the GraphQL annotations to develop the application. 
 
 These annotations are used in Java classes to define the object types of our application.
