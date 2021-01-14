@@ -157,6 +157,9 @@ include::{common-includes}/twyb-end.adoc[]
 
 Navigate to the `start` directory to begin.
 
+[role='command']
+include::{common-includes}/devmode-lmp33-start.adoc[]
+
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the server configuration file.#
@@ -291,13 +294,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Running the application
 
-Run the following commands to package and start the application.
-
-[role='command']
-----
-mvn package
-mvn liberty:run
-----
+Restart the application by typing `r` and press the `enter/return` key.
 
 GraphiQL has been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
@@ -344,17 +341,10 @@ SystemIT.java
 include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
 ----
 
-=== Running the tests
+// Running the tests
 
-Use the following commands to rebuild and test your application.
-
-[role='command']
-----
-mvn package
-mvn liberty:start
-mvn failsafe:integration-test liberty:stop
-mvn failsafe:verify
-----
+[role=command]
+include::{common-includes}/devmode-test.adoc[]
 
 You will see the following output:
 
@@ -370,12 +360,8 @@ Results:
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ----
 
-// file 0
-SystemIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
-----
+[role=command]
+include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
