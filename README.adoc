@@ -49,6 +49,12 @@ The operations you will implement will be a simple `query` operation and a `muta
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
 
+Included with the application is a service called GraphiQL. 
+GraphiQL is a webpage served by the Open Liberty server and can be used to aid development and testing of the service.
+GraphiQL allows you to easily make `POST` requests to the GraphQL service and see the responses.
+In GraphiQL you only need to type the body of the `POST` request, which can simplify manual tests. 
+You're also able to view a history of your previous requests and repeat any of them.
+
 ///////////////////////////
 // Getting started
 ///////////////////////////
@@ -56,102 +62,7 @@ The `mutation` operation will save a note of your choice into the system informa
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
-[role='command']
-include::{common-includes}/twyb-intro.adoc[]
-
-Included with the application is a service called GraphiQL. 
-GraphiQL is a webpage served by the Open Liberty server and can be used to aid development and testing of the service.
-GraphiQL allows you to easily make `POST` requests to the GraphQL service and see the responses.
-In GraphiQL you only need to type the body of the `POST` request, which can simplify manual tests. 
-You're also able to view a history of your previous requests and repeat any of them.
-
-In GraphiQL you'll also be able to view the application's documentation by clicking `Docs`. 
-The documentation will describe the GraphQL schema.
-The schema gives details on the various operations available and descriptions of them. 
-If any data types are mentioned, you'll also be able to see descriptions of them and the fields contained within them if applicable. 
-
-Run the following query operation in GraphiQL to get every property available. 
-
-[role='command']
-----
-query {
-  system {
-    java {
-      vendor
-      version
-    }
-    operatingSystem {
-      arch
-      version
-      name
-    }
-    username
-    timezone
-  }
-}
-----
-
-The output will be similar to the following:
-
-[role='no_copy']
-----
-{
-  "data": {
-    "system": {
-      "java": {
-        "vendor": "Oracle Corporation",
-        "version": "13.0.2"
-      },
-      "operatingSystem": {
-        "arch": "x86_64",
-        "version": "10.15.6",
-        "name": "Mac OS X"
-      },
-      "username": "admin",
-      "timezone": "America/Toronto"
-    }
-  }
-}
-----
-
-Run the following mutation operation to add a note to the system.
-
-[role='command']
-----
-mutation {
-  editNote(note: "I'm trying out GraphQL on OpenLiberty!")
-}
-----
-
-You'll receive a response containing the boolean `true` to let you know that the request was successfully processed.
-You can see the note you added by running the following query operation.
-
-[role='command']
-----
-query {
-  system {
-    note
-  }
-}
-----
-
-The response will be similar to the following:
-
-[role='no_copy']
-----
-{
-  "data": {
-    "system": {
-      "note": "I'm trying out GraphQL on OpenLiberty!"
-    }
-  }
-}
-----
-
-Notice that this time, only the `note` property is returned, as it was the only property in the request. 
-
-[role='command']
-include::{common-includes}/twyb-end.adoc[]
+// No try what you'll build, examples and explanations later in guide
 
 == Enabling GraphQL
 
@@ -296,11 +207,94 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 Because you started Open Liberty in dev mode, type `r` and press the `enter/return` key to restart the application.
 
-GraphiQL has been set up and included for you.
+GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
 Queries made through GraphiQL will be the same as queries made through `POST` requests. 
 
-Your schema will be visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+In GraphiQL you can view the application documentation by clicking `Docs`. 
+The documentation will describe the GraphQL schema.
+The schema gives details on the various operations available and descriptions of them. 
+If any data types are mentioned, you'll also be able to see descriptions of them and the fields contained within them if applicable. 
+The schema will also be visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+
+Run the following `query` operation to get every system property by entering it into GraphiQL. 
+
+[role='command']
+----
+query {
+  system {
+    java {
+      vendor
+      version
+    }
+    operatingSystem {
+      arch
+      version
+      name
+    }
+    username
+    timezone
+  }
+}
+----
+
+The output will be similar to the following:
+
+[role='no_copy']
+----
+{
+  "data": {
+    "system": {
+      "java": {
+        "vendor": "Oracle Corporation",
+        "version": "11.0.7"
+      },
+      "operatingSystem": {
+        "arch": "x86_64",
+        "version": "10.15.6",
+        "name": "Mac OS X"
+      },
+      "username": "admin",
+      "timezone": "America/Toronto"
+    }
+  }
+}
+----
+Run the following mutation operation to add a note to the system.
+
+[role='command']
+----
+mutation {
+  editNote(note: "I'm trying out GraphQL on OpenLiberty!")
+}
+----
+
+You'll receive a response containing the boolean `true` to let you know that the request was successfully processed.
+You can see the note you added by running the following query operation.
+
+[role='command']
+----
+query {
+  system {
+    note
+  }
+}
+----
+
+The response will be similar to the following:
+
+[role='no_copy']
+----
+{
+  "data": {
+    "system": {
+      "note": "I'm trying out GraphQL on OpenLiberty!"
+    }
+  }
+}
+----
+
+Notice that this time, only the `note` property is returned, as it was the only property in the request. 
 
 After you have finished trying your application, stop it by pressing `CTRL+C` in the command-line session where you ran the server. 
 Alternatively, run the following command in the `start` directory in another command-line-session.
