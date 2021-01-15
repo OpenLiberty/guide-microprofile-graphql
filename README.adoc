@@ -32,7 +32,7 @@ Explore how to use GraphQL to access and manipulate data using Microprofile Grap
 
 You will learn how to build and test a simple GraphQL service with Microprofile GraphQL. 
 
-GraphQL is an open-source data query and manipulation language. 
+GraphQL is an open source data query and manipulation language. 
 GraphQL responds to `POST` requests made to a single endpoint. 
 Each request contains descriptions of the operation the user will want to execute.
 If the operation returns data, the user will also specify what properties of the data they want returned. 
@@ -44,8 +44,8 @@ For resources that contain properties that are expensive to calculate such as ot
 
 You can learn more about GraphQL at https://graphql.org/[the GraphQL website^].
 
-The service you will create will respond to `POST` requests made to the `http://localhost:9080/graphql` URL. 
-The operations you will implement will be a simple `query` operation and a `mutation` operation.
+The service you'll create will respond to `POST` requests made to the `http://localhost:9080/graphql` URL. 
+The operations you'll implement will be a simple `query` operation and a `mutation` operation.
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
 
@@ -72,7 +72,7 @@ Navigate to the `start` directory to begin.
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
 Object types define the structure of the data that can be returned by GraphQL. 
-These are defined using various annotations added to Java classes, their properties, and their methods. 
+Object types are defined using various annotations added to Java classes, their properties, and their methods. 
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -100,7 +100,7 @@ The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getV
 ----
 
 The [hotspot file=1]`OperatingSystem.java` file will be set up similarly.
-It will describe the operating system running on the machine the application is running on. 
+It will describe the operating system running on the computer the application is running on. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -109,10 +109,10 @@ It will describe the operating system running on the machine the application is 
 ----
 
 The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
-It will describe overall information about the machine the application is running on.
+It will describe overall information about the computer the application is running on.
 This object type will include the [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` objects as nested objects.
-However, these object types are not included as properties here.
-They will instead be added as part of implementing the resolver functions.
+Notice that [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` don't have properties or getter functions included in [hotspot file=2]`SystemInfo.java`.
+They'll instead be added as part of implementing the resolver functions.
 
 // file 0
 JavaInfo.java
