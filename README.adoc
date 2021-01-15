@@ -71,80 +71,64 @@ Navigate to the `start` directory to begin.
 [role='command']
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
-[role="code_command hotspot file=0" ,subs="quotes"]
-----
-#Replace the Maven project file.#
-`pom.xml`
-----
-
-Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
-enables the use of the GraphQL annotations to develop the application. 
-
-These annotations are used in Java classes to define the object types of our application.
 Object types define the structure of the data that can be returned by GraphQL. 
+These are defined using various annotations added to Java classes, their properties, and their methods. 
 
-[role="code_command hotspot file=1", subs="quotes"]
+[role="code_command hotspot file=0", subs="quotes"]
 ----
 #Create the `JavaInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
-The [hotspot file=1]`JavaInfo.java` file will define the `Java` object type in GraphQL.
+The [hotspot file=0]`JavaInfo.java` file will define the `Java` object type in GraphQL.
 This object type will describe information about the system's Java installation. 
-The [hotspot=type file=1]`@Type` annotation maps the [hotspot file=1]`JavaInfo.java` file to defining the `Java` object type in GraphQL. 
+The [hotspot=type file=0]`@Type` annotation maps the [hotspot file=0]`JavaInfo.java` file to defining the `Java` object type in GraphQL. 
 
-The [hotspot=description file=1]`@Description` annotation gives a description to the `Java` object type in GraphQL.
+The [hotspot=description file=0]`@Description` annotation gives a description to the `Java` object type in GraphQL.
 This is what will appear in the schema and the documentation.  
 
-The [hotspot=name1 hotspot=name2 file=1]`@Name` annotations map their respective properties to properties of the `Java` object type in GraphQL. 
-Any of these properties can also be marked with the [hotspot=nonnull file=1]`@NonNull` annotation.
+The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `Java` object type in GraphQL. 
+Any of these properties can also be marked with the [hotspot=nonnull file=0]`@NonNull` annotation.
 All data types in GraphQL are nullable by default.
-The [hotspot=nonnull file=1]`@NonNull` annotation marks a property as non-nullable. 
-The [hotspot=getVendor file=1]`getVendor()` and [hotspot=getVersion file=1]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
+The [hotspot=nonnull file=0]`@NonNull` annotation marks a property as non-nullable. 
+The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
 
-[role="code_command hotspot file=2" ,subs="quotes"]
+[role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Create the `OperatingSystem` class.#
 `src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
 ----
 
-The [hotspot file=2]`OperatingSystem.java` file will be set up similarly.
+The [hotspot file=1]`OperatingSystem.java` file will be set up similarly.
 It will describe the operating system running on the machine the application is running on. 
 
-[role="code_command hotspot file=3" ,subs="quotes"]
+[role="code_command hotspot file=2" ,subs="quotes"]
 ----
 #Create the `SystemInfo` class.#
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot file=3]`SystemInfo.java` file is similar to the previous two files. 
+The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
 It will describe overall information about the machine the application is running on.
-This object type will include the [hotspot file=2]`OperatingSystem` and [hotspot file=1]`JavaInfo` objects as nested objects.
-However, these object types are not included here.
+This object type will include the [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` objects as nested objects.
+However, these object types are not included as properties here.
 They will instead be added as part of implementing the resolver functions.
 
 // file 0
-pom.xml
-[source, xml, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/pom.xml[]
-----
-
-// file 1
 JavaInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
 ----
 
-// file 2
+// file 1
 OperatingSystem.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
 ----
 
-// file 3
+// file 2
 SystemInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
@@ -188,16 +172,31 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Enabling GraphQL
 
-
 [role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Replace the Maven project file.#
+`pom.xml`
+----
+
+Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
+enables the GraphQL annotations used to develop the application. 
+
+[role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the server configuration file.#
 `src/main/liberty/config/server.xml`
 ----
 
-Finally, adding the [hotspot=graphql file=0]`mpGraphQL` feature to the [hotspot file=0]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
+Finally, adding the [hotspot=graphql file=1]`mpGraphQL` feature to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
 
 // file 0
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/pom.xml[]
+----
+
+// file 1
 server.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
