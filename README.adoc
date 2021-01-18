@@ -40,7 +40,7 @@ A JSON object is returned, containing only the data and properties specified.
 
 This is beneficial when dealing with large resources or ones that contain properties that are expensive to calculate. 
 By returning only the requested properties, GraphQL reduces the size of the responses. 
-For resources that contain properties that are expensive to calculate such as other nested resources, 
+For resources that contain properties that are expensive to calculate, such as other nested resources, 
 GraphQL reduces processing time by only calculating them if requested. 
 
 You can learn more about GraphQL at https://graphql.org/[the GraphQL website^].
@@ -93,7 +93,7 @@ Any of these properties can also be marked with the [hotspot=nonnull file=0]`@No
 All data types in GraphQL are nullable by default.
 The [hotspot=nonnull file=0]`@NonNull` annotation marks a property as non-nullable. 
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
-Setter functions are supported, but are not used in this example application, 
+While none are used here, setter functions are also supported.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -141,7 +141,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.ja
 == Implementing GraphQL resolvers
 
 Resolvers are functions that provide instructions for GraphQL operations.
-We will implement resolvers for `query` operations and `mutation` operation types.
+We'll implement resolvers for the `query` and `mutation` operation types.
 The `query` operation type is read-only and fetches data.
 The `mutation` operation type can create, delete, or modify data. 
 
