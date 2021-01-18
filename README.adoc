@@ -33,14 +33,15 @@ Explore how to use GraphQL to access and manipulate data using Microprofile Grap
 You will learn how to build and test a simple GraphQL service with Microprofile GraphQL. 
 
 GraphQL is an open source data query and manipulation language. 
-GraphQL responds to `POST` requests made to a single endpoint. 
-Each request contains descriptions of the operation the user will want to execute.
+Unlike REST APIs, `POST` requests going to a GraphQL service all go to a single endpoint.
+Operations and their details are differentiated by the contents of the `POST` request.
 If the operation returns data, the user will also specify what properties of the data they want returned. 
-All data is returned as a JSON object. 
+A JSON object is returned, containing only the data and properties specified.
 
 This is beneficial when dealing with large resources or ones that contain properties that are expensive to calculate. 
 By returning only the requested properties, GraphQL reduces the size of the responses. 
-For resources that contain properties that are expensive to calculate such as other nested resources, GraphQL reduces processing time by only calculating them if requested. 
+For resources that contain properties that are expensive to calculate such as other nested resources, 
+GraphQL reduces processing time by only calculating them if requested. 
 
 You can learn more about GraphQL at https://graphql.org/[the GraphQL website^].
 
@@ -92,6 +93,7 @@ Any of these properties can also be marked with the [hotspot=nonnull file=0]`@No
 All data types in GraphQL are nullable by default.
 The [hotspot=nonnull file=0]`@NonNull` annotation marks a property as non-nullable. 
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
+Setter functions are supported, but are not used in this example application, 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -100,7 +102,8 @@ The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getV
 ----
 
 The [hotspot file=1]`OperatingSystem.java` file will be set up similarly.
-It will describe the operating system running on the computer the application is running on. 
+It maps to the `OperatingSystem` object type.
+This will describe the operating system used on the computer the application is running on. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -110,9 +113,9 @@ It will describe the operating system running on the computer the application is
 
 The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
 It will describe overall information about the computer the application is running on.
-This object type will include the [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` objects as nested objects.
+This object type will include the [hotspot file=1]`OperatingSystem` and [hotspot file=0]`Java` object types as nested objects.
 Notice that [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` don't have properties or getter functions included in [hotspot file=2]`SystemInfo.java`.
-They'll instead be added as part of implementing the resolver functions.
+They'll instead be added as part of the implementation of the resolver function for the [hotspot file=2]`System` object type.
 
 // file 0
 JavaInfo.java
@@ -137,7 +140,10 @@ include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.ja
 
 == Implementing GraphQL resolvers
 
-Resolvers are functions that will define what operations can be performed to retrieve or modify data. 
+Resolvers are functions that provide instructions for GraphQL operations.
+We will implement resolvers for `query` operations and `mutation` operation types.
+The `query` operation type is read-only and fetches data.
+The `mutation` operation type can create, delete, or modify data. 
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -148,16 +154,18 @@ Resolvers are functions that will define what operations can be performed to ret
 The resolvers are defined in the [hotspot file=0]`SystemResource.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation makes it so that GraphQL will use the methods defined in this class as resolvers. 
 
-The [hotspot=query file=0]`@Query` annotation maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests. 
+The [hotspot=query file=0]`@Query` annotation maps functions to operations of the `query` type.
+Here it maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests, retrieving the `System` object type. 
 
-The [hotspot=mutation file=0]`@Mutation` annotation maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` requests. 
+The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
+Here it maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` requests. 
 The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes inputs for the mutation request. 
 Here the input will determine a note to write into the system properties. 
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which gives the description to be used for the schema. 
+Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
-Here it adds [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` objects as properties 
+Here it adds [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` object types as properties 
 to the `SystemInfo` object that is returned for the `system` request defined earlier by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or look up.
 These properties will only be calculated or looked up if requested, saving server time and resources. 
