@@ -72,8 +72,8 @@ Navigate to the `start` directory to begin.
 [role='command']
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
-Object types define the structure of the data that can be returned by GraphQL. 
-Object types are defined using various annotations added to Java classes, their properties, and their methods. 
+You'll create create three object types to define the structure of the data returned by GraphQL.
+You'll apply various annotations to the properties and declaration of a Java class to define an object type.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
