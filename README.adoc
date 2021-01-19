@@ -9,7 +9,7 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2021-01-21
+:page-releasedate: 2021-01-29
 :page-essential: false
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
@@ -180,6 +180,8 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Enabling GraphQL
 
+To use GraphQL, the Microprofile GraphQL dependencies and features need to be included. 
+
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the Maven project file.#
@@ -189,13 +191,16 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
 enables the GraphQL annotations used to develop the application. 
 
+The Open Liberty server needs to be configured to support the GraphQL query language. 
+
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the server configuration file.#
 `src/main/liberty/config/server.xml`
 ----
 
-Finally, adding the [hotspot=graphql file=1]`mpGraphQL` feature to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
+The https://openliberty.io/docs/20.0.0.12/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
+added to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
 
 // file 0
 pom.xml
