@@ -20,7 +20,7 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("Java")
+@Type("java")
 // end::type[]
 // tag::description[]
 @Description("Information about a Java installation")

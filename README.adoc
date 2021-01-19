@@ -81,14 +81,14 @@ You'll apply various annotations to the properties and declaration of a Java cla
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
-The [hotspot file=0]`JavaInfo.java` file will define the `Java` object type in GraphQL.
+The [hotspot file=0]`JavaInfo.java` file will define the `java` object type in GraphQL.
 This object type will describe information about the system's Java installation. 
-The [hotspot=type file=0]`@Type` annotation maps the [hotspot file=0]`JavaInfo.java` file to defining the `Java` object type in GraphQL. 
+The [hotspot=type file=0]`@Type` annotation maps the [hotspot file=0]`JavaInfo.java` file to defining the `java` object type in GraphQL. 
 
-The [hotspot=description file=0]`@Description` annotation gives a description to the `Java` object type in GraphQL.
+The [hotspot=description file=0]`@Description` annotation gives a description to the [hotspot file=0]`java` object type in GraphQL.
 This is what will appear in the schema and the documentation.  
 
-The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `Java` object type in GraphQL. 
+The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `java` object type in GraphQL. 
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
@@ -112,9 +112,9 @@ This will describe the operating system used on the computer the application is 
 
 The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
 It will describe overall information about the computer the application is running on.
-This object type will include the [hotspot file=1]`OperatingSystem` and [hotspot file=0]`Java` object types as nested objects.
-Notice that [hotspot file=1]`OperatingSystem` and [hotspot file=0]`JavaInfo` don't have properties or getter functions included in [hotspot file=2]`SystemInfo.java`.
-They'll instead be added as part of the implementation of the resolver function for the [hotspot file=2]`System` object type.
+This object type will include the [hotspot file=1]`operatingSystem` and [hotspot file=0]`java` object types as nested objects.
+Notice that [hotspot file=1]`operatingSystem` and [hotspot file=0]`java` don't have properties or getter functions included in [hotspot file=2]`SystemInfo.java`.
+They'll instead be added as part of the implementation of the resolver function for the [hotspot file=2]`system` object type.
 
 // file 0
 JavaInfo.java
@@ -154,7 +154,7 @@ The resolvers are defined in the [hotspot file=0]`SystemResource.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation makes it so that GraphQL will use the methods defined in this class as resolvers. 
 
 The [hotspot=query file=0]`@Query` annotation maps functions to operations of the `query` type.
-Here it maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests, retrieving the `System` object type. 
+Here it maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests, retrieving the `system` object type. 
 
 The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
 Here it maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` requests. 
@@ -164,11 +164,11 @@ Here the input will determine a note to write into the system properties.
 Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
-Here it adds [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` object types as properties 
+Here it adds [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem` object types as properties 
 to the `SystemInfo` object that is returned for the `system` request defined earlier by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or look up.
 These properties will only be calculated or looked up if requested, saving server time and resources. 
-Here it's used to add the [hotspot=javaFunction file=0]`JavaInfo` and [hotspot=os file=0]`OperatingSystem` object types as nested objects. 
+Here it's used to add the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem` object types as nested objects. 
 
 // file 0
 SystemResource.java

@@ -20,7 +20,7 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.graphql.Type;
 
-@Type("System")
+@Type("system")
 @Description("Information about a single system")
 public class SystemInfo {
 
