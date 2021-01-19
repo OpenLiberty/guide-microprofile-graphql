@@ -50,10 +50,9 @@ The operations you'll implement will be a simple `query` operation and a `mutati
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
 
-Included with the application is a service called GraphiQL. 
-GraphiQL is a webpage served by the Open Liberty server and can be used to aid development and testing of the service.
-GraphiQL allows you to easily make `POST` requests to the GraphQL service and see the responses.
-In GraphiQL you only need to type the body of the `POST` request, which can simplify manual tests. 
+Manual testing of the application will be done using GraphiQL, which is included in the project.
+GraphiQL is a webpage that allows you to easily make `POST` requests to the GraphQL service and see the responses.
+In GraphiQL you only need to type the body of the `POST` request, streamlining manual tests. 
 You're also able to view a history of your previous requests and repeat any of them.
 
 ///////////////////////////
