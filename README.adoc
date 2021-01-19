@@ -99,9 +99,9 @@ If needed, setter functions are also supported.
 `src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
 ----
 
-The [hotspot file=1]`OperatingSystem.java` file will be set up similarly.
-It maps to the `OperatingSystem` object type.
-This will describe the operating system used on the computer the application is running on. 
+The [hotspot file=1]`OperatingSystem.java` file is set up similarly.
+It maps to the `operatingSystem` object type.
+This will describe the operating system's information. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
