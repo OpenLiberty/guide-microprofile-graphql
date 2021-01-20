@@ -114,9 +114,9 @@ You'll apply various annotations to the properties and declaration of a Java cla
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
-The [hotspot file=0]`JavaInfo.java` file will define the `java` object type in GraphQL.
-This object type will describe information about the system's Java installation. 
-The [hotspot=type file=0]`@Type` annotation maps the [hotspot file=0]`JavaInfo.java` file to defining the `java` object type in GraphQL. 
+The [hotspot file=0]`JavaInfo` class is annotated with an [hotspot=type file=0]`@Type` annotation. 
+The [hotspot=type file=0]`@Type` annotation maps this class to define the `java` object type in GraphQL.
+The `java` object type will give information on the system's Java installation. 
 
 The [hotspot=description file=0]`@Description` annotation gives a description to the [hotspot file=0]`java` object type in GraphQL.
 This is what will appear in the schema and the documentation.  
