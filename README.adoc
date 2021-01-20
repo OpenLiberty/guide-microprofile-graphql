@@ -134,8 +134,7 @@ If needed, setter functions are also supported.
 ----
 
 The [hotspot file=1]`OperatingSystem.java` file is set up similarly.
-It maps to the `operatingSystem` object type.
-This will describe the operating system's information. 
+It maps to the `operatingSystem` object type, which describes the operating system's information. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -144,7 +143,7 @@ This will describe the operating system's information.
 ----
 
 The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
-It will describe overall information about the computer the application is running on.
+It maps to the `system` object type, which describes other information Java can retrieve from the system properties.
 
 The `java` and `operatingSystem` object types will be used as nested objects within the `system` object type.
 However, nested objects and other properties that are expensive to calculate or retrieve are not included in an object type's class. 
