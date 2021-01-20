@@ -73,19 +73,19 @@ Access the application through GraphiQL at the http://localhost:9080/graphiql.ht
 Enter the following `query` operation into the input box on the left. 
 
 [role='command']
----
+----
 query {
   system {
     username
   }
 }
----
+----
 
 Press `CTRL+enter` to execute your `query` operation. 
 The output will appear in the text box on the right, and will be similar to the following:
 
 [role='no_copy']
----
+----
 {
   "data": {
     "system": {
@@ -93,7 +93,7 @@ The output will appear in the text box on the right, and will be similar to the 
     }
   }
 }
----
+----
 
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
