@@ -81,7 +81,7 @@ query {
 }
 ----
 
-Press `CTRL+enter` to execute your `query` operation. 
+Press `CTRL+enter` to run your `query` operation. 
 The output will appear in the text box on the right, and will be similar to the following:
 
 [role='no_copy']
@@ -105,7 +105,7 @@ Navigate to the `start` directory to begin.
 [role='command']
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
-You'll create create three object types to define the structure of the data returned by GraphQL.
+You'll create three object types to define the structure of the data returned by GraphQL.
 You'll apply various annotations to the properties and declaration of a Java class to define an object type.
 
 [role="code_command hotspot file=0", subs="quotes"]
@@ -119,7 +119,7 @@ The [hotspot=type file=0]`@Type` annotation maps this class to define the `java`
 The `java` object type will give information on the system's Java installation. 
 
 The [hotspot=description file=0]`@Description` annotation gives a description to the [hotspot file=0]`java` object type in GraphQL.
-This is what will appear in the schema and the documentation.  
+This description is what will appear in the schema and the documentation. 
 
 The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `java` object type in GraphQL. 
 All data types in GraphQL are nullable by default.
@@ -192,7 +192,7 @@ Here the [hotspot=query file=0]`@Query` annotation maps the [hotspot=getSystemIn
 The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
 Here the [hotspot=mutation file=0]`@Mutation` annotation maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` operations. 
 The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes what inputs will be used for the operation.
-Here, there is just one input `note` for the note to write into the system properties.
+Here, there's just one input `note` for the note to write into the system properties.
 
 Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
 
@@ -255,7 +255,7 @@ GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
 Queries made through GraphiQL will be the same as queries made through `POST` requests. 
 
-In GraphiQL you can view the application documentation by clicking `Docs`. 
+In GraphiQL, you can view the application documentation by clicking `Docs`. 
 The documentation will describe the GraphQL schema.
 The schema gives details on the various operations available and descriptions of them. 
 If any data types are mentioned, you'll also be able to see descriptions of them and the fields contained within them if applicable. 
