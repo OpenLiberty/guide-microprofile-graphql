@@ -198,7 +198,7 @@ Each resolver function has an [hotspot=description1 hotspot=description2 file=0]
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
 Here the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation adds [hotspot=javaFunction file=0]`java` 
-and [hotspot=os file=0]`operatingSystem` object types as properties of the system information.
+and [hotspot=os file=0]`operatingSystem` object types as properties of the `system` object type.
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or look up.
 These properties will only be calculated or looked up if requested, saving server time and resources.
 
