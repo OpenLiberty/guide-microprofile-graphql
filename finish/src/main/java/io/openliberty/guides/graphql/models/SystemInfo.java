@@ -24,6 +24,7 @@ import org.eclipse.microprofile.graphql.Type;
 @Type("system")
 // end::type[]
 @Description("Information about a single system")
+// tag::class[]
 public class SystemInfo {
 
     @Name("timezone")
@@ -59,3 +60,4 @@ public class SystemInfo {
     }
 
 }
+// end::class[]

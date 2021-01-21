@@ -25,6 +25,7 @@ import org.eclipse.microprofile.graphql.Type;
 // tag::description[]
 @Description("Information about an operating system")
 // end::description[]
+// tag::class[]
 public class OperatingSystem {
 
     @NonNull
@@ -58,3 +59,4 @@ public class OperatingSystem {
     }
 
 }
+// end::class[]

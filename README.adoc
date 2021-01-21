@@ -133,7 +133,7 @@ If needed, setter functions are also supported and will be automatically mapped.
 `src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
 ----
 
-The [hotspot file=1]`OperatingSystem.java` file is set up similarly.
+The [hotspot=class file=1]`OperatingSystem` class is set up similarly.
 It maps to the [hotspot=type file=1]`operatingSystem` object type, which describes the operating system's information. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
@@ -142,7 +142,7 @@ It maps to the [hotspot=type file=1]`operatingSystem` object type, which describ
 `src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
+The [hotspot=class file=2]`SystemInfo` class is similar to the previous two files. 
 It maps to the [hotspot=type file=2]`system` object type, which describes other information Java can retrieve from the system properties.
 
 The `java` and `operatingSystem` object types will be used as nested objects within the `system` object type.
