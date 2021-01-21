@@ -267,15 +267,8 @@ Run the following `query` operation to get every system property by entering it 
 ----
 query {
   system {
-    java {
-      vendor
-      version
-    }
-    operatingSystem {
-      arch
-      version
-      name
-    }
+    java { vendor version }
+    operatingSystem { arch version name }
     username
     timezone
   }
