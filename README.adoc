@@ -114,18 +114,18 @@ You'll apply various annotations to the properties and declaration of a Java cla
 `src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
-The [hotspot file=0]`JavaInfo` class is annotated with an [hotspot=type file=0]`@Type` annotation. 
-The [hotspot=type file=0]`@Type` annotation maps this class to define the `java` object type in GraphQL.
+The [hotspot=class file=0]`JavaInfo` class is annotated with an `@Type` annotation. 
+The [hotspot=type file=0]`@Type("java")` annotation maps this class to define the `java` object type in GraphQL.
 The `java` object type will give information on the system's Java installation. 
 
-The [hotspot=description file=0]`@Description` annotation gives a description to the [hotspot file=0]`java` object type in GraphQL.
+The [hotspot=description file=0]`@Description` annotation gives a description to the [hotspot=class file=0]`java` object type in GraphQL.
 This description is what will appear in the schema and the documentation. 
 
 The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `java` object type in GraphQL. 
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
-If needed, setter functions are also supported. 
+If needed, setter functions are also supported and will be automatically mapped. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -134,7 +134,7 @@ If needed, setter functions are also supported.
 ----
 
 The [hotspot file=1]`OperatingSystem.java` file is set up similarly.
-It maps to the `operatingSystem` object type, which describes the operating system's information. 
+It maps to the [hotspot=type file=1]`operatingSystem` object type, which describes the operating system's information. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -143,7 +143,7 @@ It maps to the `operatingSystem` object type, which describes the operating syst
 ----
 
 The [hotspot file=2]`SystemInfo.java` file is similar to the previous two files. 
-It maps to the `system` object type, which describes other information Java can retrieve from the system properties.
+It maps to the [hotspot=type file=2]`system` object type, which describes other information Java can retrieve from the system properties.
 
 The `java` and `operatingSystem` object types will be used as nested objects within the `system` object type.
 However, nested objects and other properties that are expensive to calculate or retrieve are not included in an object type's class. 

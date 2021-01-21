@@ -25,6 +25,7 @@ import org.eclipse.microprofile.graphql.Type;
 // tag::description[]
 @Description("Information about a Java installation")
 // end::description[]
+// tag::class[]
 public class JavaInfo {
 
     // tag::name1[]
@@ -58,3 +59,4 @@ public class JavaInfo {
     // end::getVersion[]
 
 }
+// end::class[]
