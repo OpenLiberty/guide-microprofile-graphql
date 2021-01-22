@@ -333,14 +333,6 @@ The response will be similar to the following:
 
 Notice that this time, only the `note` property is returned, as it was the only property in the request. 
 
-After you have finished trying your application, stop it by pressing `CTRL+C` in the command-line session where you ran the server. 
-Alternatively, run the following command in the `start` directory in another command-line-session.
-
-[role='command']
-----
-mvn liberty:stop
-----
-
 == Testing the application
 
 Manual tests can be done using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
