@@ -118,7 +118,7 @@ The [hotspot=class file=0]`JavaInfo` class is annotated with an `@Type` annotati
 The [hotspot=type file=0]`@Type("java")` annotation maps this class to define the `java` object type in GraphQL.
 The `java` object type will give information on the system's Java installation. 
 
-The [hotspot=description file=0]`@Description` annotation gives a description to the [hotspot=class file=0]`java` object type in GraphQL.
+The [hotspot=description file=0]`@Description` annotation gives a description to the `java` object type in GraphQL.
 This description is what will appear in the schema and the documentation. 
 
 The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `java` object type in GraphQL. 
