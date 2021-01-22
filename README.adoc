@@ -55,6 +55,8 @@ GraphiQL is a webpage that allows you to easily make `POST` requests to the Grap
 In GraphiQL you only need to type the body of the `POST` request, streamlining manual tests. 
 You're also able to view a history of your previous requests and repeat any of them.
 
+For more, check out https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL on Github^].
+
 ///////////////////////////
 // Getting started
 ///////////////////////////
