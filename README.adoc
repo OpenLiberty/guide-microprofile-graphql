@@ -45,7 +45,7 @@ GraphQL reduces processing time by only calculating them if requested.
 
 You can learn more about GraphQL at https://graphql.org/[the GraphQL website^].
 
-The service you'll create will respond to `POST` requests made to the `http://localhost:9080/graphql` URL. 
+The service you'll create will respond to `POST` requests made to the `\http://localhost:9080/graphql` URL. 
 The operations you'll implement will be a simple `query` operation and a `mutation` operation.
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
