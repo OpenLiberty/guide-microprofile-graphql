@@ -247,9 +247,12 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ----
 
-== Running the application
+///////////////////////////
+// Running the application
+///////////////////////////
 
-Because you started Open Liberty in dev mode, type `r` and press the `enter/return` key to restart the application.
+[role='command']
+include::{common-includes}/devmode-build.adoc[]
 
 GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
