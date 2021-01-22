@@ -1,5 +1,7 @@
 <server description="Sample Liberty server">
     <featureManager>
+        <feature>cdi-2.0</feature>
+        <feature>mpConfig-1.4</feature>
     </featureManager>
 
     <variable name="default.http.port" defaultValue="9080"/>
