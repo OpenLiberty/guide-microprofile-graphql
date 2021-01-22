@@ -3,7 +3,6 @@
         <!-- tag::graphql[] -->
         <feature>mpGraphQL-1.0</feature>
         <!-- end::graphql[] -->
-        <feature>cdi-2.0</feature>
     </featureManager>
 
     <variable name="default.http.port" defaultValue="9080"/>
