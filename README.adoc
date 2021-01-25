@@ -50,12 +50,10 @@ The operations you'll implement will be a simple `query` operation and a `mutati
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
 
-Manual testing of the application will be done using GraphiQL, which is included in the project.
+Manual testing of the application will be done using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
 GraphiQL is a webpage that allows you to easily make `POST` requests to the GraphQL service and see the responses.
 In GraphiQL you only need to type the body of the `POST` request, streamlining manual tests. 
 You're also able to view a history of your previous requests and repeat any of them.
-
-For more, check out https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL on GitHub^].
 
 ///////////////////////////
 // Getting started
