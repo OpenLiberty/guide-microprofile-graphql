@@ -17,8 +17,8 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-:page-seo-title: Accessing and manipulating data using Microprofile GraphQL in Open Liberty
-:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through Microprofile GraphQL
+:page-seo-title: Accessing and manipulating data using MicroProfile GraphQL in Open Liberty
+:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through MicroProfile GraphQL
 :guide-author: Open Liberty
 = Accessing and manipulating data with GraphQL
 
@@ -26,11 +26,11 @@
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to use GraphQL to access and manipulate data using Microprofile GraphQL on Open Liberty
+Explore how to use GraphQL to access and manipulate data using MicroProfile GraphQL on Open Liberty
 
 == What you'll learn
 
-You will learn how to build and test a simple GraphQL service with Microprofile GraphQL. 
+You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
 
 GraphQL is an open source data query and manipulation language. 
 Unlike REST APIs, `POST` requests going to a GraphQL service all go to a single endpoint.
@@ -211,7 +211,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Enabling GraphQL
 
-To use GraphQL, the Microprofile GraphQL dependencies and features need to be included. 
+To use GraphQL, the MicroProfile GraphQL dependencies and features need to be included. 
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -391,7 +391,7 @@ include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
-You just created a basic GraphQL service using Microprofile GraphQL in Open Liberty!
+You just created a basic GraphQL service using MicroProfile GraphQL in Open Liberty!
 
 include::{common-includes}/attribution.adoc[]
 
