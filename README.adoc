@@ -349,7 +349,7 @@ You'll write tests using JUnit to call the application server directly.
 `src/test/java/io/openliberty/guides/graphql/SystemIT.java`
 ----
 
-The [hotspot file=0]`SystemIT` class contains our test methods.
+The [hotspot file=0]`SystemIT` class contains the test methods.
 
 Each test is annotated with the [hotspot=test1 hotspot=test2 file=0]`@Test` annotation. 
 
