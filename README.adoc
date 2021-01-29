@@ -17,8 +17,8 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-:page-seo-title: Accessing and manipulating data using Microprofile GraphQL in Open Liberty
-:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through Microprofile GraphQL
+:page-seo-title: Accessing and manipulating data using MicroProfile GraphQL in Open Liberty
+:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through MicroProfile GraphQL
 :guide-author: Open Liberty
 = Accessing and manipulating data with GraphQL
 
@@ -26,24 +26,24 @@
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to use GraphQL to access and manipulate data using Microprofile GraphQL on Open Liberty
+Explore how to use GraphQL to access and manipulate data using MicroProfile GraphQL on Open Liberty
 
 == What you'll learn
 
-You will learn how to build and test a simple GraphQL service with Microprofile GraphQL. 
+You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
 
 GraphQL is an open source data query and manipulation language. 
 Unlike REST APIs, `POST` requests going to a GraphQL service all go to a single endpoint.
 Operations and their details are differentiated by the contents of the `POST` request.
 If the operation returns data, the user will also specify what properties of the data they want returned. 
-A JSON object is returned, containing only the data and properties specified.
+A JSON object is returned that contains only the data and properties specified.
 
 This is beneficial when dealing with large resources or ones that contain properties that are expensive to calculate. 
 By returning only the requested properties, GraphQL reduces the size of the responses. 
 For resources that contain properties that are expensive to calculate, such as other nested resources, 
 GraphQL reduces processing time by only calculating them if requested. 
 
-You can learn more about GraphQL at https://graphql.org/[the GraphQL website^].
+You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
 The service you'll create will respond to `POST` requests made to the `\http://localhost:9080/graphql` URL. 
 The operations you'll implement will be a simple `query` operation and a `mutation` operation.
@@ -211,7 +211,7 @@ include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[
 
 == Enabling GraphQL
 
-To use GraphQL, the Microprofile GraphQL dependencies and features need to be included. 
+To use GraphQL, the MicroProfile GraphQL dependencies and features need to be included. 
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -341,7 +341,7 @@ Notice that this time, only the `note` property is returned, as it was the only 
 Manual tests can be done using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
 However, automated tests are a better approach because they trigger a failure if a change introduces a bug.
 
-We'll write tests using JUnit to call the application server directly. 
+You'll write tests using JUnit to call the application server directly. 
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -349,7 +349,7 @@ We'll write tests using JUnit to call the application server directly.
 `src/test/java/io/openliberty/guides/graphql/SystemIT.java`
 ----
 
-The [hotspot file=0]`SystemIT` class contains our test methods.
+The [hotspot file=0]`SystemIT` class contains the test methods.
 
 Each test is annotated with the [hotspot=test1 hotspot=test2 file=0]`@Test` annotation. 
 
@@ -391,7 +391,7 @@ include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
-You just created a basic GraphQL service using Microprofile GraphQL in Open Liberty!
+You just created a basic GraphQL service using MicroProfile GraphQL in Open Liberty!
 
 include::{common-includes}/attribution.adoc[]
 
