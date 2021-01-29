@@ -66,11 +66,10 @@
       src="https://unpkg.com/graphiql/graphiql.min.js"
       type="application/javascript"
     ></script>
-    <script src="/renderExample.js" type="application/javascript"></script>
     <script>
       function graphQLFetcher(graphQLParams) {
         return fetch(
-          'https://swapi-graphql.netlify.com/.netlify/functions/index',
+          'graphql',
           {
             method: 'post',
             headers: {
