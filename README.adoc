@@ -120,6 +120,7 @@ The `java` object type will give information on the system's Java installation.
 
 The [hotspot=description file=0]`@Description` annotation gives a description to the `java` object type in GraphQL.
 This description is what will appear in the schema and the documentation. 
+Descriptions aren't required, but it's good practice to include them. 
 
 The [hotspot=name file=0]`@Name` annotation maps the `vendor` property to the `vendorName` property of the `java` object type in GraphQL. 
 The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object to a property of a different name in the GraphQL object type.
@@ -198,6 +199,7 @@ The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes wh
 Here, there's just one input `note` for the note to write into the system properties.
 
 Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
+Descriptions aren't required, but it's good practice to include. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
 Here the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation adds [hotspot=javaFunction file=0]`java` 
