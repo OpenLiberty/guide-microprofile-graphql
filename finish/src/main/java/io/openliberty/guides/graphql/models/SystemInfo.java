@@ -36,7 +36,7 @@ public class SystemInfo {
         super();
     }
 
-    public SystemInfo(Properties systemProperties) {
+    public SystemInfo(final Properties systemProperties) {
         this.username = systemProperties.getProperty("user.name");
         this.timezone = systemProperties.getProperty("user.timezone");
         this.note = systemProperties.getProperty("note");

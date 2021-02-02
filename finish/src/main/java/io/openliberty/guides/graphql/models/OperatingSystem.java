@@ -36,7 +36,7 @@ public class OperatingSystem {
     @NonNull
     private String version;
 
-    public OperatingSystem(Properties systemProperties) {
+    public OperatingSystem(final Properties systemProperties) {
         this.arch = systemProperties.getProperty("os.arch");
         this.name = systemProperties.getProperty("os.name");
         this.version = systemProperties.getProperty("os.version");

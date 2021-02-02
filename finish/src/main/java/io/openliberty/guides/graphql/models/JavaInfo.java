@@ -38,7 +38,7 @@ public class JavaInfo {
     // end::nonnull[]
     private String version;
 
-    public JavaInfo(Properties systemProperties) {
+    public JavaInfo(final Properties systemProperties) {
         this.version = systemProperties.getProperty("java.version");
         this.vendor = systemProperties.getProperty("java.vendor");
     }
