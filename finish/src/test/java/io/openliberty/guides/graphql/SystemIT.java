@@ -98,13 +98,13 @@ public class SystemIT {
 
         HttpPost query = new HttpPost(url);
         StringEntity queryBody = new StringEntity(
-                "{ \"query\": " + 
-                    "\"query { " + 
-                        "system { " + 
-                            "note" + 
-                        "} " + 
-                    "}" +
-                "\"}", 
+                "{ \"query\": "
+                    + "\"query { "
+                        + "system { "
+                            + "note"
+                        + "} "
+                    + "}"
+                + "\"}",
                 ContentType.create("application/json",
                 Consts.UTF_8));
         query.setEntity(queryBody);
