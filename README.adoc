@@ -286,12 +286,12 @@ The output will be similar to the following:
   "data": {
     "system": {
       "java": {
-        "vendor": "Oracle Corporation",
-        "version": "11.0.7"
+        "vendor": "N/A",
+        "version": "13.0.2"
       },
       "operatingSystem": {
         "arch": "x86_64",
-        "version": "10.15.6",
+        "version": "10.15.7",
         "name": "Mac OS X"
       },
       "username": "admin",
