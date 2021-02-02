@@ -59,7 +59,7 @@ public class SystemIT {
                     "\"query { " + 
                         "system { " + 
                             "username timezone " +
-                            "java { version vendor } " +
+                            "java { version vendorName } " +
                             "operatingSystem {arch name version} " +
                         "} " +
                     "}" +
