@@ -15,9 +15,7 @@ package io.openliberty.guides.graphql.models;
 import java.util.Properties;
 
 import org.eclipse.microprofile.graphql.Description;
-import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
-import org.eclipse.microprofile.graphql.Source;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
@@ -37,7 +35,7 @@ public class SystemInfo {
     public SystemInfo() {
         super();
     }
-    
+
     public SystemInfo(Properties systemProperties) {
         this.username = systemProperties.getProperty("user.name");
         this.timezone = systemProperties.getProperty("user.timezone");

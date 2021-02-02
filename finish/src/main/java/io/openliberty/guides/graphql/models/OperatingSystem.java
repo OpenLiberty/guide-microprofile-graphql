@@ -15,7 +15,6 @@ package io.openliberty.guides.graphql.models;
 import java.util.Properties;
 
 import org.eclipse.microprofile.graphql.Description;
-import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
@@ -30,27 +29,27 @@ public class OperatingSystem {
 
     @NonNull
     private String arch;
-    
+
     @NonNull
     private String name;
-    
+
     @NonNull
     private String version;
-    
+
     public OperatingSystem(Properties systemProperties) {
         this.arch = systemProperties.getProperty("os.arch");
         this.name = systemProperties.getProperty("os.name");
         this.version = systemProperties.getProperty("os.version");
     }
-    
+
     public String getArch() {
         return this.arch;
     }
-    
+
     public String getName() {
         return this.name;
     }
-    
+
     public String getVersion() {
         return this.version;
     }
