@@ -9,7 +9,7 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2021-01-29
+:page-releasedate: 2021-02-28
 :page-essential: false
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
