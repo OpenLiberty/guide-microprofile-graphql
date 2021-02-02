@@ -29,15 +29,12 @@ import org.eclipse.microprofile.graphql.Type;
 public class OperatingSystem {
 
     @NonNull
-    @Name("arch")
     private String arch;
     
     @NonNull
-    @Name("name")
     private String name;
     
     @NonNull
-    @Name("version")
     private String version;
     
     public OperatingSystem(Properties systemProperties) {

@@ -28,17 +28,14 @@ import org.eclipse.microprofile.graphql.Type;
 // tag::class[]
 public class JavaInfo {
 
-    // tag::name1[]
-    @Name("vendor")
-    // end::name1[]
+    // tag::name[]
+    @Name("vendorName")
+    // end::name[]
     private String vendor;
 
     // tag::nonnull[]
     @NonNull
     // end::nonnull[]
-    // tag::name2[]
-    @Name("version")
-    // end::name2[]
     private String version;
 
     public JavaInfo(Properties systemProperties) {

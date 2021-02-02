@@ -27,14 +27,11 @@ import org.eclipse.microprofile.graphql.Type;
 // tag::class[]
 public class SystemInfo {
 
-    @Name("timezone")
     private String timezone;
 
     @NonNull
-    @Name("username")
     private String username;
 
-    @Name("note")
     private String note;
 
     public SystemInfo() {

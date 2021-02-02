@@ -121,7 +121,10 @@ The `java` object type will give information on the system's Java installation.
 The [hotspot=description file=0]`@Description` annotation gives a description to the `java` object type in GraphQL.
 This description is what will appear in the schema and the documentation. 
 
-The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `java` object type in GraphQL. 
+The [hotspot=name file=0]`@Name` annotation maps the `vendor` property to the `vendorName` property of the `java` object type in GraphQL. 
+The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object to a property of a different name in the GraphQL object type.
+Without an [hotspot=name file=0]`@Name` annotation the Java object property will be automatically mapped to a GraphQL object type property of the same name. 
+
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
