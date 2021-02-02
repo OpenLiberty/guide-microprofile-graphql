@@ -35,17 +35,17 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
-    
-    private static String URL;
-    
+
+    private static String url;
+
     @BeforeAll
     public static void setUp() {
         // tag::client[]
         String port = System.getProperty("http.port");
-        URL = "http://localhost:" + port + "/graphql";
+        url = "http://localhost:" + port + "/graphql";
         // end::client[]
     }
-    
+
     // tag::test1[]
     @Test
     // end::test1[]
@@ -53,26 +53,26 @@ public class SystemIT {
     // tag::testGet[]
     public void testGetSystem() throws ClientProtocolException, IOException {
         HttpClient httpClient = HttpClients.createDefault();
-        HttpPost post = new HttpPost(URL);
+        HttpPost post = new HttpPost(url);
         StringEntity entity = new StringEntity(
-                "{ \"query\": " + 
-                    "\"query { " + 
-                        "system { " + 
-                            "username timezone " +
-                            "java { version vendorName } " +
-                            "operatingSystem {arch name version} " +
-                        "} " +
-                    "}" +
-                "\"}", 
+                "{ \"query\": "
+                    + "\"query { "
+                        + "system { "
+                            + "username timezone "
+                            + "java { version vendorName } "
+                            + "operatingSystem {arch name version} "
+                        + "} "
+                    + "}"
+                + "\"}",
                 ContentType.create("application/json", Consts.UTF_8));
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
         assertNotNull(response.getEntity(), "No system info received");
-        assertFalse(EntityUtils.toString(response.getEntity()).contains("error"), 
+        assertFalse(EntityUtils.toString(response.getEntity()).contains("error"),
                 "Response has errors");
     }
     // end::testGet[]
-    
+
     // tag::test2[]
     @Test
     // end::test2[]
@@ -81,23 +81,22 @@ public class SystemIT {
     public void testEditNote() throws ClientProtocolException, IOException {
         String expectedNote = "Time: " + System.currentTimeMillis();
         HttpClient httpClient = HttpClients.createDefault();
-        HttpPost mutation = new HttpPost(URL);
+        HttpPost mutation = new HttpPost(url);
         StringEntity mutationBody = new StringEntity(
-                "{ \"query\": " +
-                    "\"mutation ($noteArg: String!) {" +
-                        "editNote(note: $noteArg)" +
-                    "}\", " +
-                    "\"variables\": {\"" +
-                        "noteArg\": \""+ expectedNote +"\"" +
-                    "}" +
-                "}", 
-                ContentType.create("application/json", 
-                Consts.UTF_8));
+                "{ \"query\": "
+                    + "\"mutation ($noteArg: String!) {"
+                        + "editNote(note: $noteArg)"
+                    + "}\", "
+                    + "\"variables\": {\""
+                        + "noteArg\": \"" + expectedNote + "\""
+                    + "}"
+                + "}",
+                ContentType.create("application/json", Consts.UTF_8));
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
         assertNotNull(mutateResponse.getEntity());
-        
-        HttpPost query = new HttpPost(URL);
+
+        HttpPost query = new HttpPost(url);
         StringEntity queryBody = new StringEntity(
                 "{ \"query\": " + 
                     "\"query { " + 
@@ -106,12 +105,13 @@ public class SystemIT {
                         "} " + 
                     "}" +
                 "\"}", 
-                ContentType.create("application/json", 
+                ContentType.create("application/json",
                 Consts.UTF_8));
         query.setEntity(queryBody);
         HttpResponse queryResponse = httpClient.execute(query);
         assertNotNull(queryResponse.getEntity(), "No system info received");
-        assertTrue(EntityUtils.toString(queryResponse.getEntity()).contains(expectedNote), 
+        assertTrue(
+                EntityUtils.toString(queryResponse.getEntity()).contains(expectedNote),
                 "Response does not contain expected note");
     }
     // end::testEdit[]
