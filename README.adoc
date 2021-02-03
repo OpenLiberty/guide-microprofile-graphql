@@ -9,10 +9,10 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2021-01-29
+:page-releasedate: 2021-02-28
 :page-essential: false
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
-:page-tags: ['MicroProfile', 'Java EE', 'Jakarta EE']
+:page-tags: ['MicroProfile', 'Jakarta EE']
 :page-related-guides: ['rest-intro', 'jpa-intro', 'mongodb-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
@@ -33,8 +33,8 @@ Explore how to use GraphQL to access and manipulate data using MicroProfile Grap
 You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
 
 GraphQL is an open source data query and manipulation language. 
-Unlike REST APIs, `POST` requests going to a GraphQL service all go to a single endpoint.
-Operations and their details are differentiated by the contents of the `POST` request.
+Unlike REST APIs, `POST` requests going to a GraphQL service all go to a single HTTP endpoint.
+Operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user will also specify what properties of the data they want returned. 
 A JSON object is returned that contains only the data and properties specified.
 
@@ -45,14 +45,14 @@ GraphQL reduces processing time by only calculating them if requested.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-The service you'll create will respond to `POST` requests made to the `\http://localhost:9080/graphql` URL. 
+The service you'll create will respond to requests made to the `\http://localhost:9080/graphql` URL. 
 The operations you'll implement will be a simple `query` operation and a `mutation` operation.
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
 
 Manual testing of the application will be done using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
-GraphiQL is a webpage that allows you to easily make `POST` requests to the GraphQL service and see the responses.
-In GraphiQL you only need to type the body of the `POST` request, streamlining manual tests. 
+GraphiQL is a webpage that allows you to easily make requests to the GraphQL service and see the responses.
+In GraphiQL you only need to type the body of the request, streamlining manual tests. 
 You're also able to view a history of your previous requests and repeat any of them.
 
 ///////////////////////////
@@ -120,11 +120,17 @@ The `java` object type will give information on the system's Java installation.
 
 The [hotspot=description file=0]`@Description` annotation gives a description to the `java` object type in GraphQL.
 This description is what will appear in the schema and the documentation. 
+Descriptions aren't required, but it's good practice to include them. 
 
-The [hotspot=name1 hotspot=name2 file=0]`@Name` annotations map their respective properties to properties of the `java` object type in GraphQL. 
+The [hotspot=name file=0]`@Name` annotation maps the `vendor` property to the `vendorName` property of the `java` object type in GraphQL. 
+The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object to a property of a different name in the GraphQL object type.
+Without an [hotspot=name file=0]`@Name` annotation, the Java object property will be automatically 
+mapped to a GraphQL object type property of the same name. 
+
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
-The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions will automatically be mapped to retrieve their respective properties in GraphQL. 
+The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions 
+will automatically be mapped to retrieve their respective properties in GraphQL. 
 If needed, setter functions are also supported and will be automatically mapped. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
@@ -195,6 +201,7 @@ The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes wh
 Here, there's just one input `note` for the note to write into the system properties.
 
 Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
+Descriptions aren't required, but it's good practice to include. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
 Here the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation adds [hotspot=javaFunction file=0]`java` 
@@ -256,7 +263,7 @@ include::{common-includes}/devmode-build.adoc[]
 
 GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-Queries made through GraphiQL will be the same as queries made through `POST` requests. 
+Queries made through GraphiQL will be the same as queries made through HTTP requests. 
 
 In GraphiQL, you can view the application documentation by clicking `Docs`. 
 The documentation will describe the GraphQL schema.
@@ -286,12 +293,12 @@ The output will be similar to the following:
   "data": {
     "system": {
       "java": {
-        "vendor": "Oracle Corporation",
-        "version": "11.0.7"
+        "vendor": "N/A",
+        "version": "13.0.2"
       },
       "operatingSystem": {
         "arch": "x86_64",
-        "version": "10.15.6",
+        "version": "10.15.7",
         "name": "Mac OS X"
       },
       "username": "admin",
