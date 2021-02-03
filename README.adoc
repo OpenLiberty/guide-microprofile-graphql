@@ -124,7 +124,8 @@ Descriptions aren't required, but it's good practice to include them.
 
 The [hotspot=name file=0]`@Name` annotation maps the `vendor` property to the `vendorName` property of the `java` object type in GraphQL. 
 The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object to a property of a different name in the GraphQL object type.
-Without an [hotspot=name file=0]`@Name` annotation the Java object property will be automatically mapped to a GraphQL object type property of the same name. 
+Without an [hotspot=name file=0]`@Name` annotation, the Java object property will be automatically 
+mapped to a GraphQL object type property of the same name. 
 
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
