@@ -277,7 +277,7 @@ Run the following `query` operation to get every system property by entering it 
 ----
 query {
   system {
-    java { vendor version }
+    java { vendorName version }
     operatingSystem { arch version name }
     username
     timezone
@@ -293,7 +293,7 @@ The output will be similar to the following:
   "data": {
     "system": {
       "java": {
-        "vendor": "N/A",
+        "vendorName": "N/A",
         "version": "13.0.2"
       },
       "operatingSystem": {
