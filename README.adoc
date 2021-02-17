@@ -32,27 +32,29 @@ Explore how to use GraphQL to access and manipulate data using MicroProfile Grap
 
 You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
 
-GraphQL is an open source data query and manipulation language. 
-Unlike REST APIs, `POST` requests going to a GraphQL service all go to a single HTTP endpoint.
-Operations and their details are differentiated by the contents of the request.
-If the operation returns data, the user will also specify what properties of the data they want returned. 
-A JSON object is returned that contains only the data and properties specified.
+GraphQL is an open source data query language. 
+Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
+CRUD operations and their details are differentiated by the contents of the request.
+If the operation returns data, the user will also specify what properties of the data that they want returned. 
+For read operations, a JSON object is returned that contains only the data and properties specified.
+For other operations, a JSON object may be returned containing information such as a success message. 
 
-This is beneficial when dealing with large resources or ones that contain properties that are expensive to calculate. 
+The returning of only the specified properties in a read operation is beneficial when you deal 
+with large resources or resources that contain properties that are expensive to calculate. 
 By returning only the requested properties, GraphQL reduces the size of the responses. 
 For resources that contain properties that are expensive to calculate, such as other nested resources, 
-GraphQL reduces processing time by only calculating them if requested. 
+GraphQL reduces processing time by calculating them only if requested. 
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-The service you'll create will respond to requests made to the `\http://localhost:9080/graphql` URL. 
-The operations you'll implement will be a simple `query` operation and a `mutation` operation.
+The service that you'll create will respond to requests that are made to the `\http://localhost:9080/graphql` URL. 
+The operations that you'll implement will be a simple `query` operation and a `mutation` operation.
 The `query` operation will return system information.
 The `mutation` operation will save a note of your choice into the system information. 
 
-Manual testing of the application will be done using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
+Manual testing of the application will be done by using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
 GraphiQL is a webpage that allows you to easily make requests to the GraphQL service and see the responses.
-In GraphiQL you only need to type the body of the request, streamlining manual tests. 
+In GraphiQL you need to type only the body of the request, which streamlines manual tests.
 You're also able to view a history of your previous requests and repeat any of them.
 
 ///////////////////////////
