@@ -264,15 +264,15 @@ include::{common-includes}/devmode-build.adoc[]
 
 GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-Queries made through GraphiQL will be the same as queries made through HTTP requests. 
+Queries made through GraphiQL are the same as queries made through HTTP requests. 
 
 In GraphiQL, you can view the application documentation by clicking `Docs`. 
-The documentation will describe the GraphQL schema.
-The schema gives details on the various operations available and descriptions of them. 
-If any data types are mentioned, you'll also be able to see descriptions of them and the fields contained within them if applicable. 
-The schema will also be visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+The documentation describes the GraphQL schema.
+The schema gives details on the various operations available. 
+If any data types are mentioned, you can also see descriptions of them and the fields that are contained within them if applicable. 
+The schema is also visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
 
-Run the following `query` operation to get every system property by entering it into GraphiQL. 
+Run the following `query` operation in GraphiQL to get every system property. 
 
 [role='command']
 ----
@@ -286,7 +286,7 @@ query {
 }
 ----
 
-The output will be similar to the following:
+The output will be similar to the following example:
 
 [role='no_copy']
 ----
@@ -317,8 +317,8 @@ mutation {
 }
 ----
 
-You'll receive a response containing the boolean `true` to let you know that the request was successfully processed.
-You can see the note you added by running the following query operation.
+You receive a response containing the boolean `true` to let you know that the request was successfully processed.
+You can see the note that you added by running the following query operation.
 
 [role='command']
 ----
@@ -329,7 +329,7 @@ query {
 }
 ----
 
-The response will be similar to the following:
+The response is similar to the following example:
 
 [role='no_copy']
 ----
@@ -342,7 +342,7 @@ The response will be similar to the following:
 }
 ----
 
-Notice that this time, only the `note` property is returned, as it was the only property in the request. 
+Notice that only the `note` property is returned, as it was the only property in the request. 
 
 == Testing the application
 
