@@ -106,8 +106,8 @@ Navigate to the `start` directory to begin.
 [role='command']
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
-You'll create three object types to define the structure of the data returned by GraphQL.
-You can also apply various annotations to the properties and declaration of a Java class to define an object type.
+Object types define the structure of the data returned by GraphQL. 
+Annotations applied to the declaration and properties of Java classes define object types.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -180,7 +180,8 @@ include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.ja
 == Implementing GraphQL resolvers
 
 Resolvers are functions that provide instructions for GraphQL operations.
-We'll implement resolvers for the `query` and `mutation` operation types.
+Each operation requires a corresponding resolver.
+This guide contains an example of a `query` operation, and a `mutation` operation. 
 The `query` operation type is read-only and fetches data.
 The `mutation` operation type can create, delete, or modify data. 
 
