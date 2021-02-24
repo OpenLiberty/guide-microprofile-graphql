@@ -107,7 +107,7 @@ Navigate to the `start` directory to begin.
 include::{common-includes}/devmode-lmp33-start.adoc[]
 
 Object types define the structure of the data returned by GraphQL. 
-Annotations applied to the declaration and properties of Java classes define object types.
+Annotations that are applied to the declaration and properties of Java classes define object types.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -181,7 +181,6 @@ include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.ja
 
 Resolvers are functions that provide instructions for GraphQL operations.
 Each operation requires a corresponding resolver.
-This guide contains an example of a `query` operation, and a `mutation` operation. 
 The `query` operation type is read-only and fetches data.
 The `mutation` operation type can create, delete, or modify data. 
 
@@ -265,11 +264,11 @@ include::{common-includes}/devmode-build.adoc[]
 
 GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-Queries that are made through GraphiQL are the same as queries made through HTTP requests. 
+Queries that are made through GraphiQL are the same as queries that are made through HTTP requests. 
 
-In GraphiQL, you can view the application documentation by clicking `Docs`. 
+In GraphiQL, you can view the application documentation by clicking the `Docs` button on the menu bar. 
 The documentation describes the GraphQL schema.
-The schema gives details on the various operations available. 
+The schema gives details on the various operations that are available. 
 If any data types are mentioned, you can also see descriptions of them and the fields that are contained within them if applicable. 
 The schema is also visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
 
