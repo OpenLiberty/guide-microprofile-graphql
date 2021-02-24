@@ -116,7 +116,7 @@ public class SystemIT {
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
         String mutateResponseString = EntityUtils.toString(mutateResponse.getEntity());
-        Map<String, Object> mutateJson = JSONB.fromJson(mutateResponseString, 
+        Map<String, Object> mutateJson = JSONB.fromJson(mutateResponseString,
                                                         Map.class);
         assertFalse(mutateJson.containsKey("error"), "Mutation has errors");
 
