@@ -136,6 +136,8 @@ public class SystemIT {
         Map<String, Object> queryJson = JSONB.fromJson(queryResponseString, Map.class);
         assertTrue(queryJson.containsKey("data"),
                 "No response data received");
+        assertFalse(queryJson.containsKey("error"),
+                "Response has errors");
         Map<String, Object> data = (Map<String, Object>) queryJson.get("data");
         Map<String, Object> system = (Map<String, Object>) data.get("system");
         assertNotNull(system,
