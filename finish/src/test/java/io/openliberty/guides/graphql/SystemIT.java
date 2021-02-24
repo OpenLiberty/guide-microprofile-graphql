@@ -44,7 +44,7 @@ public class SystemIT {
 
     private static String url;
 
-    private static final Jsonb jsonb = JsonbBuilder.create();
+    private static final Jsonb JSONB = JsonbBuilder.create();
 
     @BeforeAll
     public static void setUp() {
@@ -75,7 +75,7 @@ public class SystemIT {
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
         String responseString = EntityUtils.toString(response.getEntity());
-        Map<String, Object> responseJson = jsonb.fromJson(responseString, Map.class);
+        Map<String, Object> responseJson = JSONB.fromJson(responseString, Map.class);
         assertTrue(responseJson.containsKey("data"),
                 "No response data received");
         assertFalse(responseJson.containsKey("error"),
@@ -86,7 +86,7 @@ public class SystemIT {
                 "Response is not for system query");
         // Verify fields
         Properties systemProperties = System.getProperties();
-        assertEquals(systemProperties.getProperty("user.name"), 
+        assertEquals(systemProperties.getProperty("user.name"),
                 (String) system.get("username"),
                 "Usernames don't match");
     }
@@ -116,7 +116,8 @@ public class SystemIT {
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
         String mutateResponseString = EntityUtils.toString(mutateResponse.getEntity());
-        Map<String, Object> mutateJson = jsonb.fromJson(mutateResponseString, Map.class);
+        Map<String, Object> mutateJson = JSONB.fromJson(mutateResponseString, 
+                                                        Map.class);
         assertFalse(mutateJson.containsKey("error"), "Mutation has errors");
 
         HttpPost query = new HttpPost(url);
@@ -132,14 +133,14 @@ public class SystemIT {
         query.setEntity(queryBody);
         HttpResponse queryResponse = httpClient.execute(query);
         String queryResponseString = EntityUtils.toString(queryResponse.getEntity());
-        Map<String, Object> queryJson = jsonb.fromJson(queryResponseString, Map.class);
+        Map<String, Object> queryJson = JSONB.fromJson(queryResponseString, Map.class);
         assertTrue(queryJson.containsKey("data"),
                 "No response data received");
         Map<String, Object> data = (Map<String, Object>) queryJson.get("data");
         Map<String, Object> system = (Map<String, Object>) data.get("system");
         assertNotNull(system,
                 "Response is not for system query");
-        assertEquals(expectedNote, 
+        assertEquals(expectedNote,
                 (String) system.get("note"),
                 "Response does not contain expected note");
     }
