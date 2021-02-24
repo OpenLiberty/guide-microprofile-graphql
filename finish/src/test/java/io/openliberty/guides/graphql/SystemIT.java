@@ -39,8 +39,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import io.openliberty.guides.graphql.models.SystemInfo;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
 
@@ -54,6 +52,7 @@ public class SystemIT {
         url = "http://localhost:" + port + "/graphql";
     }
 
+    @SuppressWarnings("unchecked")
     // tag::test1[]
     @Test
     // end::test1[]
@@ -93,6 +92,7 @@ public class SystemIT {
     }
     // end::testGet[]
 
+    @SuppressWarnings("unchecked")
     // tag::test2[]
     @Test
     // end::test2[]
