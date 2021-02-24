@@ -36,7 +36,7 @@ GraphQL is an open source data query language.
 Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
 Create, read, update, and delete (CRUD) operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user specifies what properties of the data that they want returned. 
-For read operations, a JSON object is returned that contains only the data and properties specified.
+For read operations, a JSON object is returned that contains only the data and properties that are specified.
 For other operations, a JSON object might be returned containing information such as a success message. 
 
 The returning of only the specified properties in a read operation is beneficial when you deal 
@@ -152,8 +152,8 @@ It maps to the [hotspot=type file=1]`operatingSystem` object type, which describ
 The [hotspot=class file=2]`SystemInfo` class is similar to the previous two files. 
 It maps to the [hotspot=type file=2]`system` object type, which describes other information Java can retrieve from the system properties.
 
-The `java` and `operatingSystem` object types will be used as nested objects within the `system` object type.
-However, nested objects and other properties that are expensive to calculate or retrieve are not included in an object type's class. 
+The `java` and `operatingSystem` object types are used as nested objects within the `system` object type.
+However, nested objects and other properties that are expensive to calculate or retrieve are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
 
 // file 0
@@ -380,7 +380,7 @@ include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
 [role=command]
 include::{common-includes}/devmode-test.adoc[]
 
-You will see the following output:
+The tests show output similar to the following: 
 
 [source,role="no_copy"]
 ----
