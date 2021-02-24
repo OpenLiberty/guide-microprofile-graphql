@@ -62,28 +62,25 @@ public class SystemIT {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
         StringEntity entity = new StringEntity(
-                "{ \"query\": "
-                    + "\"query { "
-                        + "system { "
-                            + "username timezone "
-                            + "java { version vendorName } "
-                            + "operatingSystem {arch name version} "
-                        + "} "
-                    + "}"
-                + "\"}",
-                ContentType.create("application/json", Consts.UTF_8));
+            "{ \"query\": " +
+                "\"query { " +
+                    "system { " +
+                      "username timezone " +
+                      "java { version vendorName } " +
+                      "operatingSystem {arch name version} " +
+                    "} " +
+                "}\" " +
+            "}",
+            ContentType.create("application/json", Consts.UTF_8));
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
         String responseString = EntityUtils.toString(response.getEntity());
-        Map<String, Object> responseJson = JSONB.fromJson(responseString, Map.class);
-        assertTrue(responseJson.containsKey("data"),
-                "No response data received");
-        assertFalse(responseJson.containsKey("error"),
-                "Response has errors");
-        Map<String, Object> data = (Map<String, Object>) responseJson.get("data");
+        Map<String, Object> result = JSONB.fromJson(responseString, Map.class);
+        assertTrue(result.containsKey("data"), "No response data received");
+        assertFalse(result.containsKey("error"), "Response has errors");
+        Map<String, Object> data = (Map<String, Object>) result.get("data");
         Map<String, Object> system = (Map<String, Object>) data.get("system");
-        assertNotNull(system,
-                "Response is not for system query");
+        assertNotNull(system, "Response is not for system query");
         // Verify fields
         Properties systemProperties = System.getProperties();
         assertEquals(systemProperties.getProperty("user.name"),
@@ -104,44 +101,34 @@ public class SystemIT {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost mutation = new HttpPost(url);
         StringEntity mutationBody = new StringEntity(
-                "{ \"query\": "
-                    + "\"mutation ($noteArg: String!) {"
-                        + "editNote(note: $noteArg)"
-                    + "}\", "
-                    + "\"variables\": {\""
-                        + "noteArg\": \"" + expectedNote + "\""
-                    + "}"
-                + "}",
-                ContentType.create("application/json", Consts.UTF_8));
+          "{ " + 
+            "\"query\": \"mutation ($noteArg: String!) {editNote(note: $noteArg)}\"," +
+            "\"variables\": {\"noteArg\": \"" + expectedNote + "\"} " +
+          "}",
+          ContentType.create("application/json", Consts.UTF_8));
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
-        String mutateResponseString = EntityUtils.toString(mutateResponse.getEntity());
-        Map<String, Object> mutateJson = JSONB.fromJson(mutateResponseString,
-                                                        Map.class);
+        String mutateResString = EntityUtils.toString(mutateResponse.getEntity());
+        Map<String, Object> mutateJson = JSONB.fromJson(mutateResString, Map.class);
         assertFalse(mutateJson.containsKey("error"), "Mutation has errors");
 
         HttpPost query = new HttpPost(url);
         StringEntity queryBody = new StringEntity(
-                "{ \"query\": "
-                    + "\"query { "
-                        + "system { "
-                            + "note"
-                        + "} "
-                    + "}"
-                + "\"}",
-                ContentType.create("application/json", Consts.UTF_8));
+            "{ \"query\": " +
+                "\"query { " +
+                    "system { note } " +
+                "}\"" +
+            "}",
+            ContentType.create("application/json", Consts.UTF_8));
         query.setEntity(queryBody);
         HttpResponse queryResponse = httpClient.execute(query);
         String queryResponseString = EntityUtils.toString(queryResponse.getEntity());
         Map<String, Object> queryJson = JSONB.fromJson(queryResponseString, Map.class);
-        assertTrue(queryJson.containsKey("data"),
-                "No response data received");
-        assertFalse(queryJson.containsKey("error"),
-                "Response has errors");
+        assertTrue(queryJson.containsKey("data"), "No response data received");
+        assertFalse(queryJson.containsKey("error"), "Response has errors");
         Map<String, Object> data = (Map<String, Object>) queryJson.get("data");
         Map<String, Object> system = (Map<String, Object>) data.get("system");
-        assertNotNull(system,
-                "Response is not for system query");
+        assertNotNull(system, "Response is not for system query");
         assertEquals(expectedNote,
                 (String) system.get("note"),
                 "Response does not contain expected note");
