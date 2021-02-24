@@ -12,11 +12,17 @@
 // end::copyright[]
 package io.openliberty.guides.graphql;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
@@ -33,17 +39,19 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import io.openliberty.guides.graphql.models.SystemInfo;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SystemIT {
 
     private static String url;
 
+    private static final Jsonb jsonb = JsonbBuilder.create();
+
     @BeforeAll
     public static void setUp() {
-        // tag::client[]
         String port = System.getProperty("http.port");
         url = "http://localhost:" + port + "/graphql";
-        // end::client[]
     }
 
     // tag::test1[]
@@ -67,9 +75,21 @@ public class SystemIT {
                 ContentType.create("application/json", Consts.UTF_8));
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
-        assertNotNull(response.getEntity(), "No system info received");
-        assertFalse(EntityUtils.toString(response.getEntity()).contains("error"),
+        String responseString = EntityUtils.toString(response.getEntity());
+        Map<String, Object> responseJson = jsonb.fromJson(responseString, Map.class);
+        assertTrue(responseJson.containsKey("data"),
+                "No response data received");
+        assertFalse(responseJson.containsKey("error"),
                 "Response has errors");
+        Map<String, Object> data = (Map<String, Object>) responseJson.get("data");
+        Map<String, Object> system = (Map<String, Object>) data.get("system");
+        assertNotNull(system,
+                "Response is not for system query");
+        // Verify fields
+        Properties systemProperties = System.getProperties();
+        assertEquals(systemProperties.getProperty("user.name"), 
+                (String) system.get("username"),
+                "Usernames don't match");
     }
     // end::testGet[]
 
@@ -80,6 +100,7 @@ public class SystemIT {
     // tag::testEdit[]
     public void testEditNote() throws ClientProtocolException, IOException {
         String expectedNote = "Time: " + System.currentTimeMillis();
+
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost mutation = new HttpPost(url);
         StringEntity mutationBody = new StringEntity(
@@ -94,7 +115,9 @@ public class SystemIT {
                 ContentType.create("application/json", Consts.UTF_8));
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
-        assertNotNull(mutateResponse.getEntity());
+        String mutateResponseString = EntityUtils.toString(mutateResponse.getEntity());
+        Map<String, Object> mutateJson = jsonb.fromJson(mutateResponseString, Map.class);
+        assertFalse(mutateJson.containsKey("error"), "Mutation has errors");
 
         HttpPost query = new HttpPost(url);
         StringEntity queryBody = new StringEntity(
@@ -105,13 +128,19 @@ public class SystemIT {
                         + "} "
                     + "}"
                 + "\"}",
-                ContentType.create("application/json",
-                Consts.UTF_8));
+                ContentType.create("application/json", Consts.UTF_8));
         query.setEntity(queryBody);
         HttpResponse queryResponse = httpClient.execute(query);
-        assertNotNull(queryResponse.getEntity(), "No system info received");
-        assertTrue(
-                EntityUtils.toString(queryResponse.getEntity()).contains(expectedNote),
+        String queryResponseString = EntityUtils.toString(queryResponse.getEntity());
+        Map<String, Object> queryJson = jsonb.fromJson(queryResponseString, Map.class);
+        assertTrue(queryJson.containsKey("data"),
+                "No response data received");
+        Map<String, Object> data = (Map<String, Object>) queryJson.get("data");
+        Map<String, Object> system = (Map<String, Object>) data.get("system");
+        assertNotNull(system,
+                "Response is not for system query");
+        assertEquals(expectedNote, 
+                (String) system.get("note"),
                 "Response does not contain expected note");
     }
     // end::testEdit[]
