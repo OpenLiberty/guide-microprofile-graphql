@@ -102,7 +102,8 @@ public class SystemIT {
         HttpPost mutation = new HttpPost(url);
         StringEntity mutationBody = new StringEntity(
             "{ "
-                + "\"query\": \"mutation ($noteArg: String!) {editNote(note: $noteArg)}\","
+                + "\"query\": \"mutation ($noteArg: String!) {"
+                    + "editNote(note: $noteArg)}\","
                 + "\"variables\": {\"noteArg\": \"" + expectedNote + "\"} "
             + "}",
             ContentType.create("application/json", Consts.UTF_8));
