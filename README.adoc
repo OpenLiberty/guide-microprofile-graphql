@@ -200,7 +200,8 @@ Here the [hotspot=mutation file=0]`@Mutation` annotation maps the [hotspot=editN
 The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes what inputs will be used for the operation.
 Here, there's just one input `note` for the note to write into the system properties.
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
+Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, 
+which provides a description to be used for the schema. 
 Descriptions aren't required, but it's good practice to include. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
