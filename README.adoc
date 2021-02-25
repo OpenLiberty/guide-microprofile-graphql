@@ -200,7 +200,8 @@ Here the [hotspot=mutation file=0]`@Mutation` annotation maps the [hotspot=editN
 The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes what inputs will be used for the operation.
 Here, there's just one input `note` for the note to write into the system properties.
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, which provides a description to be used for the schema. 
+Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, 
+which provides a description to be used for the schema. 
 Descriptions aren't required, but it's good practice to include. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
@@ -361,10 +362,12 @@ The [hotspot file=0]`SystemIT` class contains the test methods.
 Each test is annotated with the [hotspot=test1 hotspot=test2 file=0]`@Test` annotation. 
 
 The [hotspot=testGet file=0]`testGetSystem()` method makes a query using the `system` resolver through a `POST` request.
-It then verifies that the response is not empty and that it's free of errors. 
+JSON-B is used to parse the responses into Java objects.
+The test verifies that the response contains data, is responding to the correct operation, and is free of errors. 
+Then it checks the `username` property to ensure it is returned correctly.
 
 The [hotspot=testEdit file=0]`testEditNote()` method makes a query using the `editNote` resolver.
-It will try to set the note to be the current system time. 
+It will try to set the note to be the current system time and ensures the response says there were no problems with the operation.
 Then, it makes a query using the `system` resolver to ensure the note was saved correctly. 
 
 // file 0
