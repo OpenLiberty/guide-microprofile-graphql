@@ -192,7 +192,7 @@ The `mutation` operation type can create, delete, or modify data.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `SystemResource` class.#
+#Replace the `SystemResource` class.#
 `src/main/java/io/openliberty/guides/graphql/SystemResource.java`
 ----
 
