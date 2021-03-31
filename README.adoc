@@ -47,12 +47,18 @@ GraphQL reduces processing time by calculating them only if requested.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-The service that you'll create will respond to requests that are made to the `\http://localhost:9080/graphql` URL. 
-The operations that you'll implement will be a simple `query` operation and a `mutation` operation.
-The `query` operation will return system information.
-The `mutation` operation will save a note of your choice into the system information. 
+You will start with a service that responds to `GET` requests at the `\http://localhost:9080/system/properties` URL
+with all of your system information. 
+This service will be modified to respond to `POST` requests that are made to the `\http://localhost:9080/graphql` URL. 
+It will allow for two basic GraphQL operations - a `query` operation and a `mutation` operation.
 
-Manual testing of the application will be done by using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
+The `query` operation type in GraphQL is a read-only operation.
+In this guide it will be used to retrieve the system information.
+The `mutation` operation type in GraphQL can be used for create, update, or delete operations. 
+In this guide it will be used to save a note of your choice into the system information.
+
+Manual testing of the application can be done by using 
+https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project for you. 
 GraphiQL is a webpage that allows you to easily make requests to the GraphQL service and see the responses.
 In GraphiQL you need to type only the body of the request, which streamlines manual tests.
 You're also able to view a history of your previous requests and repeat any of them.
