@@ -15,7 +15,7 @@ package io.openliberty.guides.graphql;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("/")
+@ApplicationPath("/system")
 public class SystemApplication extends Application {
 
 }
