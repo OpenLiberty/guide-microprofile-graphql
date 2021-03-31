@@ -24,10 +24,10 @@ import javax.ws.rs.core.MediaType;
 @Path("/properties")
 public class SystemResource {
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProperties() {
-	    return Response.ok(System.getProperties()).build();
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProperties() {
+        return Response.ok(System.getProperties()).build();
+    }
 
 }
