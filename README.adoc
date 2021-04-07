@@ -9,7 +9,7 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2021-02-28
+:page-releasedate: 2021-04-28
 :page-essential: false
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Jakarta EE']
@@ -192,11 +192,11 @@ The `mutation` operation type can create, delete, or modify data.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Replace the `SystemResource` class.#
-`src/main/java/io/openliberty/guides/graphql/SystemResource.java`
+#Create the `GraphQLEndpoint` class.#
+`src/main/java/io/openliberty/guides/graphql/GraphQLEndpoint.java`
 ----
 
-The resolvers are defined in the [hotspot file=0]`SystemResource.java` file.
+The resolvers are defined in the [hotspot file=0]`GraphQLEndpoint.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation enables GraphQL to use the methods that are defined in this class as resolvers. 
 
 The [hotspot=query file=0]`@Query` annotation maps functions to operations of the `query` type.
@@ -218,10 +218,10 @@ The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotatio
 These properties are calculated or searched for only if requested, which saves time and resources.
 
 // file 0
-SystemResource.java
+GraphQLEndpoint.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
+include::finish/src/main/java/io/openliberty/guides/graphql/GraphQLEndpoint.java[]
 ----
 
 == Enabling GraphQL

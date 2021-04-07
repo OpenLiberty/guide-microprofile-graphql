@@ -12,73 +12,22 @@
 // end::copyright[]
 package io.openliberty.guides.graphql;
 
-import org.eclipse.microprofile.graphql.Description;
-import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.Mutation;
-import org.eclipse.microprofile.graphql.Name;
-import org.eclipse.microprofile.graphql.NonNull;
-import org.eclipse.microprofile.graphql.Query;
-import org.eclipse.microprofile.graphql.Source;
+import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.graphql.models.JavaInfo;
-import io.openliberty.guides.graphql.models.OperatingSystem;
-import io.openliberty.guides.graphql.models.SystemInfo;
+import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-// tag::graphqlapi[]
-@GraphQLApi
-// end::graphqlapi[]
+@RequestScoped
+@Path("/properties")
 public class SystemResource {
 
-    // tag::query[]
-    @Query("system")
-    // end::query[]
-    // tag::nonnull1[]
-    @NonNull
-    // end::nonnull1[]
-    // tag::description1[]
-    @Description("Gets information about the system")
-    // end::description1[]
-    // tag::getSystemInfo[]
-    public SystemInfo getSystemInfo() {
-        SystemInfo output = new SystemInfo(System.getProperties());
-        return output;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProperties() {
+        return Response.ok(System.getProperties()).build();
     }
-    // end::getSystemInfo[]
-
-    // tag::mutation[]
-    @Mutation("editNote")
-    // end::mutation[]
-    // tag::description2[]
-    @Description("Changes the note set for the system")
-    // end::description2[]
-    // tag::editNoteFunction[]
-    // tag::editNoteHeader[]
-    public boolean editNote(@Name("note") String note) {
-    // end::editNoteHeader[]
-        System.setProperty("note", note);
-        return true;
-    }
-    // end::editNoteFunction[]
-
-    // Nested objects, these can be expensive to obtain
-    @NonNull
-    // tag::os[]
-    // tag::operatingSystemHeader[]
-    public OperatingSystem operatingSystem(@Source @Name("system") SystemInfo systemInfo) {
-    // end::operatingSystemHeader[]
-        return new OperatingSystem(System.getProperties());
-    }
-    // end::os[]
-
-    // tag::nonnull3[]
-    @NonNull
-    // end::nonnull3[]
-    // tag::javaFunction[]
-    // tag::javaHeader[]
-    public JavaInfo java(@Source @Name("system") SystemInfo systemInfo) {
-    // end::javaHeader[]
-        return new JavaInfo(System.getProperties());
-    }
-    // end::javaFunction[]
 
 }
