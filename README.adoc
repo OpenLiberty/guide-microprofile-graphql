@@ -34,12 +34,17 @@ You will learn how to add a GraphQL endpoint to an application using Microprofil
 
 GraphQL is an open source data query language. 
 Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
-Create, read, update, and delete (CRUD) operations and their details are differentiated by the contents of the request.
-If the operation returns data, the user specifies what properties of the data that they want returned. 
-For read operations, a JSON object is returned that contains only the data and properties that are specified.
-For other operations, a JSON object might be returned containing information such as a success message. 
+Each request's body will determine what kind of operation will be performed as well as its parameters.
+The kinds of operations this guide will cover are `query` and `mutation` operations.
 
-The returning of only the specified properties in a read operation is beneficial when you deal 
+The `query` operation type in GraphQL is a read-only operation.
+The `mutation` operation type in GraphQL can be used for create, update, or delete operations. 
+Each type of operation is capable of accepting input variables through the `POST` request's body.
+
+If any operation returns data, the user must also specify what properties of the data that they want returned in the request body. 
+GraphQL will then return only the properties requested.
+
+The returning of only the specified properties is beneficial when you deal 
 with large resources or resources that contain properties that are expensive to calculate. 
 By returning only the requested properties, GraphQL reduces the size of the responses. 
 For resources that contain properties that are expensive to calculate, such as other nested resources, 
@@ -49,13 +54,8 @@ You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
 You will start with a service that responds to `GET` requests at the `\http://localhost:9080/system/properties` URL
 with all of your system information. 
-This service will be modified to respond to `POST` requests that are made to the `\http://localhost:9080/graphql` URL. 
+We will add a GraphQL endpoint at the `\http://localhost:9080/graphql` URL. 
 It will allow for two basic GraphQL operations - a `query` operation and a `mutation` operation.
-
-The `query` operation type in GraphQL is a read-only operation.
-In this guide it will be used to retrieve the system information.
-The `mutation` operation type in GraphQL can be used for create, update, or delete operations. 
-In this guide it will be used to save a note of your choice into the system information.
 
 Manual testing of the application can be done by using 
 https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project for you. 
