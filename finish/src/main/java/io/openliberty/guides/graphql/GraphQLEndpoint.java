@@ -64,7 +64,8 @@ public class GraphQLEndpoint {
     @NonNull
     // tag::os[]
     // tag::operatingSystemHeader[]
-    public OperatingSystem operatingSystem(@Source @Name("system") SystemInfo systemInfo) {
+    public OperatingSystem operatingSystem(
+        @Source @Name("system") SystemInfo systemInfo) {
     // end::operatingSystemHeader[]
         return new OperatingSystem(System.getProperties());
     }

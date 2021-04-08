@@ -11,14 +11,14 @@
 :page-duration: 25 minutes
 :page-releasedate: 2021-04-28
 :page-essential: false
-:page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
+:page-description: Learn how to add a GraphQL endpoint to an application using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Jakarta EE']
 :page-related-guides: ['rest-intro', 'jpa-intro', 'mongodb-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 :page-seo-title: Accessing and manipulating data using MicroProfile GraphQL in Open Liberty
-:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through MicroProfile GraphQL
+:page-seo-description: Learn how to add a GraphQL endpoint and use the GraphQL query language as implemented using Microprofile GraphQL
 :guide-author: Open Liberty
 = Accessing and manipulating data with GraphQL
 
@@ -30,7 +30,7 @@ Explore how to use GraphQL to access and manipulate data using MicroProfile Grap
 
 == What you'll learn
 
-You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
+You will learn how to add a GraphQL endpoint to an application using Microprofile GraphQL.
 
 GraphQL is an open source data query language. 
 Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
