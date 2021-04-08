@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>yasson</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.9</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
