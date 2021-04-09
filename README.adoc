@@ -253,7 +253,7 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 `src/main/liberty/config/server.xml`
 ----
 
-The https://openliberty.io/docs/20.0.0.12/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
+The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
 that is added to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
 
 // file 0
