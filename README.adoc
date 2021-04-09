@@ -78,7 +78,7 @@ include::{common-includes}/twyb-intro.adoc[]
 
 Access the application through GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
 
-Enter the following `query` operation into the input box. 
+Enter the following GraphQL `query` operation into the input box. 
 
 [role='command']
 ----
@@ -89,7 +89,8 @@ query {
 }
 ----
 
-Press `CTRL+enter` to run your `query` operation and generate output that is similar to the following example:
+Press `CTRL+enter` to run your `query` operation.
+Look for output that is similar to the following:
 
 [role='no_copy']
 ----
@@ -101,6 +102,13 @@ Press `CTRL+enter` to run your `query` operation and generate output that is sim
   }
 }
 ----
+
+Then access the application's REST endpoint at the http://localhost:9080/system/properties[^] URL.
+Look for the property named `user.name`.
+Note that it will match the `username` property from the previous GraphQL `query` operation.
+The `user.name` property maps to the `username` property in GraphQL. 
+Also note that the JSON response from the GraphQL operation is much smaller, 
+containing only the `username` property that was requested.
 
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
