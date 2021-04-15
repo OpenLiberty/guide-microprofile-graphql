@@ -22,13 +22,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @RequestScoped
-@Path("/setNote")
-public class SetNote {
+@Path("/editNote")
+public class EditNote {
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProperties(String note) {
+    public Response editNote(String note) {
         System.setProperty("note", note);
         return Response.ok().build();
     }
