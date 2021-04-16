@@ -78,7 +78,7 @@ include::{common-includes}/gitclone.adoc[]
 [role='command']
 include::{common-includes}/twyb-intro.adoc[]
 
-For all of the examples in this guide we will use GraphiQL to see them. 
+All examples in the guide will be done using GraphiQL. 
 The result will be the same as if you made an HTTP request using a method such as `curl`.
 Access the application through GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
 
@@ -237,7 +237,8 @@ Descriptions aren't required, but it's good practice to include.
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
 This annotation adds [hotspot=javaFunction file=0]`java` 
 and [hotspot=os file=0]`operatingSystem` object types as properties of the `system` object type.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or search for.
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for 
+any properties that are expensive to calculate or search for.
 These properties are calculated or searched for only if requested, which saves time and resources.
 
 // file 0
@@ -268,8 +269,9 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 `src/main/liberty/config/server.xml`
 ----
 
-The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
-that is added to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
+The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
+([hotspot=graphql file=1]`mpGraphQL-1.0`) feature that is added to the [hotspot file=1]`server.xml` 
+enables the use of the GraphQL feature in OpenLiberty.
 
 // file 0
 pom.xml
@@ -398,7 +400,7 @@ However, all requests going to a single endpoint may be more convenient to use.
 Manual tests can be done by using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
 However, automated tests are a better approach because they trigger a failure if a change introduces a bug.
 
-You can write tests by using JUnit to call the application server directly. 
+You can write tests by using JUnit to call the application server directly using GraphQL.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
