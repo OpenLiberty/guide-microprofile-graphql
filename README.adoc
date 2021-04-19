@@ -35,12 +35,12 @@ You will learn how to add a GraphQL endpoint to an application using Microprofil
 GraphQL is an open source data query language. 
 It provides another method to interact with your application. 
 Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
-Each request's body will determine what kind of operation will be performed as well as its parameters.
+Each request's body will determine what kind of operation will be performed and its parameters. 
 The kinds of operations this guide will cover are `query` and `mutation` operations.
 
 The `query` operation type in GraphQL is a read-only operation.
 The `mutation` operation type in GraphQL can be used for create, update, or delete operations. 
-Each type of operation is capable of accepting input variables through the `POST` request's body.
+Each type of operation accepts input variables through the `POST` request's body.
 
 If any operation returns data, the user must also specify what properties of the data that they want returned in the request body. 
 GraphQL will then return only the properties requested.
@@ -53,9 +53,9 @@ GraphQL reduces processing time by calculating them only if requested.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-You will start with a service that responds to `GET` requests at the `\http://localhost:9080/system/properties` URL
+You'll start with a service that responds to `GET` requests at the `\http://localhost:9080/system/properties` URL
 with all of your system information. 
-We will add a GraphQL endpoint at the `\http://localhost:9080/graphql` URL. 
+We'll add a GraphQL endpoint at the `\http://localhost:9080/graphql` URL. 
 It will allow for two basic GraphQL operations - a `query` operation and a `mutation` operation.
 
 Manual testing of the application can be done by using 
@@ -108,7 +108,7 @@ Look for output that is similar to the following:
 ----
 
 The same output can be seen if you make a `POST` request to the `\http://localhost:9080/graphql` URL. 
-Try it out by executing the following `curl` command:
+Try it out by running the following `curl` command:
 
 [role='command']
 ----
@@ -118,11 +118,11 @@ curl -X POST \
      http://localhost:9080/graphql
 ----
 
-Then access the application's REST endpoint at the http://localhost:9080/system/properties[^] URL.
+Then, access the application's REST endpoint at the http://localhost:9080/system/properties[^] URL.
 Look for the property named `user.name`.
 Note that it will match the `username` property from the previous GraphQL `query` operation.
 The `user.name` property maps to the `username` property in GraphQL. 
-Also note that the JSON response from the GraphQL operation is much smaller, 
+Also, note that the JSON response from the GraphQL operation is much smaller, 
 containing only the `username` property that was requested.
 
 [role='command']
@@ -223,7 +223,7 @@ The resolvers are defined in the [hotspot file=0]`GraphQLEndpoint.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation enables GraphQL to use the methods that are defined in this class as resolvers. 
 
 The [hotspot=query file=0]`@Query` annotation maps functions to operations of the `query` type.
-This annotation maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests which retrieves the system information. 
+This annotation maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests, which retrieve the system information. 
 
 The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
 This annotation maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` operations. 
@@ -392,7 +392,7 @@ If you view the `note` again through either the REST endpoint or the GraphQL end
 you see the change to the `note` is reflected either way.
 The same applies whether you change the `note` using GraphQL or the REST endpoint.
 
-GraphQL offers an alternate way to access the same application and data.
+GraphQL offers an alternative way to access the same application and data.
 However, all requests going to a single endpoint may be more convenient to use. 
 
 == Testing the application
@@ -415,7 +415,7 @@ Each test is annotated with the [hotspot=test1 hotspot=test2 file=0]`@Test` anno
 The [hotspot=testGet file=0]`testGetSystem()` method makes a query using the `system` resolver through a `POST` request.
 JSON-B is used to parse the responses into Java objects.
 The test verifies that the response contains data, is responding to the correct operation, and is free of errors. 
-Then it checks the `username` property to ensure it is returned correctly.
+Then, it checks the `username` property to ensure it's returned correctly.
 
 The [hotspot=testEdit file=0]`testEditNote()` method makes a query using the `editNote` resolver.
 It will try to set the note to be the current system time and ensures the response says there were no problems with the operation.
