@@ -349,7 +349,7 @@ mutation {
 }
 ----
 
-You receive a response containing the boolean `true` to let you know that the request was successfully processed.
+You receive a response containing the boolean `true` to inform you that the request was successfully processed.
 You can see the note that you added by running the following query operation.
 
 [role='command']
