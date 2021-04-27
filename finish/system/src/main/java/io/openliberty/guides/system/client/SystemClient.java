@@ -21,10 +21,10 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientApi;
 @GraphQlClientApi
 public interface SystemClient {
 
-	public SystemInfo system();
-	
-	public String property(@Name("name") String propertyName);
-	
+    public SystemInfo system();
+
+    public String property(@Name("name") String propertyName);
+
     @Mutation
     public boolean editNote(@Name("note") String note);
 

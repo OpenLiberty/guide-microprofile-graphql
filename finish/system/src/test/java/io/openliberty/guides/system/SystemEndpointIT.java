@@ -30,40 +30,42 @@ import org.junit.jupiter.api.Test;
 
 public class SystemEndpointIT {
 
-    private static final String port = System.getProperty("http.port");
-    private static final String url = "http://localhost:" + port + "/";
-    private static final String noteText = "test edit note";
-    
-	private static Client client;
+    private static final String PORT = System.getProperty("http.port");
+    private static final String URL = "http://localhost:" + PORT + "/";
+    private static final String NOTE = "test edit note";
+
+    private static Client client;
 
     @BeforeAll
     private static void setup() {
         client = ClientBuilder.newClient();
         client.register(JsrJsonpProvider.class);
     }
-    
+
     @Test
     @Order(1)
     public void testEditNote() throws MalformedURLException {
-        WebTarget target = client.target(url + "system/properties/note");
-		Response response = target.request().post(Entity.text("test edit note"));
-        assertEquals(200, response.getStatus(), "Incorrect response code from " + target.getUri().getPath());
+        WebTarget target = client.target(URL + "system/properties/note");
+        Response response = target.request().post(Entity.text("test edit note"));
+        assertEquals(200, response.getStatus(), 
+                     "Incorrect response code from " + target.getUri().getPath());
         response.close();
     }
 
     @Test
     @Order(2)
     public void testGetProperties() throws MalformedURLException {
-        WebTarget target = client.target(url + "system/properties");
+        WebTarget target = client.target(URL + "system/properties");
         Response response = target.request().get();
-        assertEquals(200, response.getStatus(), "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(200, response.getStatus(), 
+                     "Incorrect response code from " + target.getUri().getPath());
 
         JsonObject system = response.readEntity(JsonObject.class);
         assertEquals(System.getProperty("user.name"),
-        		     system.getString("username"),
+                     system.getString("username"),
                      "The system property for for the local and remote user name should match");
-        assertEquals(noteText,
-        		     system.getString("note"),
+        assertEquals(NOTE,
+                     system.getString("note"),
                      "The note was not set correctly");
         JsonObject os = system.getJsonObject("operatingSystem");
         assertEquals(System.getProperty("os.name"),
@@ -73,7 +75,7 @@ public class SystemEndpointIT {
         assertEquals(System.getProperty("java.vendor"),
                      java.getString("vendor"),
                      "The system property for the local and remote java vendor should match");
-    	     
+
         response.close();
     }
 }

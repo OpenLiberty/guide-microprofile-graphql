@@ -30,26 +30,26 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 @Path("properties")
 public class SystemResource {
 
-	private SystemClient sc = GraphQlClientBuilder.newBuilder().build(SystemClient.class);
+    private SystemClient sc = GraphQlClientBuilder.newBuilder().build(SystemClient.class);
 
-	@GET
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public SystemInfo querySystem() {
-		return sc.system();
-	}
-	
-	@GET
-	@Path("{property}")
+        return sc.system();
+    }
+
+    @GET
+    @Path("{property}")
     public String queryProperty(@PathParam("property") String property) {
-		return sc.property(property);
-	}
-	
+        return sc.property(property);
+    }
+
     @POST
     @Path("note")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editNote(String text) {
-    	sc.editNote(text);
+        sc.editNote(text);
         return Response.ok().build();
     }
 }

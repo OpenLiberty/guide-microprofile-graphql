@@ -35,16 +35,16 @@ public class JavaInfo {
     @NonNull
     // end::nonnull[]
     private String version;
-    		
+
     // tag::getVendor[]
     public String getVendor() {
         return this.vendor;
     }
     // end::getVendor[]
 
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
-	}
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
 
     // tag::getVersion[]
     public String getVersion() {
@@ -52,9 +52,9 @@ public class JavaInfo {
     }
     // end::getVersion[]
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
 }
 // end::class[]

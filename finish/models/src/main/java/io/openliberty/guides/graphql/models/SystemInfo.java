@@ -58,21 +58,21 @@ public class SystemInfo {
         this.note = note;
     }
 
-	public JavaInfo getJava() {
-		return java;
-	}
+    public JavaInfo getJava() {
+        return java;
+    }
 
-	public void setJava(JavaInfo java) {
-		this.java = java;
-	}
+    public void setJava(JavaInfo java) {
+        this.java = java;
+    }
 
-	public OperatingSystem getOperatingSystem() {
-		return operatingSystem;
-	}
+    public OperatingSystem getOperatingSystem() {
+        return operatingSystem;
+    }
 
-	public void setOperatingSystem(OperatingSystem operatingSystem) {
-		this.operatingSystem = operatingSystem;
-	}
+    public void setOperatingSystem(OperatingSystem operatingSystem) {
+        this.operatingSystem = operatingSystem;
+    }
 
 }
 // end::class[]

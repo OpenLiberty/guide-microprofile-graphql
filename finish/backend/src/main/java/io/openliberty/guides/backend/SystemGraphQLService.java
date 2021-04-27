@@ -47,13 +47,13 @@ public class SystemGraphQLService {
         return systemInfo;
     }
     // end::getSystemInfo[]
-    
+
     @Query("property")
     @Description("Gets a property from the system")
     public String getProperty(@Name("name") String propertyName) {
         return System.getProperty(propertyName);
     }
-    
+
     // tag::mutation[]
     @Mutation("editNote")
     // end::mutation[]
@@ -76,10 +76,10 @@ public class SystemGraphQLService {
     public OperatingSystem operatingSystem(
         @Source @Name("system") SystemInfo systemInfo) {
     // end::operatingSystemHeader[]
-    	OperatingSystem operatingSystem = new OperatingSystem();
-    	operatingSystem.setArch(System.getProperty("os.arch"));
-    	operatingSystem.setName(System.getProperty("os.name"));
-    	operatingSystem.setVersion(System.getProperty("os.version"));
+        OperatingSystem operatingSystem = new OperatingSystem();
+        operatingSystem.setArch(System.getProperty("os.arch"));
+        operatingSystem.setName(System.getProperty("os.name"));
+        operatingSystem.setVersion(System.getProperty("os.version"));
         return operatingSystem;
     }
     // end::os[]
