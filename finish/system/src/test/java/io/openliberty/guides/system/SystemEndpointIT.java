@@ -47,7 +47,7 @@ public class SystemEndpointIT {
     public void testEditNote() throws MalformedURLException {
         WebTarget target = client.target(URL + "system/properties/note");
         Response response = target.request().post(Entity.text("test edit note"));
-        assertEquals(200, response.getStatus(), 
+        assertEquals(200, response.getStatus(),
                      "Incorrect response code from " + target.getUri().getPath());
         response.close();
     }
@@ -57,7 +57,7 @@ public class SystemEndpointIT {
     public void testGetProperties() throws MalformedURLException {
         WebTarget target = client.target(URL + "system/properties");
         Response response = target.request().get();
-        assertEquals(200, response.getStatus(), 
+        assertEquals(200, response.getStatus(),
                      "Incorrect response code from " + target.getUri().getPath());
 
         JsonObject system = response.readEntity(JsonObject.class);

@@ -91,9 +91,9 @@ public class SystemGraphQLService {
     // tag::javaHeader[]
     public JavaInfo java(@Source @Name("system") SystemInfo systemInfo) {
     // end::javaHeader[]
-    	JavaInfo javaInfo = new JavaInfo();
-    	javaInfo.setVersion(System.getProperty("java.version"));
-    	javaInfo.setVendor(System.getProperty("java.vendor"));
+        JavaInfo javaInfo = new JavaInfo();
+        javaInfo.setVersion(System.getProperty("java.version"));
+        javaInfo.setVendor(System.getProperty("java.vendor"));
         return javaInfo;
     }
     // end::javaFunction[]

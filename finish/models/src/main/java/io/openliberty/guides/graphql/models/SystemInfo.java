@@ -29,9 +29,9 @@ public class SystemInfo {
     private String timezone;
 
     private String note;
-    
+
     private JavaInfo java;
-    
+
     private OperatingSystem operatingSystem;
 
     public String getUsername() {
@@ -49,11 +49,11 @@ public class SystemInfo {
     public void setTimezone(String timezone) {
         this.timezone = timezone;
     }
- 
+
     public String getNote() {
         return this.note;
     }
-    
+
     public void setNote(String note) {
         this.note = note;
     }
