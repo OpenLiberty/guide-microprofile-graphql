@@ -30,32 +30,32 @@ Explore how to use GraphQL to access and manipulate data using MicroProfile Grap
 
 == What you'll learn
 
-You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
+You will learn how to build and use a simple GraphQL service with 
+https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^]. 
 
 GraphQL is an open source data query language. 
-Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
+Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint. 
 Create, read, update, and delete (CRUD) operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user specifies what properties of the data that they want returned. 
 For read operations, a JSON object is returned that contains only the data and properties that are specified.
 For other operations, a JSON object might be returned containing information such as a success message. 
 
-The returning of only the specified properties in a read operation is beneficial when you deal 
-with large resources or resources that contain properties that are expensive to calculate. 
-By returning only the requested properties, GraphQL reduces the size of the responses. 
-For resources that contain properties that are expensive to calculate, such as other nested resources, 
-GraphQL reduces processing time by calculating them only if requested. 
+Returning only the specified properties in a read operation has two benefits.
+It reduces the size of the responses if you're dealing with large amounts of data or large resources.
+It also saves processing time if you have properties that are expensive to calculate or retrieve such as nested resources.
+GraphQL will only get these properties if they are requested.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-The service that you'll create will respond to requests that are made to the `\http://localhost:9080/graphql` URL. 
-The operations that you'll implement will be a simple `query` operation and a `mutation` operation.
-The `query` operation will return system information.
-The `mutation` operation will save a note of your choice into the system information. 
+You'll create two services.
+The `backend` service will be a GraphQL service that responds to requests made to the `\http://localhost:9080/graphql` URL. 
+The `system` service will make requests to the `backend` service and display the data using OpenAPI.
+To learn more about OpenAPI, check out our 
+https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
-Manual testing of the application will be done by using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
-GraphiQL is a webpage that allows you to easily make requests to the GraphQL service and see the responses.
-In GraphiQL you need to type only the body of the request, which streamlines manual tests.
-You're also able to view a history of your previous requests and repeat any of them.
+The guide also includes https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
+GraphiQL assists in manually making `POST` requests to a GraphQL service.
+In GraphiQL you need to type only the body of the request for the purposes of manual tests and examples. 
 
 ///////////////////////////
 // Getting started
