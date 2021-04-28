@@ -63,18 +63,21 @@ public class SystemEndpointIT {
         JsonObject system = response.readEntity(JsonObject.class);
         assertEquals(System.getProperty("user.name"),
                      system.getString("username"),
-                     "The system property for for the local and remote user name should match");
+                     "The system property for for the local and remote "
+                     + "user name should match");
         assertEquals(NOTE,
                      system.getString("note"),
                      "The note was not set correctly");
         JsonObject os = system.getJsonObject("operatingSystem");
         assertEquals(System.getProperty("os.name"),
                      os.getString("name"),
-                     "The system property for the local and remote OS name should match");
+                     "The system property for the local and remote "
+                     + "OS name should match");
         JsonObject java = system.getJsonObject("java");
         assertEquals(System.getProperty("java.vendor"),
                      java.getString("vendor"),
-                     "The system property for the local and remote java vendor should match");
+                     "The system property for the local and remote "
+                     + "java vendor should match");
 
         response.close();
     }
