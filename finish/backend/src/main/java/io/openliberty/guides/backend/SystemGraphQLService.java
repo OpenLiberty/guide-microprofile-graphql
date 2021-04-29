@@ -29,9 +29,9 @@ import io.openliberty.guides.graphql.models.SystemInfo;
 // end::graphqlapi[]
 public class SystemGraphQLService {
 
-    // tag::query[]
+    // tag::query1[]
     @Query("system")
-    // end::query[]
+    // end::query1[]
     // tag::nonnull1[]
     @NonNull
     // end::nonnull1[]
@@ -48,18 +48,26 @@ public class SystemGraphQLService {
     }
     // end::getSystemInfo[]
 
+    // tag::query2[]
     @Query("property")
+    // end::query2[]
+    // tag::description2[]
     @Description("Gets a property from the system")
+    // end::description2[]
+    // tag::getProperty[]
+    // tag::getPropertyHeader[]
     public String getProperty(@Name("name") String propertyName) {
+    // end::getPropertyHeader[]
         return System.getProperty(propertyName);
     }
+    // end::getProperty[]
 
     // tag::mutation[]
     @Mutation("editNote")
     // end::mutation[]
-    // tag::description2[]
+    // tag::description3[]
     @Description("Changes the note set for the system")
-    // end::description2[]
+    // end::description3[]
     // tag::editNoteFunction[]
     // tag::editNoteHeader[]
     public boolean editNote(@Name("note") String note) {

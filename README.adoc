@@ -157,24 +157,36 @@ The `mutation` operation type can create, delete, or modify data.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `SystemResource` class.#
-`src/main/java/io/openliberty/guides/graphql/SystemResource.java`
+#Create the `SystemGraphQLResource` class.#
+`finish/backend/src/main/java/io/openliberty/guides/backend/SystemGraphQLService`
 ----
 
-The resolvers are defined in the [hotspot file=0]`SystemResource.java` file.
+The resolvers are defined in the [hotspot file=0]`SystemGraphQLResource.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation enables GraphQL to use the methods that are defined in this class as resolvers. 
 
-The [hotspot=query file=0]`@Query` annotation maps functions to operations of the `query` type.
-This annotation maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests which retrieves the system information. 
+Operations of the `query` type are read-only operations that retrieve data.
+They are defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
+Two functions are defined and mapped to `query` operations.
+
+The [hotspot=getSystemInfo file=0]`getSystemInfo()` function handles `system` requests.
+It retrieves and bundles system information into a `SystemInfo` object type that is returned.
+
+The [hotspot=getProperty file=0]`getProperty()` function handles `property` requests.
+In this context, the [hotspot=getPropertyHeader file=0]`@Name` annotation denotes an input for this operation.
+The `name` input is used in this operation to retrieve a single system property and return it. 
 
 The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
-This annotation maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` operations. 
-The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes what inputs are used for the operation.
-Within the [hotspot=editNoteHeader file=0]`@Name` annotation, the `note` input specifies the note that is written into the system properties.
+Operations of the `mutation` type modify data.
+They create, update, or delete data. 
+A single function is defined and mapped to a `mutation` operation.
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, 
-which provides a description to be used for the schema. 
-Descriptions aren't required, but it's good practice to include. 
+The [hotspot=editNoteFunction file=0]`editNote()` function handles `editNote` operations.
+An [hotspot=editNoteHeader file=0]`@Name` annotation denotes a `note` input, 
+which specifies the note that is written into the system properties.
+
+Each resolver function has an [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
+annotation, which provides a description to be used for the schema. 
+Descriptions aren't required, but it's good practice to include them. 
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
 This annotation adds [hotspot=javaFunction file=0]`java` 
@@ -186,7 +198,7 @@ These properties are calculated or searched for only if requested, which saves t
 SystemResource.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
+include::finish/backend/src/main/java/io/openliberty/guides/backend/SystemGraphQLService.java[]
 ----
 
 == Enabling GraphQL
