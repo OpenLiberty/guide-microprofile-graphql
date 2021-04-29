@@ -64,47 +64,11 @@ In GraphiQL you need to type only the body of the request for the purposes of ma
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
-///////////////////////////
-// Try what you'll build
-///////////////////////////
-[role='command']
-include::{common-includes}/twyb-intro.adoc[]
-
-Access the application through GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-
-Enter the following `query` operation into the input box. 
-
-[role='command']
-----
-query {
-  system {
-    username
-  }
-}
-----
-
-Press `CTRL+enter` to run your `query` operation and generate output that is similar to the following example:
-
-[role='no_copy']
-----
-{
-  "data": {
-    "system": {
-      "username": "admin"
-    }
-  }
-}
-----
-
-[role='command']
-include::{common-includes}/twyb-end.adoc[]
+// No "Try what you'll build" because of multiple services, will take too long
 
 == Creating GraphQL object types
 
 Navigate to the `start` directory to begin.
-
-[role='command']
-include::{common-includes}/devmode-lmp33-start.adoc[]
 
 Object types define the structure of the data returned by GraphQL. 
 Annotations that are applied to the declaration and properties of Java classes define object types.
@@ -112,7 +76,7 @@ Annotations that are applied to the declaration and properties of Java classes d
 [role="code_command hotspot file=0", subs="quotes"]
 ----
 #Create the `JavaInfo` class.#
-`src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
+`models/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
 The [hotspot=class file=0]`JavaInfo` class is annotated with an `@Type` annotation. 
@@ -156,25 +120,32 @@ The `java` and `operatingSystem` object types are used as nested objects within 
 However, nested objects and other properties that are expensive to calculate or retrieve are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
 
+Run `mvn install` to install the compile the object types.
+
+[role='command']
+```
+mvn -pl models install
+```
+
 // file 0
 JavaInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
 ----
 
 // file 1
 OperatingSystem.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
 ----
 
 // file 2
 SystemInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
 ----
 
 == Implementing GraphQL resolvers
