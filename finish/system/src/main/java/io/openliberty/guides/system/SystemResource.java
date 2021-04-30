@@ -30,8 +30,10 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 @Path("properties")
 public class SystemResource {
 
+    // tag::clientBuilder[]
     private SystemClient sc = GraphQlClientBuilder.newBuilder()
                                                   .build(SystemClient.class);
+    // end::clientBuilder[]
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

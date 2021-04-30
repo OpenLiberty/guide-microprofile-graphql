@@ -341,7 +341,70 @@ Notice that only the `note` property is returned, as it was the only property in
 
 == Implementing a GraphQL client
 
+Open a new command line session and navigate to the `start` directory.
 
+[role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Replace the Maven project file.#
+`system/pom.xml`
+----
+
+The [hotspot=graphQLClientDependency file=0]`smallrye-graphql-client` dependency 
+includes classes that can be used to interact with a GraphQL service.
+
+[role="code_command hotspot file=1" ,subs="quotes"]
+----
+#Create the `SystemClient` interface.#
+`system/src/main/java/io/openliberty/guides/system/client/SystemClient.java`
+----
+
+The [hotspot file=1]`SystemClient` interface is annotated with the [hotspot=clientApi file=1]`@GraphQlClientApi` annotation.
+Inside this interface, a function header is written for each resolver in the GraphQL service. 
+The names of these functions match the names of the resolvers in the GraphQL schema. 
+The return type for each function should also match that of the GraphQL resolver. 
+
+For example, the [hotspot=systemInfo file=1]`system()` function maps to the `system` resolver.
+As this resolver returns a `system` object type, the [hotspot=systemInfo file=1]`system()` function
+returns the `SystemInfo` class that was created earlier in the guide to map to the `system` object type. 
+
+The [hotspot=editNote file=1]`editNote()` function maps to the `editNote` resolver.
+As this resolver is a `mutation` operation, the [hotspot=editNote file=1]`editNote()` function
+must be annotated with the [hotspot=mutationTag file=1]`@Mutation` annotation.
+
+[role="code_command hotspot file=2" ,subs="quotes"]
+----
+#Create the `SystemResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemResource.java`
+----
+
+The [hotspot file=2]`SystemResource` class will provide REST endpoints that will retrieve information from 
+the GraphQL service to show an example of how you can program requests to a GraphQL service.
+
+The [hotspot file=1]`SystemClient` interface is used in a
+[hotspot=clientBuilder file=2]`GraphQLClientBuilder` to create a GraphQL client.
+
+
+
+// file 0
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/pom.xml[]
+----
+
+// file 1
+SystemClient.java
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/java/io/openliberty/guides/system/client/SystemClient.java[]
+----
+
+// file 2
+SystemResource.java
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemResource.java[]
+----
 
 == Running the GraphQL client
 

@@ -18,14 +18,22 @@ import org.eclipse.microprofile.graphql.Name;
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.smallrye.graphql.client.typesafe.api.GraphQlClientApi;
 
+// tag::clientApi[]
 @GraphQlClientApi
+// end::clientApi[]
 public interface SystemClient {
 
+    // tag::systemInfo[]
     SystemInfo system();
+    // end::systemInfo[]
 
     String property(@Name("name") String propertyName);
 
+    // tag::mutationTag[]
     @Mutation
+    // end::mutationTag[]
+    // tag::editNote[]
     boolean editNote(@Name("note") String note);
+    // end::editNote[]
 
 }
