@@ -349,7 +349,15 @@ Notice that only the `note` property is returned, as it was the only property in
 
 == Tearing down the environment
 
+When you're finished with the `backend` and `system` services, 
+stop them by pressing `CTRL+C` in their respective command line interfaces. 
+Alternatively, from another command line interface, navigate to the `start` directory and run the following commands:
 
+[role='command']
+----
+mvn -pl system liberty:stop
+mvn -pl backend liberty:stop
+----
 
 == Great work! You're done!
 
