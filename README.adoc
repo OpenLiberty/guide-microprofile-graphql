@@ -120,7 +120,7 @@ The `java` and `operatingSystem` object types are used as nested objects within 
 However, nested objects and other properties that are expensive to calculate or retrieve are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
 
-Run `mvn install` to install the compile the object types.
+Run `mvn install` to compile and install the object types.
 
 [role='command']
 ```
@@ -239,22 +239,33 @@ server.xml
 include::finish/backend/src/main/liberty/config/server.xml[]
 ----
 
-///////////////////////////
-// Running the application
-///////////////////////////
+== Running the GraphQL service
+
+Run the followinig commands to start the `backend` service: 
 
 [role='command']
-include::{common-includes}/devmode-build.adoc[]
+----
+mvn -pl backend package
+mvn -pl backend liberty:run
+----
 
-GraphiQL has already been set up and included for you.
+After you see the following message, the `backend` service is ready:
+
+[role="no_copy"]
+----
+The defaultServer server is ready to run a smarter planet.
+----
+
+A GraphQL service is described by a schema. 
+The schema is visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+The schema details what operations are available as well as any object types that are returned.
+Object types described will have their fields and their types listed. 
+If defined, descriptions of object types and operations will also be included.
+
+To access the `backend` service, GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests. 
-
-In GraphiQL, you can view the application documentation by clicking the `Docs` button on the menu bar. 
-The documentation describes the GraphQL schema.
-The schema gives details on the various operations that are available. 
-If any data types are mentioned, you can also see descriptions of them and the fields that are contained within them if applicable. 
-The schema is also visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar. 
 
 Run the following `query` operation in GraphiQL to get every system property. 
 
@@ -278,8 +289,8 @@ The output is similar to the following example:
   "data": {
     "system": {
       "java": {
-        "vendorName": "N/A",
-        "version": "13.0.2"
+        "vendorName": "AdoptOpenJDK",
+        "version": "11.0.7"
       },
       "operatingSystem": {
         "arch": "x86_64",
@@ -328,60 +339,17 @@ The response is similar to the following example:
 
 Notice that only the `note` property is returned, as it was the only property in the request. 
 
-== Testing the application
+== Implementing a GraphQL client
 
-Manual tests can be done by using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
-However, automated tests are a better approach because they trigger a failure if a change introduces a bug.
 
-You can write tests by using JUnit to call the application server directly. 
 
-[role="code_command hotspot file=0" ,subs="quotes"]
-----
-#Create the `SystemIT` class.#
-`src/test/java/io/openliberty/guides/graphql/SystemIT.java`
-----
+== Running the GraphQL client
 
-The [hotspot file=0]`SystemIT` class contains the test methods.
 
-Each test is annotated with the [hotspot=test1 hotspot=test2 file=0]`@Test` annotation. 
 
-The [hotspot=testGet file=0]`testGetSystem()` method makes a query using the `system` resolver through a `POST` request.
-JSON-B is used to parse the responses into Java objects.
-The test verifies that the response contains data, is responding to the correct operation, and is free of errors. 
-Then it checks the `username` property to ensure it is returned correctly.
+== Tearing down the environment
 
-The [hotspot=testEdit file=0]`testEditNote()` method makes a query using the `editNote` resolver.
-It will try to set the note to be the current system time and ensures the response says there were no problems with the operation.
-Then, it makes a query using the `system` resolver to ensure the note was saved correctly. 
 
-// file 0
-SystemIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
-----
-
-// Running the tests
-
-[role=command]
-include::{common-includes}/devmode-test.adoc[]
-
-The tests show output similar to the following: 
-
-[source,role="no_copy"]
-----
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.008 s - in io.openliberty.guides.graphql.SystemIT
-
-Results:
-
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-----
-
-[role=command]
-include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
