@@ -158,7 +158,7 @@ The `mutation` operation type can create, delete, or modify data.
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Create the `SystemGraphQLResource` class.#
-`finish/backend/src/main/java/io/openliberty/guides/backend/SystemGraphQLService`
+`backend/src/main/java/io/openliberty/guides/backend/SystemGraphQLService.java`
 ----
 
 The resolvers are defined in the [hotspot file=0]`SystemGraphQLResource.java` file.
@@ -208,7 +208,7 @@ To use GraphQL, the MicroProfile GraphQL dependencies and features need to be in
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the Maven project file.#
-`pom.xml`
+`backend/pom.xml`
 ----
 
 Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
@@ -219,24 +219,24 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the server configuration file.#
-`src/main/liberty/config/server.xml`
+`backend/src/main/liberty/config/server.xml`
 ----
 
-The https://openliberty.io/docs/20.0.0.12/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
+The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
 that is added to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
 
 // file 0
 pom.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/pom.xml[]
+include::finish/backend/pom.xml[]
 ----
 
 // file 1
 server.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/liberty/config/server.xml[]
+include::finish/backend/src/main/liberty/config/server.xml[]
 ----
 
 ///////////////////////////
