@@ -476,8 +476,7 @@ You should get a `200` response code back, as well as the note you set earlier.
 You can see a full list of all system properties you can query through the `/system/properties/{property}` endpoint
 by accessing the `/system/properties/list` endpoint.
 You should get a list of all the system properties available.
-Note that some of these properties were not referenced in our GraphQL object types, 
-as not all of these properties have been mapped to GraphQL object types or fields. 
+Note that we didn't map all of these properties to GraphQL object types for the sake of time. 
 
 == Tearing down the environment
 
