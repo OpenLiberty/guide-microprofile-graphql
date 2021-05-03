@@ -50,11 +50,12 @@ GraphQL will only calculate these properties if they're requested.
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
 You'll create two services.
-The `backend` service will be a GraphQL service that responds to requests made to the `\http://localhost:9080/graphql` URL. 
+The `backend` service will be a GraphQL service that responds to 
+requests made to the `\http://localhost:9080/graphql` URL. 
 The `system` service will make requests to the `backend` service and display the data using OpenAPI.
 It will use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL Client]
 to make requests to the `backend` service.
-To learn more about OpenAPI, check out our 
+To learn more about OpenAPI, check out the 
 https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
 The guide also includes https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
@@ -91,8 +92,10 @@ The [hotspot=description file=0]`@Description` annotation gives a description to
 This description is what appears in the schema and the documentation. 
 Descriptions aren't required, but it's good practice to include them. 
 
-The [hotspot=name file=0]`@Name` annotation maps the `vendor` property to the `vendorName` property of the `java` object type in GraphQL. 
-The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object to a property of a different name in the GraphQL object type.
+The [hotspot=name file=0]`@Name` annotation maps the `vendor` property 
+to the `vendorName` property of the `java` object type in GraphQL. 
+The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object 
+to a property of a different name in the GraphQL object type.
 Without an [hotspot=name file=0]`@Name` annotation, the Java object property is automatically 
 mapped to a GraphQL object type property of the same name. 
 
@@ -118,10 +121,12 @@ It maps to the [hotspot=type file=1]`operatingSystem` object type, which describ
 ----
 
 The [hotspot=class file=2]`SystemInfo` class is similar to the previous two files. 
-It maps to the [hotspot=type file=2]`system` object type, which describes other information Java can retrieve from the system properties.
+It maps to the [hotspot=type file=2]`system` object type, 
+which describes other information Java can retrieve from the system properties.
 
 The `java` and `operatingSystem` object types are used as nested objects within the `system` object type.
-However, nested objects and other properties that are expensive to calculate or retrieve are not included in the class of an object type.
+However, nested objects and other properties that are expensive to calculate or retrieve 
+are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
 
 Run `mvn install` to compile and install the object types.
@@ -166,7 +171,8 @@ The `mutation` operation type can create, delete, or modify data.
 ----
 
 The resolvers are defined in the [hotspot file=0]`SystemGraphQLResource.java` file.
-The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation enables GraphQL to use the methods that are defined in this class as resolvers. 
+The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation 
+enables GraphQL to use the methods that are defined in this class as resolvers. 
 
 Operations of the `query` type are read-only operations that retrieve data.
 They're defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
@@ -192,10 +198,12 @@ Each resolver function has an [hotspot=description1 hotspot=description2 hotspot
 annotation, which provides a description to be used for the schema. 
 Descriptions aren't required, but it's good practice to include them. 
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation 
+is used to add properties to object types. 
 This annotation adds [hotspot=javaFunction file=0]`java` 
 and [hotspot=os file=0]`operatingSystem` object types as properties of the `system` object type.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or search for.
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation 
+is used for any properties that are expensive to calculate or search for.
 These properties are calculated or searched for only if requested, which saves time and resources.
 
 // file 0
@@ -226,8 +234,9 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 `backend/src/main/liberty/config/server.xml`
 ----
 
-The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
-that is added to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
+The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
+([hotspot=graphql file=1]`mpGraphQL-1.0`) feature that is added to the [hotspot file=1]`server.xml` 
+enables the use of the GraphQL feature in OpenLiberty.
 
 // file 0
 pom.xml
@@ -362,7 +371,8 @@ includes classes that can be used to interact with a GraphQL service.
 `system/src/main/java/io/openliberty/guides/system/client/SystemClient.java`
 ----
 
-The [hotspot file=1]`SystemClient` interface is annotated with the [hotspot=clientApi file=1]`@GraphQlClientApi` annotation.
+The [hotspot file=1]`SystemClient` interface is annotated with the 
+[hotspot=clientApi file=1]`@GraphQlClientApi` annotation.
 Inside this interface, a function header is written for each resolver in the GraphQL service. 
 The names of these functions match the names of the resolvers in the GraphQL schema. 
 If any of the resolvers require input variables, they can be passed in using 
