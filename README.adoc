@@ -469,9 +469,15 @@ Enter in a note of your choice in the input box, then click the `Execute` button
 You should get a `200` response code back. 
 If you try the `/system/properties` endpoint again, you'll see the note you input in the response. 
 
-You can also see the note or any other single system property through the `/system/properties/{note}` endpoint.
+You can also see the note or any other single system property through the `/system/properties/{property}` endpoint.
 Click the `Try it out` button and enter in `note` for the choice of property, then click `Execute`.
 You should get a `200` response code back, as well as the note you set earlier.
+
+You can see a full list of all system properties you can query through the `/system/properties/{property}` endpoint
+by accessing the `/system/properties/list` endpoint.
+You should get a list of all the system properties available.
+Note that some of these properties were not referenced in our GraphQL object types, 
+as not all of these properties have been mapped to GraphQL object types or fields. 
 
 == Tearing down the environment
 

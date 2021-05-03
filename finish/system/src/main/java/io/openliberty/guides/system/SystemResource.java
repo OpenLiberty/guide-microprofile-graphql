@@ -12,6 +12,7 @@
 // end::copyright[]
 package io.openliberty.guides.system;
 
+import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -61,5 +62,12 @@ public class SystemResource {
         sc.editNote(text);
         // end::clientUsed3[]
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("list")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> propertyList() {
+        return System.getProperties().stringPropertyNames();
     }
 }
