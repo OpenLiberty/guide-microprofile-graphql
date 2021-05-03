@@ -35,15 +35,15 @@ https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroPro
 
 GraphQL is an open source data query language. 
 Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint. 
-Create, read, update, and delete (CRUD) operations and their details are differentiated by the contents of the request.
+Create, read, update, and delete operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user specifies what properties of the data that they want returned. 
 For read operations, a JSON object is returned that contains only the data and properties that are specified.
 For other operations, a JSON object might be returned containing information such as a success message. 
 
 Returning only the specified properties in a read operation has two benefits.
-It reduces the size of the responses if you're dealing with large amounts of data or large resources.
-It also saves processing time if you have properties that are expensive to calculate or retrieve such as nested resources.
-GraphQL will only get these properties if they are requested.
+If you're dealing with large amounts of data or large resources, it reduces the size of the responses.
+If you have properties that are expensive to calculate or retrieve (such as nested objects) it also saves processing time.
+GraphQL will only calculate these properties if they're requested.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
@@ -56,8 +56,8 @@ To learn more about OpenAPI, check out our
 https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
 The guide also includes https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
-GraphiQL assists in manually making `POST` requests to a GraphQL service.
-In GraphiQL you need to type only the body of the request for the purposes of manual tests and examples. 
+GraphiQL helps you make `POST` requests to a GraphQL service.
+In GraphiQL, you need to type only the body of the request for the purposes of manual tests and examples. 
 
 ///////////////////////////
 // Getting started
@@ -167,7 +167,7 @@ The resolvers are defined in the [hotspot file=0]`SystemGraphQLResource.java` fi
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation enables GraphQL to use the methods that are defined in this class as resolvers. 
 
 Operations of the `query` type are read-only operations that retrieve data.
-They are defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
+They're defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
 Two functions are defined and mapped to `query` operations.
 
 The [hotspot=getSystemInfo file=0]`getSystemInfo()` function handles `system` requests.
@@ -260,7 +260,7 @@ The defaultServer server is ready to run a smarter planet.
 
 A GraphQL service is described by a schema. 
 The schema is visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
-The schema details what operations are available as well as any object types that are returned.
+The schema details what operations are available and any object types that are returned.
 Object types described will have their fields and their types listed. 
 If defined, descriptions of object types and operations will also be included.
 
@@ -343,7 +343,7 @@ Notice that only the `note` property is returned, as it was the only property in
 
 == Implementing a GraphQL client
 
-Open a new command line session and navigate to the `start` directory.
+Open a new command-line session and navigate to the `start` directory.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -363,7 +363,7 @@ includes classes that can be used to interact with a GraphQL service.
 The [hotspot file=1]`SystemClient` interface is annotated with the [hotspot=clientApi file=1]`@GraphQlClientApi` annotation.
 Inside this interface, a function header is written for each resolver in the GraphQL service. 
 The names of these functions match the names of the resolvers in the GraphQL schema. 
-If any of the resolvers have input variables, these can be passed in using 
+If any of the resolvers require input variables, they can be passed in using 
 the [hotspot=property hotspot=editNote file=1]`@Name` annotation on the function's inputs.
 The return type for each function should also match that of the GraphQL resolver. 
 
@@ -428,8 +428,8 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 == Running the GraphQL client
 
-Open a new command line session and navigate to the `start` directory.
-Then run the following command:
+Open a new command-line session and navigate to the `start` directory.
+Then, run the following command:
 
 [role='command']
 ----
@@ -444,14 +444,28 @@ After you see the following message, the `system` service is ready:
 The defaultServer server is ready to run a smarter planet.
 ----
 
-Access the http://localhost:9081/system/properties[^] endpoint to use the `system` resolver through the GraphQL client.
-The client will make 
+Visit the http://localhost:9081/openapi/ui/[^] URL to use OpenAPI to make requests to the `system` service.
+
+Open the `/system/properties` endpoint.
+Click the `Try it out` button, then the `Execute` button. 
+You should see the client made a request to the GraphQL service and got a `200` response code back, 
+as well as the JSON object in the body of the response. 
+
+Then open the `/system/properties/note` endpoint.
+Click the `Try it out` button.
+Enter in a note of your choice in the input box, then click the `Execute` button.
+You should get a `200` response code back. 
+If you try the `/system/properties` endpoint again, you'll see the note you input in the response. 
+
+You can also see the note or any other single system property through the `/system/properties/{note}` endpoint.
+Click the `Try it out` button and enter in `note` for the choice of property, then clikc `Execute`.
+You should get a `200` response code back, as well as the note you set earlier.
 
 == Tearing down the environment
 
 When you're finished with the `backend` and `system` services, 
-stop them by pressing `CTRL+C` in their respective command line interfaces. 
-Alternatively, from another command line interface, navigate to the `start` directory and run the following commands:
+stop them by pressing `CTRL+C` in their respective command-line interfaces. 
+Alternatively, from another command-line interface, navigate to the `start` directory and run the following commands:
 
 [role='command']
 ----
