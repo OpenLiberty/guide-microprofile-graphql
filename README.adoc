@@ -41,8 +41,10 @@ For read operations, a JSON object is returned that contains only the data and p
 For other operations, a JSON object might be returned containing information such as a success message. 
 
 Returning only the specified properties in a read operation has two benefits.
-If you're dealing with large amounts of data or large resources, it reduces the size of the responses.
-If you have properties that are expensive to calculate or retrieve (such as nested objects) it also saves processing time.
+If you're dealing with large amounts of data or large resources, 
+it reduces the size of the responses.
+If you have properties that are expensive to calculate or retrieve (such as nested objects), 
+it also saves processing time.
 GraphQL will only calculate these properties if they're requested.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
@@ -314,7 +316,7 @@ mutation {
 }
 ----
 
-You receive a response containing the boolean `true` to let you know that the request was successfully processed.
+You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
 You can see the note that you added by running the following query operation.
 
 [role='command']
@@ -444,21 +446,21 @@ After you see the following message, the `system` service is ready:
 The defaultServer server is ready to run a smarter planet.
 ----
 
-Visit the http://localhost:9081/openapi/ui/[^] URL to use OpenAPI to make requests to the `system` service.
+Go to the http://localhost:9081/openapi/ui/[^] URL to use OpenAPI to make requests to the `system` service.
 
 Open the `/system/properties` endpoint.
 Click the `Try it out` button, then the `Execute` button. 
 You should see the client made a request to the GraphQL service and got a `200` response code back, 
 as well as the JSON object in the body of the response. 
 
-Then open the `/system/properties/note` endpoint.
+Then, open the `/system/properties/note` endpoint.
 Click the `Try it out` button.
 Enter in a note of your choice in the input box, then click the `Execute` button.
 You should get a `200` response code back. 
 If you try the `/system/properties` endpoint again, you'll see the note you input in the response. 
 
 You can also see the note or any other single system property through the `/system/properties/{note}` endpoint.
-Click the `Try it out` button and enter in `note` for the choice of property, then clikc `Execute`.
+Click the `Try it out` button and enter in `note` for the choice of property, then click `Execute`.
 You should get a `200` response code back, as well as the note you set earlier.
 
 == Tearing down the environment
