@@ -50,6 +50,8 @@ You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 You'll create two services.
 The `backend` service will be a GraphQL service that responds to requests made to the `\http://localhost:9080/graphql` URL. 
 The `system` service will make requests to the `backend` service and display the data using OpenAPI.
+It will use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL Client]
+to make requests to the `backend` service.
 To learn more about OpenAPI, check out our 
 https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
@@ -241,7 +243,7 @@ include::finish/backend/src/main/liberty/config/server.xml[]
 
 == Running the GraphQL service
 
-Run the followinig commands to start the `backend` service: 
+Run the following commands to start the `backend` service: 
 
 [role='command']
 ----
@@ -361,6 +363,8 @@ includes classes that can be used to interact with a GraphQL service.
 The [hotspot file=1]`SystemClient` interface is annotated with the [hotspot=clientApi file=1]`@GraphQlClientApi` annotation.
 Inside this interface, a function header is written for each resolver in the GraphQL service. 
 The names of these functions match the names of the resolvers in the GraphQL schema. 
+If any of the resolvers have input variables, these can be passed in using 
+the [hotspot=property hotspot=editNote file=1]`@Name` annotation on the function's inputs.
 The return type for each function should also match that of the GraphQL resolver. 
 
 For example, the [hotspot=systemInfo file=1]`system()` function maps to the `system` resolver.
@@ -370,6 +374,7 @@ returns the `SystemInfo` class that was created earlier in the guide to map to t
 The [hotspot=editNote file=1]`editNote()` function maps to the `editNote` resolver.
 As this resolver is a `mutation` operation, the [hotspot=editNote file=1]`editNote()` function
 must be annotated with the [hotspot=mutationTag file=1]`@Mutation` annotation.
+Otherwise, the client will try to treat it as a `query` operation. 
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -377,13 +382,21 @@ must be annotated with the [hotspot=mutationTag file=1]`@Mutation` annotation.
 `system/src/main/java/io/openliberty/guides/system/SystemResource.java`
 ----
 
+[role="code_command hotspot file=3" ,subs="quotes"]
+----
+#Replace the `server.xml` class.#
+`system/src/main/liberty/config/server.xml`
+----
+
 The [hotspot file=2]`SystemResource` class will provide REST endpoints that will retrieve information from 
 the GraphQL service to show an example of how you can program requests to a GraphQL service.
 
 The [hotspot file=1]`SystemClient` interface is used in a
 [hotspot=clientBuilder file=2]`GraphQLClientBuilder` to create a GraphQL client.
-
-
+The client will make requests to the GraphQL service at the URL specified by the 
+[hotspot=url file=3]`graphql.server` variable in the [hotspot file=3]`server.xml`.
+The client and its functions are then used in the [hotspot=clientUsed1 file=2]`querySystem()`,
+the [hotspot=clientUsed2 file=2]`queryProperty()`, and the [hotspot=clientUsed3 file=2]`editNote()` functions. 
 
 // file 0
 pom.xml
@@ -394,21 +407,45 @@ include::finish/system/pom.xml[]
 
 // file 1
 SystemClient.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/system/src/main/java/io/openliberty/guides/system/client/SystemClient.java[]
 ----
 
 // file 2
 SystemResource.java
-[source, xml, linenums, role='code_column hide_tags=copyright']
+[source, javva, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/system/src/main/java/io/openliberty/guides/system/SystemResource.java[]
 ----
 
+// file 3
+server.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/liberty/config/server.xml[]
+----
+
 == Running the GraphQL client
 
+Open a new command line session and navigate to the `start` directory.
+Then run the following command:
 
+[role='command']
+----
+mvn -pl system package
+mvn -pl system liberty:run
+----
+
+After you see the following message, the `system` service is ready:
+
+[role="no_copy"]
+----
+The defaultServer server is ready to run a smarter planet.
+----
+
+Access the http://localhost:9081/system/properties[^] endpoint to use the `system` resolver through the GraphQL client.
+The client will make 
 
 == Tearing down the environment
 

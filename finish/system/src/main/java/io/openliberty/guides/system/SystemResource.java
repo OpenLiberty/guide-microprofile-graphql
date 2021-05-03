@@ -38,13 +38,18 @@ public class SystemResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public SystemInfo querySystem() {
+        // tag::clientUsed1[]
         return sc.system();
+        // end::clientUsed1[]
     }
 
     @GET
     @Path("{property}")
+    @Produces(MediaType.TEXT_PLAIN)
     public String queryProperty(@PathParam("property") String property) {
+        // tag::clientUsed2[]
         return sc.property(property);
+        // end::clientUsed2[]
     }
 
     @POST
@@ -52,7 +57,9 @@ public class SystemResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editNote(String text) {
+        // tag::clientUsed3[]
         sc.editNote(text);
+        // end::clientUsed3[]
         return Response.ok().build();
     }
 }

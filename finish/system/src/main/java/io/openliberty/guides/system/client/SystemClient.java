@@ -27,7 +27,9 @@ public interface SystemClient {
     SystemInfo system();
     // end::systemInfo[]
 
+    // tag::property[]
     String property(@Name("name") String propertyName);
+    // end::property[]
 
     // tag::mutationTag[]
     @Mutation
