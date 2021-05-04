@@ -396,7 +396,7 @@ Otherwise, the client will try to treat it as a `query` operation.
 
 [role="code_command hotspot file=3" ,subs="quotes"]
 ----
-#Replace the `server.xml` class.#
+#Replace the server configuration file.#
 `system/src/main/liberty/config/server.xml`
 ----
 
@@ -426,7 +426,7 @@ include::finish/system/src/main/java/io/openliberty/guides/system/client/SystemC
 
 // file 2
 SystemResource.java
-[source, javva, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/system/src/main/java/io/openliberty/guides/system/SystemResource.java[]
 ----
