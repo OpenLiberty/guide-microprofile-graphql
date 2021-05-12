@@ -235,8 +235,9 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 `backend/src/main/liberty/config/server.xml`
 ----
 
-The `mpGraphQL-1.0`feature that is added to the [hotspot file=1]`server.xml` enables the use of the
-https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] feature in OpenLiberty.
+The [hotspot=graphql file=1]`mpGraphQL-1.0` feature that is added to the [hotspot file=1]`server.xml` 
+enables the use of the https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
+feature in OpenLiberty.
 
 // file 0
 pom.xml
@@ -354,16 +355,13 @@ Notice that only the `note` property is returned, as it was the only property in
 
 == Implementing a GraphQL client
 
+A GraphQL client can be implemented using the https://github.com/smallrye/smallrye-graphql[SmallRye GraphQL client^].
+A client interface will be written with a function for each resolver that will be used. 
+The client will be built and will then be able to query the GraphQL service.
+The returned JSON objects will be converted to Java objects that can be used.
+This example will interact with the client through REST endpoints. 
+
 Open a new command-line session and navigate to the `start` directory.
-
-[role="code_command hotspot file=0" ,subs="quotes"]
-----
-#Replace the Maven project file.#
-`system/pom.xml`
-----
-
-The [hotspot=graphQLClientDependency file=0]`smallrye-graphql-client` dependency 
-includes classes that can be used to interact with a GraphQL service.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -394,12 +392,6 @@ Otherwise, the client will try to treat it as a `query` operation.
 `system/src/main/java/io/openliberty/guides/system/SystemResource.java`
 ----
 
-[role="code_command hotspot file=3" ,subs="quotes"]
-----
-#Replace the server configuration file.#
-`system/src/main/liberty/config/server.xml`
-----
-
 The [hotspot file=2]`SystemResource` class will provide REST endpoints that will retrieve information from 
 the GraphQL service to show an example of how you can program requests to a GraphQL service.
 
@@ -409,6 +401,24 @@ The client will make requests to the GraphQL service at the URL specified by the
 [hotspot=url file=3]`graphql.server` variable in the [hotspot file=3]`server.xml`.
 The client and its functions are then used in the [hotspot=clientUsed1 file=2]`querySystem()`,
 the [hotspot=clientUsed2 file=2]`queryProperty()`, and the [hotspot=clientUsed3 file=2]`editNote()` functions. 
+
+[role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Replace the Maven project file.#
+`system/pom.xml`
+----
+
+The [hotspot=graphQLClientDependency file=0]`smallrye-graphql-client` dependency 
+includes the classes used to interact with a GraphQL service.
+
+[role="code_command hotspot file=3" ,subs="quotes"]
+----
+#Replace the server configuration file.#
+`system/src/main/liberty/config/server.xml`
+----
+
+Finally, the [hotspot=url file=3]`graphql.server` variable is defined in the [hotspot file=3]`server.xml`.
+This variable defines where the GraphQL client will make its requests to.
 
 // file 0
 pom.xml
