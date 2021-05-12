@@ -474,7 +474,7 @@ Click the `Try it out` button and enter in `note` for the choice of property, th
 You should get a `200` response code back, as well as the note you set earlier.
 
 You can see a full list of all system properties you can query through the `/system/properties/{property}` endpoint
-by accessing the `/system/properties/list` endpoint.
+by accessing the `/system/properties/names` endpoint.
 You should get a list of all the system properties available.
 Note that we didn't map all of these properties to GraphQL object types for the sake of time. 
 

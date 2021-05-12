@@ -65,7 +65,7 @@ public class SystemResource {
     }
 
     @GET
-    @Path("list")
+    @Path("name")
     @Produces(MediaType.APPLICATION_JSON)
     public Set<String> propertyList() {
         return System.getProperties().stringPropertyNames();
