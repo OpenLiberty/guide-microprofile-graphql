@@ -108,7 +108,7 @@ If needed, setter functions are also supported and automatically mapped.
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Create the `OperatingSystem` class.#
-`src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
+`models/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
 ----
 
 The [hotspot=class file=1]`OperatingSystem` class is set up similarly.
@@ -117,7 +117,7 @@ It maps to the [hotspot=type file=1]`operatingSystem` object type, which describ
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
 #Create the `SystemInfo` class.#
-`src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
 The [hotspot=class file=2]`SystemInfo` class is similar to the previous two files. 
@@ -129,7 +129,8 @@ However, nested objects and other properties that are expensive to calculate or 
 are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
 
-Run `mvn install` to compile and install the object types.
+Run the Maven `install` goal to compile and package the object types to a `.jar` file
+that will be used by the `backend` and `system` services.
 
 [role='command']
 ```
@@ -234,9 +235,8 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 `backend/src/main/liberty/config/server.xml`
 ----
 
-The https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
-([hotspot=graphql file=1]`mpGraphQL-1.0`) feature that is added to the [hotspot file=1]`server.xml` 
-enables the use of the GraphQL feature in OpenLiberty.
+The `mpGraphQL-1.0`feature that is added to the [hotspot file=1]`server.xml` enables the use of the
+https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] feature in OpenLiberty.
 
 // file 0
 pom.xml
