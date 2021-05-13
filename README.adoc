@@ -160,7 +160,7 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/System
 
 == Implementing GraphQL resolvers
 
-Navigate to the `start/backend` folder to begin. 
+Navigate to the `start/backend` directory to begin. 
 
 Resolvers are functions that provide instructions for GraphQL operations.
 Each operation requires a corresponding resolver.
@@ -359,12 +359,12 @@ Notice that only the `note` property is returned, as it was the only property in
 
 A GraphQL client can be implemented using the https://github.com/smallrye/smallrye-graphql[SmallRye GraphQL client^].
 A client interface will be written with a function for each resolver that will be used. 
-The client will be built and will then be able to query the GraphQL service.
+The client will be built and used to query the GraphQL service.
 The returned JSON objects will be converted to Java objects that can be used.
 This example will interact with the client through REST endpoints. 
 
 Open a new command-line session and navigate to the `start/system` directory.
-Then run the following goal to start Open Liberty in dev mode:
+Then, run the following goal to start Open Liberty in dev mode:
 
 [role=command]
 ```
