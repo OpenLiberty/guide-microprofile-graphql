@@ -24,6 +24,9 @@ import org.eclipse.microprofile.graphql.Type;
 public class SystemInfo {
 
     @NonNull
+    private String hostname;
+
+    @NonNull
     private String username;
 
     private String timezone;
@@ -33,6 +36,14 @@ public class SystemInfo {
     private JavaInfo java;
 
     private OperatingSystem operatingSystem;
+
+    public String getHostname() {
+        return this.hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
 
     public String getUsername() {
         return this.username;
@@ -73,6 +84,5 @@ public class SystemInfo {
     public void setOperatingSystem(OperatingSystem operatingSystem) {
         this.operatingSystem = operatingSystem;
     }
-
 }
 // end::class[]

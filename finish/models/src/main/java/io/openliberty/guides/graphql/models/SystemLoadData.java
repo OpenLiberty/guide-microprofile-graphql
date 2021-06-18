@@ -17,45 +17,56 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("operatingSystem")
+@Type("data")
 // end::type[]
 // tag::description[]
-@Description("Information about an operating system")
+@Description("System usage data")
 // end::description[]
 // tag::class[]
-public class OperatingSystem {
+public class SystemLoadData {
 
     @NonNull
-    private String arch;
+    private Double loadAverage;
 
     @NonNull
-    private String name;
+    private Long heapUsed;
+    
+    @NonNull
+    private Integer processors;
 
     @NonNull
-    private String version;
+    private Long heapSize;
 
-    public String getArch() {
-        return arch;
+    public Integer getProcessors() {
+        return processors;
     }
 
-    public void setArch(String arch) {
-        this.arch = arch;
+    public void setProcessors(int processors) {
+        this.processors = processors;
     }
 
-    public String getName() {
-        return name;
+	public Double getLoadAverage() {
+        return loadAverage;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLoadAverage(Double loadAverage) {
+        this.loadAverage = loadAverage;
     }
 
-    public String getVersion() {
-        return version;
+    public Long getHeapSize() {
+        return heapSize;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setHeapSize(long heapSize) {
+        this.heapSize = heapSize;
+    }
+
+    public Long getHeapUsed() {
+        return heapUsed;
+    }
+
+    public void setHeapUsed(Long heapUsed) {
+        this.heapUsed = heapUsed;
     }
 
 }

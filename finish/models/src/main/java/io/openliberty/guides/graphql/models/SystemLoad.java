@@ -17,45 +17,34 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("operatingSystem")
+@Type("systemLoad")
 // end::type[]
 // tag::description[]
-@Description("Information about an operating system")
+@Description("Information of system usage")
 // end::description[]
 // tag::class[]
-public class OperatingSystem {
+public class SystemLoad {
 
     @NonNull
-    private String arch;
-
+    private String hostname;
+    
     @NonNull
-    private String name;
+    private SystemLoadData data;
 
-    @NonNull
-    private String version;
+	public String getHostname() {
+		return hostname;
+	}
 
-    public String getArch() {
-        return arch;
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public SystemLoadData getData() {
+        return data;
     }
 
-    public void setArch(String arch) {
-        this.arch = arch;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
+    public void setData(SystemLoadData data) {
+        this.data = data;
     }
 
 }
