@@ -13,6 +13,7 @@
 package io.openliberty.guides.system;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.MalformedURLException;
 
@@ -24,6 +25,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,11 @@ public class SystemEndpointIT {
         client.register(JsrJsonpProvider.class);
     }
 
+    @AfterAll
+    private static void teardown() {
+        client.close();
+    }
+
     @Test
     @Order(1)
     public void testEditNote() throws MalformedURLException {
@@ -55,30 +62,68 @@ public class SystemEndpointIT {
     @Test
     @Order(2)
     public void testGetProperties() throws MalformedURLException {
-        WebTarget target = client.target(URL + "system/properties");
+        WebTarget target = client.target(URL + "system/properties/note");
+        Response response = target.request().get();
+        assertEquals(200, response.getStatus(),
+                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(NOTE,
+                     response.readEntity(String.class),
+                     "The note was not set correctly");
+        response.close();
+    }
+
+    @Test
+    public void testGetProperty() throws MalformedURLException {
+        WebTarget target = client.target(URL + "system/properties/user.name");
+        Response response = target.request().get();
+        assertEquals(200, response.getStatus(),
+                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(System.getProperty("user.name"),
+                     response.readEntity(String.class),
+                     "user name should match");
+        response.close();
+    }
+
+    @Test
+    public void testGetJava() throws MalformedURLException {
+        WebTarget target = client.target(URL + "system/properties/java");
         Response response = target.request().get();
         assertEquals(200, response.getStatus(),
                      "Incorrect response code from " + target.getUri().getPath());
 
-        JsonObject system = response.readEntity(JsonObject.class);
-        assertEquals(System.getProperty("user.name"),
-                     system.getString("username"),
-                     "The system property for for the local and remote "
-                     + "user name should match");
-        assertEquals(NOTE,
-                     system.getString("note"),
-                     "The note was not set correctly");
-        JsonObject os = system.getJsonObject("operatingSystem");
-        assertEquals(System.getProperty("os.name"),
-                     os.getString("name"),
-                     "The system property for the local and remote "
-                     + "OS name should match");
-        JsonObject java = system.getJsonObject("java");
+        JsonObject java = response.readEntity(JsonObject.class);
         assertEquals(System.getProperty("java.vendor"),
                      java.getString("vendor"),
-                     "The system property for the local and remote "
-                     + "java vendor should match");
+                     "java vendor should match");
+        response.close();
+    }
 
+    @Test
+    public void testGetOperatingSystem() throws MalformedURLException {
+        WebTarget target = client.target(URL + "system/management/operatingSystem");
+        Response response = target.request().get();
+        assertEquals(200, response.getStatus(),
+                     "Incorrect response code from " + target.getUri().getPath());
+
+        JsonObject os = response.readEntity(JsonObject.class);
+        assertEquals(System.getProperty("os.name"),
+                     os.getString("name"),
+                     "OS name should match");
+        response.close();
+    }
+
+    @Test
+    public void testGetSystemLoad() throws MalformedURLException {
+        WebTarget target = client.target(URL + "system/management/systemLoad");
+        Response response = target.request().get();
+        assertEquals(200, response.getStatus(),
+                     "Incorrect response code from " + target.getUri().getPath());
+
+        JsonObject data = response.readEntity(JsonObject.class);
+        assertNotNull(data.getJsonNumber("heapSize"), "heapSize is null");
+        assertNotNull(data.getJsonNumber("heapUsed"), "heapUsed is null");
+        assertNotNull(data.getJsonNumber("processors"), "processors is null");
+        assertNotNull(data.getJsonNumber("loadAverage"), "loadAverage is null");
         response.close();
     }
 }

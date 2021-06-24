@@ -11,7 +11,8 @@
 
     <modules>
         <module>models</module>
-        <module>backend</module>
         <module>system</module>
+        <module>graphql</module>
+        <module>inventory</module>
     </modules>
 </project>

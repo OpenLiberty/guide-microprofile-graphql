@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.openliberty.guides</groupId>
-    <artifactId>system</artifactId>
+    <artifactId>graphql</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -15,8 +15,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Liberty configuration -->
-        <liberty.var.default.http.port>9080</liberty.var.default.http.port>
-        <liberty.var.default.https.port>9443</liberty.var.default.https.port>
+        <liberty.var.default.http.port>9082</liberty.var.default.http.port>
+        <liberty.var.default.https.port>9445</liberty.var.default.https.port>
     </properties>
 
     <dependencies>
@@ -44,11 +44,21 @@
         </dependency>
         <!-- end::models[] -->
         
+        <!-- GraphQL API dependencies -->
+        <!-- tag::graphQLDependency[] -->
+        <dependency>
+            <groupId>org.eclipse.microprofile.graphql</groupId>
+            <artifactId>microprofile-graphql-api</artifactId>
+            <version>1.0.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- end::graphQLDependency[] -->
         <!-- For tests -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -90,6 +100,9 @@
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.3.4</version>
+                <configuration>
+                    <looseApplication>false</looseApplication>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
