@@ -17,7 +17,7 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("data")
+@Type("loadData")
 // end::type[]
 // tag::description[]
 @Description("System usage data")

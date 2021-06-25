@@ -139,7 +139,7 @@ public class GraphQLService {
         return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
     }
     
-    public SystemLoadData data(@Source @Name("systemLoad") SystemLoad systemLoad)
+    public SystemLoadData loadData(@Source @Name("systemLoad") SystemLoad systemLoad)
         throws ProcessingException, UnknownUriException {
         String hostname = systemLoad.getHostname();
         SystemClient systemClient = getSystemClient(hostname);
