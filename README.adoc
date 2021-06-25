@@ -139,8 +139,28 @@ However, nested objects and other properties that are expensive to calculate or 
 are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
 
+[role="code_command hotspot file=3" ,subs="quotes"]
+----
+#Create the `SystemLoad` class.#
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemLoad.java`
+----
+
+The [hotspot=class file=3]`SystemLoad` class is similar to the previous files.
+It maps to the [hotspot=type file=3]`systemLoad` object type, 
+which describes the resources usage of a `system` service.
+
+[role="code_command hotspot file=4" ,subs="quotes"]
+----
+#Create the `SystemLoadData` class.#
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemLoadData.java`
+----
+
+The [hotspot=class file=4]`SystemLoadData` class will map to the `loadData` object type.
+It will describe be another nested object that will be inside the `systemLoad` object type.
+It will describe the details of the resource usage of a `system` service. 
+
 Run the Maven `install` goal to compile and package the object types to a `.jar` file
-that will be used by the `backend` and `system` services.
+that will be used by the other services later in the guide.
 
 [role='command']
 ```
@@ -166,6 +186,20 @@ SystemInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
+----
+
+// file 3
+SystemLoad.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemLoad.java[]
+----
+
+// file 4
+SystemLoad.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemLoadData.java[]
 ----
 
 == Implementing GraphQL resolvers
