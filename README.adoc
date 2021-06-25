@@ -16,6 +16,7 @@
 :page-related-guides: ['rest-intro', 'jpa-intro', 'mongodb-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
 :page-seo-title: Accessing and manipulating data using MicroProfile GraphQL in Open Liberty
 :page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through MicroProfile GraphQL
@@ -33,7 +34,7 @@ Explore how to use GraphQL to access and manipulate data using MicroProfile Grap
 You will learn how to build and use a simple GraphQL service with 
 https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^]. 
 
-GraphQL is an open source data query language. 
+GraphQL is an open source data query language.
 Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint. 
 Create, read, update, and delete operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user specifies what properties of the data that they want returned. 
@@ -47,20 +48,29 @@ If you have properties that are expensive to calculate or retrieve (such as nest
 it also saves processing time.
 GraphQL will only calculate these properties if they're requested.
 
+A GraphQL service can also be used to obtain data from multiple sources such as APIs, databases, or other services.
+It can then collate this data into a single object for the user.
+This simplifies data retrieval as the user only makes a single request to the GraphQL service,
+instead of multiple requests to the individual data sources.
+
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-You'll create two services.
-The `backend` service will be a GraphQL service that responds to 
-requests made to the `\http://localhost:9080/graphql` URL. 
-The `system` service will make requests to the `backend` service and display the data using OpenAPI.
-It will use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL Client]
-to make requests to the `backend` service.
-To learn more about OpenAPI, check out the 
-https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
+You'll create a GraphQL application that retrieves data from multiple `system` services.
+Users will make requests to the GraphQL service, which will then make requests to the `system` services.
+The GraphQL service will return a single JSON object containing all the system information from the `system` services.
 
-The guide also includes https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
+image::architecture.png[GraphQL architecture where multiple systems are integrated behind one GraphQL service, align="center"]
+
+The guide application includes https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
 GraphiQL helps you make `POST` requests to a GraphQL service.
 In GraphiQL, you need to type only the body of the request for the purposes of manual tests and examples. 
+
+For an example of accessing GraphQL using another service, you will also create an `inventory` service.
+The `inventory` service will make requests to the GraphQL service using the
+https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL Client].
+OpenAPI will be used to access the `inventory` service. 
+To learn more about OpenAPI, check out the 
+https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
 ///////////////////////////
 // Getting started
