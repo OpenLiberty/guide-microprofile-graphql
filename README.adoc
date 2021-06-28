@@ -274,7 +274,7 @@ To use GraphQL, the MicroProfile GraphQL dependencies and features need to be in
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the Maven project file.#
-`backend/pom.xml`
+`graphql/pom.xml`
 ----
 
 Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
@@ -285,7 +285,7 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the server configuration file.#
-`backend/src/main/liberty/config/server.xml`
+`graphql/src/main/liberty/config/server.xml`
 ----
 
 The [hotspot=graphql file=1]`mpGraphQL-1.0` feature that is added to the [hotspot file=1]`server.xml` 
@@ -296,14 +296,14 @@ feature in OpenLiberty.
 pom.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backend/pom.xml[]
+include::finish/graphql/pom.xml[]
 ----
 
 // file 1
 server.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backend/src/main/liberty/config/server.xml[]
+include::finish/graphql/src/main/liberty/config/server.xml[]
 ----
 
 == Querying the GraphQL service
