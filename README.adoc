@@ -204,8 +204,6 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/System
 
 == Implementing GraphQL resolvers
 
-Navigate to the `start/backend` directory to begin. 
-
 Resolvers are functions that provide instructions for GraphQL operations.
 Each operation requires a corresponding resolver.
 The `query` operation type is read-only and fetches data.
@@ -213,11 +211,11 @@ The `mutation` operation type can create, delete, or modify data.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `SystemGraphQLResource` class.#
-`backend/src/main/java/io/openliberty/guides/backend/SystemGraphQLService.java`
+#Create the `GraphQLService` class.#
+`graphql/src/main/java/io/openliberty/guides/graphql/GraphQLService.java`
 ----
 
-The resolvers are defined in the [hotspot file=0]`SystemGraphQLResource.java` file.
+The resolvers are defined in the [hotspot file=0]`GraphQLService.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation 
 enables GraphQL to use the methods that are defined in this class as resolvers. 
 
@@ -226,11 +224,16 @@ They're defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` anno
 Two functions are defined and mapped to `query` operations.
 
 The [hotspot=getSystemInfo file=0]`getSystemInfo()` function handles `system` requests.
-It retrieves and bundles system information into a `SystemInfo` object type that is returned.
+It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
-The [hotspot=getProperty file=0]`getProperty()` function handles `property` requests.
-In this context, the [hotspot=getPropertyHeader file=0]`@Name` annotation denotes an input for this operation.
-The `name` input is used in this operation to retrieve a single system property and return it. 
+The [hotspot=getSystemLoad file=0]`getSystemLoad()` function handles `systemLoad` requests.
+It will assemble an array of `SystemLoad` objects to describe the resource usage of `system` services.
+
+Both of these functions have an [hotspot=getSystemLoadHeader hotspot=getSystemInfoHeader file=0]`@Name` annotation on their inputs.
+The `@Name` annotation is used to denote inputs for a GraphQL resolver.
+Here it is used to specify a `hostname` of a system to look up information for.
+In the case of the [hotspot=getSystemLoadHeader]`getSystemLoad()` function, it specifies an array `hostnames`
+to be input to retrieve information from multiple systems.
 
 The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
 Operations of the `mutation` type modify data.
@@ -238,26 +241,30 @@ They create, update, or delete data.
 A single function is defined and mapped to a `mutation` operation.
 
 The [hotspot=editNoteFunction file=0]`editNote()` function handles `editNote` operations.
-An [hotspot=editNoteHeader file=0]`@Name` annotation denotes a `note` input, 
-which specifies the note that is written into the system properties.
+The [hotspot=editNoteHeader file=0]`@Name` annotation denotes a `hostname` input, which specifies which `hostname` is being edited.
+Another [hotspot=editNoteHeader file=0]`@Name` annotation is used for the `note` input,
+which is used to determine what note to write into the system properties of the given `hostname`. 
 
 Each resolver function has an [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
 annotation, which provides a description to be used for the schema. 
 Descriptions aren't required, but it's good practice to include them. 
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation 
-is used to add properties to object types. 
-This annotation adds [hotspot=javaFunction file=0]`java` 
-and [hotspot=os file=0]`operatingSystem` object types as properties of the `system` object type.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation 
+The [hotspot=operatingSystemHeader hotspot=javaHeader hotspot=loadDataHeader file=0]`@Source` annotation
+is used to add properties to object types.
+In this application, it adds the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
+object types as properties of the `system` object type.
+The [hotspot=loadDataHeader file=0]`@Source` annotation is also used to add the [hotspot=loadData file=0]`loadData`
+object type as a property of the `systemLoad` object type.
+
+The [hotspot=operatingSystemHeader hotspot=javaHeader hotspot=loadDataHeader file=0]`@Source` annotation
 is used for any properties that are expensive to calculate or search for.
-These properties are calculated or searched for only if requested, which saves time and resources.
+These properties are calculated or searched for only if requested, which saves processing time and resources.
 
 // file 0
-SystemResource.java
+GraphQLService.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backend/src/main/java/io/openliberty/guides/backend/SystemGraphQLService.java[]
+include::finish/graphql/src/main/java/io/openliberty/guides/graphql/GraphQLService.java[]
 ----
 
 == Enabling GraphQL

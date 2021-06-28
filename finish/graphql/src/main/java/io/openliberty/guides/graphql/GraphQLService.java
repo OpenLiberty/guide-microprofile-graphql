@@ -63,8 +63,10 @@ public class GraphQLService {
     @Description("Gets information about the system")
     // end::description1[]
     // tag::getSystemInfo[]
-    public SystemInfo getSystemInfo(@Name("hostname") String hostname) 
+    // tag::getSystemInfoHeader[]
+    public SystemInfo getSystemInfo(@Name("hostname") String hostname)
         throws ProcessingException, UnknownUriException {
+    // end::getSystemInfoHeader[]
         SystemClient systemClient = getSystemClient(hostname);
         SystemInfo systemInfo = new SystemInfo();
         systemInfo.setHostname(hostname);
@@ -106,9 +108,9 @@ public class GraphQLService {
     // tag::mutation[]
     @Mutation("editNote")
     // end::mutation[]
-    // tag::description3[]
+    // tag::description2[]
     @Description("Changes the note set for the system")
-    // end::description3[]
+    // end::description2[]
     // tag::editNoteFunction[]
     // tag::editNoteHeader[]
     public boolean editNote(@Name("hostname") String hostname, @Name("note") String note)
@@ -120,13 +122,20 @@ public class GraphQLService {
     }
     // end::editNoteFunction[]
 
+    // tag::query1[]
     @Query("systemLoad")
+    // end::query1[]
+    // tag::description3[]
     @Description("Gets system load data from the systems")
+    // end::description3[]
+    // tag::getSystemLoad[]
+    // tag::getSystemLoadHeader[]
     public SystemLoad[] getSystemLoad(@Name("hostnames") String[] hostnames)
         throws ProcessingException, UnknownUriException {
-
-        if (hostnames == null || hostnames.length == 0)
+    // end::getSystemLoadHeader[]
+        if (hostnames == null || hostnames.length == 0) {
             return new SystemLoad[0];
+        }
 
         List<SystemLoad> systemLoads = new ArrayList<SystemLoad>(hostnames.length);
 
@@ -135,17 +144,22 @@ public class GraphQLService {
         	systemLoad.setHostname(hostname);
         	systemLoads.add(systemLoad);
         }
- 
+
         return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
     }
-    
+    // end::getSystemLoad[]
+
+    // tag::loadData[]
+    // tag::loadDataHeader[]
     public SystemLoadData loadData(@Source @Name("systemLoad") SystemLoad systemLoad)
         throws ProcessingException, UnknownUriException {
+    // end::loadDataHeader[]
         String hostname = systemLoad.getHostname();
         SystemClient systemClient = getSystemClient(hostname);
         return systemClient.getSystemLoad();
     }
-    
+    // end::loadData[]
+
     private SystemClient getSystemClient(String hostname) {
         SystemClient sc = clients.get(hostname);
         if (sc == null) {
