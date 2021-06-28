@@ -46,11 +46,11 @@ import io.openliberty.guides.graphql.models.SystemLoadData;
 // end::graphqlapi[]
 public class GraphQLService {
 
-    private static Map<String,SystemClient> clients = 
-                       Collections.synchronizedMap(new HashMap<String,SystemClient>());
+    private static Map<String,SystemClient> clients =
+            Collections.synchronizedMap(new HashMap<String, SystemClient>());
 
     @Inject
-    @ConfigProperty(name = "system.http.port", defaultValue="9080")
+    @ConfigProperty(name = "system.http.port", defaultValue = "9080")
     String SYSTEM_PORT;
 
     // tag::query1[]
@@ -113,7 +113,8 @@ public class GraphQLService {
     // end::description2[]
     // tag::editNoteFunction[]
     // tag::editNoteHeader[]
-    public boolean editNote(@Name("hostname") String hostname, @Name("note") String note)
+    public boolean editNote(@Name("hostname") String hostname,
+                            @Name("note") String note)
         throws ProcessingException, UnknownUriException {
     // end::editNoteHeader[]
         SystemClient systemClient = getSystemClient(hostname);
@@ -140,9 +141,9 @@ public class GraphQLService {
         List<SystemLoad> systemLoads = new ArrayList<SystemLoad>(hostnames.length);
 
         for (String hostname : hostnames) {
-        	SystemLoad systemLoad = new SystemLoad();
-        	systemLoad.setHostname(hostname);
-        	systemLoads.add(systemLoad);
+            SystemLoad systemLoad = new SystemLoad();
+            systemLoad.setHostname(hostname);
+            systemLoads.add(systemLoad);
         }
 
         return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
@@ -163,7 +164,8 @@ public class GraphQLService {
     private SystemClient getSystemClient(String hostname) {
         SystemClient sc = clients.get(hostname);
         if (sc == null) {
-            String customURIString = "http://" + hostname + ":" + SYSTEM_PORT + "/system";
+            String customURIString = "http://" + hostname + ":"
+                                      + SYSTEM_PORT + "/system";
             URI customURI = URI.create(customURIString);
             sc = RestClientBuilder
                    .newBuilder()
