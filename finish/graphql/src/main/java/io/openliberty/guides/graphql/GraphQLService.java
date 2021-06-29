@@ -46,7 +46,7 @@ import io.openliberty.guides.graphql.models.SystemLoadData;
 // end::graphqlapi[]
 public class GraphQLService {
 
-    private static Map<String,SystemClient> clients =
+    private static Map<String, SystemClient> clients =
             Collections.synchronizedMap(new HashMap<String, SystemClient>());
 
     @Inject
