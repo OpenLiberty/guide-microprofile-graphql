@@ -27,24 +27,24 @@ public class SystemLoad {
 
     @NonNull
     private String hostname;
-    
+
     @NonNull
-    private SystemLoadData data;
+    private SystemLoadData loadData;
 
-	public String getHostname() {
-		return hostname;
-	}
-
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
-	}
-
-	public SystemLoadData getData() {
-        return data;
+    public String getHostname() {
+        return this.hostname;
     }
 
-    public void setData(SystemLoadData data) {
-        this.data = data;
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    public SystemLoadData getData() {
+        return this.loadData;
+    }
+
+    public void setData(SystemLoadData loadData) {
+        this.loadData = loadData;
     }
 
 }

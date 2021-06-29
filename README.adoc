@@ -72,6 +72,14 @@ OpenAPI will be used to access the `inventory` service.
 To learn more about OpenAPI, check out the 
 https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
+== Additional prerequisites
+
+Before you begin, Docker needs to be installed.
+For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^].
+You will build and run the application in Docker containers.
+
+Make sure to start your Docker daemon before you proceed.
+
 ///////////////////////////
 // Getting started
 ///////////////////////////
@@ -308,42 +316,76 @@ include::finish/graphql/src/main/liberty/config/server.xml[]
 
 == Querying the GraphQL service
 
-Run the following commands to start the `backend` service: 
+From the `start` directory, run the following command to package the `system` and `graphql` services:
 
 [role='command']
 ----
-mvn package
-mvn liberty:run
+mvn clean package
 ----
 
-After you see the following message, the `backend` service is ready:
+Build your Docker images with the following commands:
 
-[role="no_copy"]
+[role='command']
 ----
-The defaultServer server is ready to run a smarter planet.
+docker build -t system:1.0-java8-SNAPSHOT --build-arg JAVA_VERSION=java8 system/.
+docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
+docker build -t graphql:1.0-SNAPSHOT graphql/.
 ----
 
-A GraphQL service is described by a schema. 
-The schema is visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+The `--build-arg` parameter is used to create two different `system` services.
+One will use Java 8, while the other will use Java 11.
+Run these Docker images using the provided `startContainers` script.
+The script will create a network for the services to communicate through.
+It will create the two `system` services and a GraphQL service. 
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+.\scripts\startContainers.bat
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/startContainers.sh
+```
+--
+
+The containers may take some time to become available.
+Before making any requests, visit the http://localhost:9080/graphql/schema.graphql[^] URL.
+This URL contains the schema, which describes the GraphQL service.
 The schema details what operations are available and any object types that are returned.
-Object types described will have their fields and their types listed. 
+Object types described will have their fields and their types listed.
 If defined, descriptions of object types and operations will also be included.
 
-To access the `backend` service, GraphiQL has already been set up and included for you.
+To access the GraphQL service, GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-Queries that are made through GraphiQL are the same as queries that are made through HTTP requests. 
-You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar. 
+Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
+You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
-Run the following `query` operation in GraphiQL to get every system property. 
+Run the following `query` operation in GraphiQL to get every system property from the container running on Java 8:
 
 [role='command']
 ----
 query {
-  system {
-    java { vendorName version }
-    operatingSystem { arch version name }
+  system(hostname:"java8") {
+    hostname
     username
     timezone
+    java {
+      vendorName
+      version
+    }
+    operatingSystem {
+      arch
+      name
+      version
+    }
   }
 }
 ----
@@ -355,37 +397,42 @@ The output is similar to the following example:
 {
   "data": {
     "system": {
+      "hostname": "java8",
+      "username": "default",
+      "timezone": "Etc/UTC",
       "java": {
         "vendorName": "AdoptOpenJDK",
-        "version": "11.0.7"
+        "version": "1.8.0_292"
       },
       "operatingSystem": {
-        "arch": "x86_64",
-        "version": "10.15.7",
-        "name": "Mac OS X"
-      },
-      "username": "admin",
-      "timezone": "America/Toronto"
+        "arch": "amd64",
+        "name": "Linux",
+        "version": "5.10.25-linuxkit"
+      }
     }
   }
 }
 ----
-Run the following mutation operation to add a note to the system.
+
+Run the following mutation operation to add a note to the `system` service running on Java 8:
 
 [role='command']
 ----
 mutation {
-  editNote(note: "I'm trying out GraphQL on OpenLiberty!")
+  editNote(
+    hostname: "java8"
+    note: "I'm trying out GraphQL on Open Liberty!"
+  )
 }
 ----
 
 You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
-You can see the note that you added by running the following query operation.
+You can see the note that you added by running the following query operation:
 
 [role='command']
 ----
 query {
-  system {
+  system(hostname: "java8") {
     note
   }
 }
@@ -404,159 +451,70 @@ The response is similar to the following example:
 }
 ----
 
-Notice that only the `note` property is returned, as it was the only property in the request. 
-
-== Implementing a GraphQL client
-
-A GraphQL client can be implemented using the https://github.com/smallrye/smallrye-graphql[SmallRye GraphQL client^].
-A client interface will be written with a function for each resolver that will be used. 
-The client will be built and used to query the GraphQL service.
-The returned JSON objects will be converted to Java objects that can be used.
-This example will interact with the client through REST endpoints. 
-
-Open a new command-line session and navigate to the `start/system` directory.
-Then, run the following goal to start Open Liberty in dev mode:
-
-[role=command]
-```
-mvn liberty:dev
-```
-
-When you run Open Liberty in dev mode, the server listens for file changes and 
-automatically recompiles and deploys your updates whenever you save a new change. 
-After you see the following message, your application server in dev mode is ready:
-
-[role="no_copy"]
-----
-************************************************************************
-*    Liberty is running in dev mode.
-----
-
-Dev mode holds your command-line session to listen for file changes. 
-Open another command-line session to continue, or open the project in your editor.
-
-[role="code_command hotspot file=1" ,subs="quotes"]
-----
-#Create the `SystemClient` interface.#
-`system/src/main/java/io/openliberty/guides/system/client/SystemClient.java`
-----
-
-The [hotspot file=1]`SystemClient` interface is annotated with the 
-[hotspot=clientApi file=1]`@GraphQlClientApi` annotation.
-Inside this interface, a function header is written for each resolver in the GraphQL service. 
-The names of these functions match the names of the resolvers in the GraphQL schema. 
-If any of the resolvers require input variables, they can be passed in using 
-the [hotspot=property hotspot=editNote file=1]`@Name` annotation on the function's inputs.
-The return type for each function should also match that of the GraphQL resolver. 
-
-For example, the [hotspot=systemInfo file=1]`system()` function maps to the `system` resolver.
-As this resolver returns a `system` object type, the [hotspot=systemInfo file=1]`system()` function
-returns the `SystemInfo` class that was created earlier in the guide to map to the `system` object type. 
-
-The [hotspot=editNote file=1]`editNote()` function maps to the `editNote` resolver.
-As this resolver is a `mutation` operation, the [hotspot=editNote file=1]`editNote()` function
-must be annotated with the [hotspot=mutationTag file=1]`@Mutation` annotation.
-Otherwise, the client will try to treat it as a `query` operation. 
-
-[role="code_command hotspot file=2" ,subs="quotes"]
-----
-#Create the `SystemResource` class.#
-`system/src/main/java/io/openliberty/guides/system/SystemResource.java`
-----
-
-The [hotspot file=2]`SystemResource` class will provide REST endpoints that will retrieve information from 
-the GraphQL service to show an example of how you can program requests to a GraphQL service.
-
-The [hotspot file=1]`SystemClient` interface is used in a
-[hotspot=clientBuilder file=2]`GraphQLClientBuilder` to create a GraphQL client.
-The client will make requests to the GraphQL service at the URL specified by the 
-[hotspot=url file=3]`graphql.server` variable in the [hotspot file=3]`server.xml`.
-The client and its functions are then used in the [hotspot=clientUsed1 file=2]`querySystem()`,
-the [hotspot=clientUsed2 file=2]`queryProperty()`, and the [hotspot=clientUsed3 file=2]`editNote()` functions. 
-
-[role="code_command hotspot file=0" ,subs="quotes"]
-----
-#Replace the Maven project file.#
-`system/pom.xml`
-----
-
-The [hotspot=graphQLClientDependency file=0]`smallrye-graphql-client` dependency 
-includes the classes used to interact with a GraphQL service.
-
-[role="code_command hotspot file=3" ,subs="quotes"]
-----
-#Replace the server configuration file.#
-`system/src/main/liberty/config/server.xml`
-----
-
-Finally, the [hotspot=url file=3]`graphql.server` variable is defined in the [hotspot file=3]`server.xml`.
-This variable defines where the GraphQL client will make its requests to.
-
-// file 0
-pom.xml
-[source, xml, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/system/pom.xml[]
-----
-
-// file 1
-SystemClient.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/system/src/main/java/io/openliberty/guides/system/client/SystemClient.java[]
-----
-
-// file 2
-SystemResource.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/system/src/main/java/io/openliberty/guides/system/SystemResource.java[]
-----
-
-// file 3
-server.xml
-[source, xml, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/system/src/main/liberty/config/server.xml[]
-----
-
-== Using the GraphQL client
-
-You started the `system` service in dev mode, so all the changes were automatically picked up.
-
-Go to the http://localhost:9081/openapi/ui/[^] URL to use OpenAPI to make requests to the `system` service.
-
-Open the `/system/properties` endpoint.
-Click the `Try it out` button, then the `Execute` button. 
-You should see the client made a request to the GraphQL service and got a `200` response code back, 
-as well as the JSON object in the body of the response. 
-
-Then, open the `/system/properties/note` endpoint.
-Click the `Try it out` button.
-Enter in a note of your choice in the input box, then click the `Execute` button.
-You should get a `200` response code back. 
-If you try the `/system/properties` endpoint again, you'll see the note you input in the response. 
-
-You can also see the note or any other single system property through the `/system/properties/{property}` endpoint.
-Click the `Try it out` button and enter in `note` for the choice of property, then click `Execute`.
-You should get a `200` response code back, as well as the note you set earlier.
-
-You can see a full list of all system properties you can query through the `/system/properties/{property}` endpoint
-by accessing the `/system/properties/names` endpoint.
-You should get a list of all the system properties available.
-Note that we didn't map all of these properties to GraphQL object types for the sake of time. 
-
-== Tearing down the environment
-
-When you're finished with the `backend` and `system` services, 
-stop them by pressing `CTRL+C` in their respective command-line interfaces. 
-Alternatively, from another command-line interface, navigate to the `start` directory and run the following commands:
+Notice that only the `note` property is returned, as it was the only property in the request.
+You can try out the operations using the hostname `java11` as well.
+To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
 [role='command']
 ----
-mvn -pl system liberty:stop
-mvn -pl backend liberty:stop
+query {
+  systemLoad(hostnames: ["java8", "java11"]) {
+    hostname
+    loadData {
+      heapUsed
+      loadAverage
+    }
+  }
+}
 ----
+
+The response is similar to the following example:
+
+[role='no_copy']
+----
+{
+  "data": {
+    "systemLoad": [
+      {
+        "hostname": "java8",
+        "loadData": {
+          "heapUsed": 39762056,
+          "loadAverage": 0.42
+        }
+      },
+      {
+        "hostname": "java11",
+        "loadData": {
+          "heapUsed": 38604048,
+          "loadAverage": 0.42
+        }
+      }
+    ]
+  }
+}
+----
+
+== Tearing down the environment
+
+When you're done checking out the application, run the following script to stop the application:
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+.\scripts\stopContainers.bat
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/stopContainers.sh
+```
+--
 
 == Great work! You're done!
 
