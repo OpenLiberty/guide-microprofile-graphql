@@ -30,7 +30,7 @@ public class SystemLoadData {
 
     @NonNull
     private Long heapUsed;
-    
+
     @NonNull
     private Integer processors;
 
@@ -45,7 +45,7 @@ public class SystemLoadData {
         this.processors = processors;
     }
 
-	public Double getLoadAverage() {
+    public Double getLoadAverage() {
         return loadAverage;
     }
 

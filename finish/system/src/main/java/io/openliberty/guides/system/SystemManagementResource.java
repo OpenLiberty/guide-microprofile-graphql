@@ -29,19 +29,19 @@ import io.openliberty.guides.graphql.models.SystemLoadData;
 @Path("management")
 public class SystemManagementResource {
 
-    private static final OperatingSystemMXBean osMean = 
+    private static final OperatingSystemMXBean OS_MEAN =
                              ManagementFactory.getOperatingSystemMXBean();
 
-    private static final MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
+    private static final MemoryMXBean MEM_BEAN = ManagementFactory.getMemoryMXBean();
 
     @GET
     @Path("/operatingSystem")
     @Produces(MediaType.APPLICATION_JSON)
     public OperatingSystem getOperatingSystem() {
         OperatingSystem operatingSystem = new OperatingSystem();
-        operatingSystem.setArch(osMean.getArch());
-        operatingSystem.setName(osMean.getName());
-        operatingSystem.setVersion(osMean.getVersion());
+        operatingSystem.setArch(OS_MEAN.getArch());
+        operatingSystem.setName(OS_MEAN.getName());
+        operatingSystem.setVersion(OS_MEAN.getVersion());
         return operatingSystem;
     }
 
@@ -50,10 +50,10 @@ public class SystemManagementResource {
     @Produces(MediaType.APPLICATION_JSON)
     public SystemLoadData getSystemLoad() {
         SystemLoadData systemLoadData = new SystemLoadData();
-        systemLoadData.setProcessors(osMean.getAvailableProcessors());
-        systemLoadData.setLoadAverage(osMean.getSystemLoadAverage());
-        systemLoadData.setHeapSize(memBean.getHeapMemoryUsage().getMax());
-        systemLoadData.setHeapUsed(memBean.getHeapMemoryUsage().getUsed());
+        systemLoadData.setProcessors(OS_MEAN.getAvailableProcessors());
+        systemLoadData.setLoadAverage(OS_MEAN.getSystemLoadAverage());
+        systemLoadData.setHeapSize(MEM_BEAN.getHeapMemoryUsage().getMax());
+        systemLoadData.setHeapUsed(MEM_BEAN.getHeapMemoryUsage().getUsed());
         return systemLoadData;
     }
 }

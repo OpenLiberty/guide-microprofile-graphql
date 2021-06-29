@@ -75,16 +75,23 @@ public class GraphQLServiceIT {
         HttpResponse response = httpClient.execute(post);
         String responseString = EntityUtils.toString(response.getEntity());
         Map<String, Object> result = JSONB.fromJson(responseString, Map.class);
-        assertTrue(result.containsKey("data"), "No response data received: " + responseString);
-        assertFalse(result.containsKey("error"), "Response has errors");
+        assertTrue(
+            result.containsKey("data"),
+            "No response data received: " + responseString);
+        assertFalse(
+            result.containsKey("error"),
+            "Response has errors");
         Map<String, Object> data = (Map<String, Object>) result.get("data");
         Map<String, Object> system = (Map<String, Object>) data.get("system");
-        assertNotNull(system, "Response is not for system query");
+        assertNotNull(
+            system,
+            "Response is not for system query");
         // Verify fields
         Properties systemProperties = System.getProperties();
-        assertEquals(systemProperties.getProperty("user.name"),
-                (String) system.get("username"),
-                "Usernames don't match");
+        assertEquals(
+            systemProperties.getProperty("user.name"),
+            (String) system.get("username"),
+            "Usernames don't match");
     }
 
     @SuppressWarnings("unchecked")
@@ -99,14 +106,18 @@ public class GraphQLServiceIT {
             "{ "
                 + "\"query\": \"mutation ($hostnameArg: String!, $noteArg: String!) {"
                     + "editNote(hostname:$hostnameArg note:$noteArg)}\","
-                + "\"variables\": {\"hostnameArg\":\"localhost\", \"noteArg\":\"" + expectedNote + "\"} "
+                + "\"variables\": {"
+                    + "\"hostnameArg\":\"localhost\","
+                    + "\"noteArg\":\"" + expectedNote + "\"} "
             + "}",
             ContentType.create("application/json", Consts.UTF_8));
         mutation.setEntity(mutationBody);
         HttpResponse mutateResponse = httpClient.execute(mutation);
         String mutateResString = EntityUtils.toString(mutateResponse.getEntity());
         Map<String, Object> mutateJson = JSONB.fromJson(mutateResString, Map.class);
-        assertFalse(mutateJson.containsKey("error"), "Mutation has errors: " + mutateResString);
+        assertFalse(
+            mutateJson.containsKey("error"),
+            "Mutation has errors: " + mutateResString);
 
         HttpPost query = new HttpPost(url);
         StringEntity queryBody = new StringEntity(
@@ -121,14 +132,21 @@ public class GraphQLServiceIT {
         HttpResponse queryResponse = httpClient.execute(query);
         String queryResponseString = EntityUtils.toString(queryResponse.getEntity());
         Map<String, Object> queryJson = JSONB.fromJson(queryResponseString, Map.class);
-        assertTrue(queryJson.containsKey("data"), "No response data received: " + queryResponseString);
-        assertFalse(queryJson.containsKey("error"), "Response has errors");
+        assertTrue(
+            queryJson.containsKey("data"),
+            "No response data received: " + queryResponseString);
+        assertFalse(
+            queryJson.containsKey("error"),
+            "Response has errors");
         Map<String, Object> data = (Map<String, Object>) queryJson.get("data");
         Map<String, Object> system = (Map<String, Object>) data.get("system");
-        assertNotNull(system, "Response is not for system query");
-        assertEquals(expectedNote,
-                (String) system.get("note"),
-                "Response does not contain expected note");
+        assertNotNull(
+            system,
+            "Response is not for system query");
+        assertEquals(
+            expectedNote,
+            (String) system.get("note"),
+            "Response does not contain expected note");
     }
 
     @SuppressWarnings("unchecked")
@@ -151,23 +169,36 @@ public class GraphQLServiceIT {
         HttpResponse queryResponse = httpClient.execute(query);
         String queryResponseString = EntityUtils.toString(queryResponse.getEntity());
         Map<String, Object> queryJson = JSONB.fromJson(queryResponseString, Map.class);
-        assertTrue(queryJson.containsKey("data"), "No response data received: " + queryResponseString);
-        assertFalse(queryJson.containsKey("error"), "Response has errors");
+        assertTrue(
+            queryJson.containsKey("data"),
+            "No response data received: " + queryResponseString);
+        assertFalse(
+            queryJson.containsKey("error"),
+            "Response has errors");
         Map<String, Object> data = (Map<String, Object>) queryJson.get("data");
         ArrayList<Object> systemLoadList = (ArrayList<Object>) data.get("systemLoad");
-        assertEquals(2, systemLoadList.size(), "should have one object: " + queryResponseString);
+        assertEquals(
+            2,
+            systemLoadList.size(),
+            "List should have one object: " + queryResponseString);
         Map<String, Object> systemLoad = (Map<String, Object>) systemLoadList.get(0);
-        assertEquals("localhost", 
+        assertEquals(
+            "localhost",
             systemLoad.get("hostname"),
             "systemLoad hostname not match: " + queryResponseString);
-        Map<String, Object> systemLoadData = (Map<String, Object>) systemLoad.get("data");
-        assertTrue(systemLoadData.containsKey("heapSize"),
+        Map<String, Object> systemLoadData =
+            (Map<String, Object>) systemLoad.get("data");
+        assertTrue(
+            systemLoadData.containsKey("heapSize"),
             "systemLoadData should contain heapSize: " + queryResponseString);
-        assertTrue(systemLoadData.containsKey("heapUsed"),
-                "systemLoadData should contain heapUsed: " + queryResponseString);
-        assertTrue(systemLoadData.containsKey("processors"),
-                "systemLoadData should contain processors: " + queryResponseString);
-        assertTrue(systemLoadData.containsKey("loadAverage"),
+        assertTrue(
+            systemLoadData.containsKey("heapUsed"),
+            "systemLoadData should contain heapUsed: " + queryResponseString);
+        assertTrue(
+            systemLoadData.containsKey("processors"),
+            "systemLoadData should contain processors: " + queryResponseString);
+        assertTrue(
+            systemLoadData.containsKey("loadAverage"),
             "systemLoadData should contain loadAverage: " + queryResponseString);
     }
 }

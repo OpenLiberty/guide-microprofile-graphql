@@ -34,27 +34,32 @@ public interface SystemClient extends AutoCloseable {
     @GET
     @Path("/properties/{property}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String queryProperty(@PathParam("property") String property) throws UnknownUriException, ProcessingException;
+    String queryProperty(@PathParam("property") String property)
+        throws UnknownUriException, ProcessingException;
 
     @GET
     @Path("/properties/java")
     @Produces(MediaType.APPLICATION_JSON)
-    public JavaInfo java() throws UnknownUriException, ProcessingException;
-    
+    JavaInfo java()
+        throws UnknownUriException, ProcessingException;
+
     @POST
     @Path("/properties/note")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editNote(String text) throws UnknownUriException, ProcessingException;
+    Response editNote(String text)
+        throws UnknownUriException, ProcessingException;
 
     @GET
     @Path("/management/operatingSystem")
     @Produces(MediaType.APPLICATION_JSON)
-    public OperatingSystem getOperatingSystem() throws UnknownUriException, ProcessingException;
-    
+    OperatingSystem getOperatingSystem()
+        throws UnknownUriException, ProcessingException;
+
     @GET
     @Path("/management/systemLoad")
     @Produces(MediaType.APPLICATION_JSON)
-    public SystemLoadData getSystemLoad() throws UnknownUriException, ProcessingException;
+    SystemLoadData getSystemLoad()
+        throws UnknownUriException, ProcessingException;
 
 }

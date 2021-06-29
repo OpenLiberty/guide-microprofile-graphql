@@ -26,7 +26,7 @@ import io.openliberty.guides.inventory.model.InventoryList;
 // end::ApplicationScoped[]
 public class InventoryManager {
 
-    private Map<String, SystemInfo> systems = 
+    private Map<String, SystemInfo> systems =
                 Collections.synchronizedMap(new HashMap<String, SystemInfo>());
 
     public void put(String hostname, SystemInfo systemInfo) {

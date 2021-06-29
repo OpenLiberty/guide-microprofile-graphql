@@ -59,8 +59,8 @@ public class InventoryResource {
                 manager.put(hostname, systemInfo);
             } catch (Exception e) {
                 return Response.status(Status.NOT_FOUND).entity(
-                           "{ \"error\" : \"Unknown hostname or the system service " +
-                           "may not be running on " + hostname + "\" }").build();
+                           "{ \"error\" : \"Unknown hostname or the system service "
+                           + "may not be running on " + hostname + "\" }").build();
             }
         }
         return Response.ok(systemInfo).build();
@@ -74,7 +74,7 @@ public class InventoryResource {
         sc.editNote(hostname, text);
         SystemInfo systemInfo = manager.get(hostname);
         if (systemInfo != null) {
-        	// refresh the inventory
+            // Refresh the inventory
             systemInfo = sc.system(hostname);
             manager.put(hostname, systemInfo);
         }

@@ -55,8 +55,10 @@ public class InventoryEndpointIT {
     public void testInventorySystemsLocalhost() {
         WebTarget target = client.target(URL + "inventory/systems/localhost");
         Response response = target.request().get();
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(
+            200,
+            response.getStatus(),
+            "Incorrect response code from " + target.getUri().getPath());
         validSystem(response.readEntity(JsonObject.class));
         response.close();
     }
@@ -66,11 +68,14 @@ public class InventoryEndpointIT {
     public void testInventorySystems() {
         WebTarget target = client.target(URL + "inventory/systems");
         Response response = target.request().get();
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(
+            200,
+            response.getStatus(),
+            "Incorrect response code from " + target.getUri().getPath());
         JsonObject systems = response.readEntity(JsonObject.class);
         JsonArray systemsList = systems.getJsonArray("systems");
-        assertEquals(1,
+        assertEquals(
+            1,
             systems.getJsonNumber("total").intValue(),
             "total should match: " + systems);
         validSystem(systemsList.get(0).asJsonObject());
@@ -82,16 +87,21 @@ public class InventoryEndpointIT {
     public void testInventorySystemsLocalhostNote() {
         WebTarget target = client.target(URL + "inventory/systems/localhost/note");
         Response response = target.request().post(Entity.text("test edit note"));
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(
+            200,
+            response.getStatus(),
+            "Incorrect response code from " + target.getUri().getPath());
         target = client.target(URL + "inventory/systems/localhost");
         response = target.request().get();
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(
+            200,
+            response.getStatus(),
+            "Incorrect response code from " + target.getUri().getPath());
         JsonObject system = response.readEntity(JsonObject.class);
-        assertEquals("test edit note",
-                system.getString("note"),
-                     "note should match: " + system);
+        assertEquals(
+            "test edit note",
+            system.getString("note"),
+            "note should match: " + system);
         response.close();
     }
 
@@ -100,36 +110,45 @@ public class InventoryEndpointIT {
     public void testInventorySystemsSystemLoad() {
         WebTarget target = client.target(URL + "inventory/systems/systemLoad");
         Response response = target.request().get();
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code from " + target.getUri().getPath());
+        assertEquals(
+            200,
+            response.getStatus(),
+            "Incorrect response code from " + target.getUri().getPath());
         JsonArray systemLoads = response.readEntity(JsonArray.class);
-        assertEquals(1,
-                systemLoads.size(),
-                "array size should match: " + systemLoads);
+        assertEquals(
+            1,
+            systemLoads.size(),
+            "Expected array of size 1");
         JsonObject systemLoad = systemLoads.get(0).asJsonObject();
-        assertEquals("localhost",
-        		systemLoad.getString("hostname"),
-                     "hostname should match: " + systemLoad);
+        assertEquals(
+            "localhost",
+            systemLoad.getString("hostname"),
+            "hostname should match: " + systemLoad);
         JsonObject data = systemLoads.get(0).asJsonObject().getJsonObject("data");
-        assertNotNull(data.getJsonNumber("heapUsed"),
-                     "heapUsed should not be null: " + systemLoad);
-        assertNotNull(data.getJsonNumber("loadAverage"),
-                "loadAverage should not be null: " + systemLoad);
+        assertNotNull(
+            data.getJsonNumber("heapUsed"),
+            "heapUsed should not be null: " + systemLoad);
+        assertNotNull(
+            data.getJsonNumber("loadAverage"),
+           "loadAverage should not be null: " + systemLoad);
         response.close();
     }
 
     private void validSystem(JsonObject system) {
-        assertEquals(System.getProperty("user.name"),
-                system.getString("username"),
-                     "user.name should match: " + system);
+        assertEquals(
+            System.getProperty("user.name"),
+            system.getString("username"),
+            "user.name should match: " + system);
         JsonObject java = system.getJsonObject("java");
-        assertEquals(System.getProperty("java.vendor"),
-                java.getString("vendor"),
-                     "vendor should match: " + java);
+        assertEquals(
+            System.getProperty("java.vendor"),
+            java.getString("vendor"),
+            "vendor should match: " + java);
         JsonObject operatingSystem = system.getJsonObject("operatingSystem");
-        assertEquals(System.getProperty("os.arch"),
-                operatingSystem.getString("arch"),
-                     "arch should match: " + operatingSystem);
+        assertEquals(
+            System.getProperty("os.arch"),
+            operatingSystem.getString("arch"),
+            "arch should match: " + operatingSystem);
     }
 
 }

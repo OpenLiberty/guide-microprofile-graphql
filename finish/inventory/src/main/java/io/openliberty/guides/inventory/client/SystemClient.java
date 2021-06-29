@@ -28,12 +28,15 @@ public interface SystemClient {
     SystemInfo system(@Name("hostname") String hostname);
     // end::systemInfo[]
 
-    public SystemLoad[] systemLoad(@Name("hostnames") String[] hostnames);
-    
+    // tag::systemLoad[]
+    SystemLoad[] systemLoad(@Name("hostnames") String[] hostnames);
+    // end::systemLoad[]
+
     // tag::mutationTag[]
     @Mutation
     // end::mutationTag[]
     // tag::editNote[]
     boolean editNote(@Name("hostname") String hostname, @Name("note") String note);
+    // end::editNote[]
 
 }
