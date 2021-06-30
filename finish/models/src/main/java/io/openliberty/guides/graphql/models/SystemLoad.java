@@ -39,11 +39,11 @@ public class SystemLoad {
         this.hostname = hostname;
     }
 
-    public SystemLoadData getData() {
+    public SystemLoadData getLoadData() {
         return this.loadData;
     }
 
-    public void setData(SystemLoadData loadData) {
+    public void setLoadData(SystemLoadData loadData) {
         this.loadData = loadData;
     }
 
