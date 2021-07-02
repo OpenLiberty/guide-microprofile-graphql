@@ -61,7 +61,7 @@ public class GraphQLServiceIT {
     public void testGetSystem() throws ClientProtocolException, IOException {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
-        String request = 
+        String request =
             "{ \"query\": "
                 + "\"query($hostnameArg:String) { "
                     + "system (hostname: $hostnameArg) { "
