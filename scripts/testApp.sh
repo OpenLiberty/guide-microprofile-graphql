@@ -6,6 +6,8 @@ set -euxo pipefail
 mvn -pl system liberty:start
 mvn -pl graphql liberty:start
 
+sleep 60
+
 mvn -pl system failsafe:integration-test
 mvn -pl graphql failsafe:integration-test
 mvn -pl system failsafe:verify
