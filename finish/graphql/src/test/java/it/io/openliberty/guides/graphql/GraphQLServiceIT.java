@@ -52,7 +52,7 @@ public class GraphQLServiceIT {
     public static void setUp() {
         String port = System.getProperty("http.port");
         hostname = "localhost";
-        url = "http://" + hostname ":" + port + "/graphql";
+        url = "http://" + hostname + ":" + port + "/graphql";
     }
 
     @SuppressWarnings("unchecked")
