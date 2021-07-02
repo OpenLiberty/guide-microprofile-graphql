@@ -44,13 +44,15 @@ import org.junit.jupiter.api.TestMethodOrder;
 public class GraphQLServiceIT {
 
     private static String url;
+    private static String hostname;
 
     private static final Jsonb JSONB = JsonbBuilder.create();
 
     @BeforeAll
     public static void setUp() {
         String port = System.getProperty("http.port");
-        url = "http://localhost:" + port + "/graphql";
+        hostname = "localhost";
+        url = "http://" + hostname ":" + port + "/graphql";
     }
 
     @SuppressWarnings("unchecked")
@@ -59,17 +61,19 @@ public class GraphQLServiceIT {
     public void testGetSystem() throws ClientProtocolException, IOException {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
-        StringEntity entity = new StringEntity(
+        String request = 
             "{ \"query\": "
-                + "\"query ($hostnameArg: String!) { "
+                + "\"query($hostnameArg:String) { "
                     + "system (hostname: $hostnameArg) { "
-                        + "username timezone "
+                        + "hostname username timezone "
                         + "java { version vendorName } "
                         + "operatingSystem {arch name version} "
                     + "} "
                 + "}\","
-                + "\"variables\": {\"hostnameArg\": \"localhost\"} "
-            + "}",
+            + "\"variables\": {\"hostnameArg\": \"" + hostname + "\"} "
+            + "}";
+        StringEntity entity = new StringEntity(
+            request,
             ContentType.create("application/json", Consts.UTF_8));
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
@@ -105,9 +109,9 @@ public class GraphQLServiceIT {
         StringEntity mutationBody = new StringEntity(
             "{ "
                 + "\"query\": \"mutation ($hostnameArg: String!, $noteArg: String!) {"
-                    + "editNote(hostname:$hostnameArg note:$noteArg)}\","
+                    + "editNote(hostname:$hostnameArg, note:$noteArg)}\","
                 + "\"variables\": {"
-                    + "\"hostnameArg\":\"localhost\","
+                    + "\"hostnameArg\":\"" + hostname + "\","
                     + "\"noteArg\":\"" + expectedNote + "\"} "
             + "}",
             ContentType.create("application/json", Consts.UTF_8));
@@ -125,7 +129,7 @@ public class GraphQLServiceIT {
                 + "\"query ($hostnameArg: String!) { "
                     + "system (hostname: $hostnameArg) { note } "
                 + "}\","
-                + "\"variables\": {\"hostnameArg\": \"localhost\"} "
+                + "\"variables\": {\"hostnameArg\": \"" + hostname + "\"} "
             + "}",
             ContentType.create("application/json", Consts.UTF_8));
         query.setEntity(queryBody);
@@ -162,7 +166,9 @@ public class GraphQLServiceIT {
                         + "hostname data { heapUsed loadAverage processors heapSize } "
                     + "}"
                 + "}\","
-                + "\"variables\": {\"hostnamesArg\": [ \"localhost\", \"localhost\" ]} "
+                + "\"variables\": {\"hostnamesArg\": ["
+                    + "\"" + hostname + "\", \"" + hostname + "\""
+                + "]} "
             + "}",
             ContentType.create("application/json", Consts.UTF_8));
         query.setEntity(queryBody);
@@ -183,7 +189,7 @@ public class GraphQLServiceIT {
             "List should have one object: " + queryResponseString);
         Map<String, Object> systemLoad = (Map<String, Object>) systemLoadList.get(0);
         assertEquals(
-            "localhost",
+            hostname,
             systemLoad.get("hostname"),
             "systemLoad hostname not match: " + queryResponseString);
         Map<String, Object> systemLoadData =
