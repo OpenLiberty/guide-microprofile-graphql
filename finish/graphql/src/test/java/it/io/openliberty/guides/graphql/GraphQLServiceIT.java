@@ -163,7 +163,9 @@ public class GraphQLServiceIT {
             "{ \"query\": "
                 + "\"query ($hostnamesArg: [String!]) { "
                     + "systemLoad (hostnames: $hostnamesArg) { "
-                        + "hostname loadData { heapUsed loadAverage processors heapSize } "
+                        + "hostname loadData {"
+                            + "heapUsed loadAverage processors heapSize"
+                        + "} "
                     + "}"
                 + "}\","
                 + "\"variables\": {\"hostnamesArg\": ["
@@ -191,7 +193,7 @@ public class GraphQLServiceIT {
         assertEquals(
             hostname,
             systemLoad.get("hostname"),
-            "systemLoad hostname not match: " + queryResponseString);
+            "systemLoad hostname does not match: " + queryResponseString);
         Map<String, Object> systemLoadData =
             (Map<String, Object>) systemLoad.get("loadData");
         assertTrue(
