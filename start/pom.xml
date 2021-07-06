@@ -13,6 +13,5 @@
         <module>models</module>
         <module>system</module>
         <module>graphql</module>
-        <module>inventory</module>
     </modules>
 </project>

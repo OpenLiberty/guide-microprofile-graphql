@@ -9,25 +9,25 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2021-05-28
+:page-releasedate: 2021-07-29
 :page-essential: false
 :page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
 :page-tags: ['MicroProfile', 'Jakarta EE']
 :page-related-guides: ['rest-intro', 'jpa-intro', 'mongodb-intro']
 :page-permalink: /guides/{projectid}
-:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
-:page-seo-title: Accessing and manipulating data using MicroProfile GraphQL in Open Liberty
-:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through MicroProfile GraphQL
+:page-seo-title: Implementing a microservice to query and update data using MicroProfile GraphQL
+:page-seo-description: A getting started tutorial with examples on how to implement a GraphQL microservice to query and update data from multiple services by using Eclipse MicroProfile GraphQL, and how to use the GraphiQL user interface to test GraphQL queries and mutations.
 :guide-author: Open Liberty
-= Accessing and manipulating data with GraphQL
+= Querying and updating data with GraphQL
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to use GraphQL to access and manipulate data using MicroProfile GraphQL on Open Liberty
+Learn how to use MicroProfile GraphQL to query and update data from multiple services.
 
 == What you'll learn
 
