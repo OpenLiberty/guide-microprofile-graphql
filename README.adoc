@@ -284,7 +284,7 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 
 The [hotspot=graphql file=1]`mpGraphQL-1.0` feature that is added to the [hotspot file=1]`server.xml` 
 enables the use of the https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
-feature in OpenLiberty.
+feature in Open Liberty.
 
 // file 0
 pom.xml
@@ -300,13 +300,10 @@ server.xml
 include::finish/graphql/src/main/liberty/config/server.xml[]
 ----
 
-== Running GraphQL queries
+== Building and running the application
 
 From the `start` directory, run the following commands:
 
-[role='command']
-```
-```
 [role='command']
 ----
 mvn -pl models install
@@ -351,6 +348,9 @@ include::{common-includes}/os-tabs.adoc[]
 --
 
 The containers may take some time to become available.
+
+== Running GraphQL queries
+
 Before making any requests, visit the http://localhost:9080/graphql/schema.graphql[^] URL.
 This URL contains the schema, which describes the GraphQL service.
 The schema details what operations are available and any object types that are returned.
@@ -441,7 +441,7 @@ The response is similar to the following example:
 {
   "data": {
     "system": {
-      "note": "I'm trying out GraphQL on OpenLiberty!"
+      "note": "I'm trying out GraphQL on Open Liberty!"
     }
   }
 }
