@@ -61,16 +61,10 @@ The GraphQL service will return a single JSON object containing all the system i
 
 image::architecture.png[GraphQL architecture where multiple systems are integrated behind one GraphQL service, align="center"]
 
-The guide application includes https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
-GraphiQL helps you make `POST` requests to a GraphQL service.
-In GraphiQL, you need to type only the body of the request for the purposes of manual tests and examples. 
-
-For an example of accessing GraphQL using another service, you will also create an `inventory` service.
-The `inventory` service will make requests to the GraphQL service using the
-https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL Client].
-OpenAPI will be used to access the `inventory` service. 
-To learn more about OpenAPI, check out the 
-https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
+The guide application includes an interactive GraphQL tool called
+https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
+GraphiQL helps you make queries to a GraphQL service. 
+In the GraphiQL UI, you need to type only the body of the query for the purposes of manual tests and examples. 
 
 == Additional prerequisites
 
@@ -166,14 +160,6 @@ which describes the resources usage of a `system` service.
 The [hotspot=class file=4]`SystemLoadData` class will map to the `loadData` object type.
 It will describe be another nested object that will be inside the `systemLoad` object type.
 It will describe the details of the resource usage of a `system` service. 
-
-Run the Maven `install` goal to compile and package the object types to a `.jar` file
-that will be used by the other services later in the guide.
-
-[role='command']
-```
-mvn -pl models install
-```
 
 // file 0
 JavaInfo.java
@@ -314,14 +300,22 @@ server.xml
 include::finish/graphql/src/main/liberty/config/server.xml[]
 ----
 
-== Querying the GraphQL service
+== Running GraphQL queries
 
-From the `start` directory, run the following command to package the `system` and `graphql` services:
+From the `start` directory, run the following commands:
 
 [role='command']
+```
+```
+[role='command']
 ----
+mvn -pl models install
 mvn clean package
 ----
+
+The `mvn install` command compiles and packages the object types you created to a `.jar` file.
+This allows them to be used by the `system` and `graphql` services.
+The `mvn package` command packages the `system` and `graphql` services. 
 
 Build your Docker images with the following commands:
 
@@ -427,7 +421,9 @@ mutation {
 ----
 
 You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
-You can see the note that you added by running the following query operation:
+You can see the note that you added by running the following query operation.
+Notice that there is no need to run a full query, as you only want the `note` property.
+Thus, the request only contains the `note` property. 
 
 [role='command']
 ----
@@ -451,7 +447,7 @@ The response is similar to the following example:
 }
 ----
 
-Notice that only the `note` property is returned, as it was the only property in the request.
+GraphQL returns only the `note` property, as it was the only property in the request.
 You can try out the operations using the hostname `java11` as well.
 To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
