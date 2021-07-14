@@ -59,7 +59,7 @@ You'll create a GraphQL application that retrieves data from multiple `system` s
 Users will make requests to the GraphQL service, which will then make requests to the `system` services.
 The GraphQL service will return a single JSON object containing all the system information from the `system` services.
 
-image::architecture.png[GraphQL architecture where multiple systems are integrated behind one GraphQL service, align="center"]
+image::architecture.png[GraphQL architecture where multiple system microservices are integrated behind one GraphQL service, align="center"]
 
 The guide application includes an interactive GraphQL tool called
 https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
