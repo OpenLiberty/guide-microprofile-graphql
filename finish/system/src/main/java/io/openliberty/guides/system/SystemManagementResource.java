@@ -34,6 +34,7 @@ public class SystemManagementResource {
 
     private static final MemoryMXBean MEM_BEAN = ManagementFactory.getMemoryMXBean();
 
+    // tag::operatingSystem[]
     @GET
     @Path("/operatingSystem")
     @Produces(MediaType.APPLICATION_JSON)
@@ -44,7 +45,9 @@ public class SystemManagementResource {
         operatingSystem.setVersion(OS_MEAN.getVersion());
         return operatingSystem;
     }
+    // end::operatingSystem[]
 
+    // tag::systemLoad[]
     @GET
     @Path("/systemLoad")
     @Produces(MediaType.APPLICATION_JSON)
@@ -56,4 +59,5 @@ public class SystemManagementResource {
         systemLoadData.setHeapUsed(MEM_BEAN.getHeapMemoryUsage().getUsed());
         return systemLoadData;
     }
+    // end::systemLoad[]
 }

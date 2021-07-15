@@ -196,6 +196,46 @@ SystemLoad.java
 include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemLoadData.java[]
 ----
 
+== Implementing system service
+
+GraphQL needs a way to access information about the `system` microservices for this example.
+
+[role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Create the `SystemPropertiesResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemPropertiesResource.java`
+----
+
+The [hotspot file=0]`SystemPropertiesResource` class provides endpoints to interact with the system properties.
+The [hotspot=queryProperty file=0]`{property}` endpoint accesses system properties.
+The [hotspot=java file=0]`java` endpoint assembles and returns an object describing the system's Java installation.
+The [hotspot=note file=0]`note` endpoint is used to write a note into the system properties.
+
+[role="code_command hotspot file=2" ,subs="quotes"]
+----
+#Create the `SystemManagementResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java`
+----
+
+The [hotspot file=1]`SystemMangaementResource` class provides information on the system's operating system and resource management.
+The [hotspot=operatingSystem file=1]`operatingSystem` endpoint assembles and returns an object describing the operating system.
+The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
+It will include how much of the JVM heap is being used and how load the processor is under.
+
+// file 0
+SystemPropertiesResource.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemPropertiesResource.java[]
+----
+
+// file 1
+SystemManagementResource.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java[]
+----
+
 == Implementing GraphQL resolvers
 
 Resolvers are functions that provide instructions for GraphQL operations.
@@ -215,7 +255,7 @@ enables GraphQL to use the methods that are defined in this class as resolvers.
 
 Operations of the `query` type are read-only operations that retrieve data.
 They're defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
-Two functions are defined and mapped to `query` operations.
+There are two functions defined and mapped to `query` operations.
 
 The [hotspot=getSystemInfo file=0]`getSystemInfo()` function handles `system` requests.
 It retrieves and bundles system information into a `SystemInfo` object that is returned.
@@ -242,6 +282,8 @@ which is used to determine what note to write into the system properties of the 
 Each resolver function has an [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
 annotation, which provides a description to be used for the schema. 
 Descriptions aren't required, but it's good practice to include them. 
+
+
 
 The [hotspot=operatingSystemHeader hotspot=javaHeader hotspot=loadDataHeader file=0]`@Source` annotation
 is used to add properties to object types.
