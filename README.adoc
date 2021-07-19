@@ -248,7 +248,7 @@ One of the `query` requests in this application is the `system` request.
 This request is handled by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
 It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
-It uses an [hotspot=getSystemInfo file=0]`@Name` on one of its input parameters.
+It uses an [hotspot=getSystemInfoHeader file=0]`@Name` on one of its input parameters.
 The `@Name` annotation has different functions depending on the context in which it is used.
 In this context, it denotes input parameters for GraphQL operations.
 For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,

@@ -95,9 +95,9 @@ public class GraphQLService {
     }
     // end::editNoteFunction[]
 
-    // tag::query1[]
+    // tag::query2[]
     @Query("systemLoad")
-    // end::query1[]
+    // end::query2[]
     // tag::description3[]
     @Description("Gets system load data from the systems")
     // end::description3[]
