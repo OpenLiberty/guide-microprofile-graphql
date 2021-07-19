@@ -77,34 +77,6 @@ public class GraphQLService {
     }
     // end::getSystemInfo[]
 
-    // Nested objects, these can be expensive to obtain
-    @NonNull
-    // tag::os[]
-    // tag::operatingSystemHeader[]
-    public OperatingSystem operatingSystem(
-        @Source @Name("system") SystemInfo systemInfo)
-        throws ProcessingException, UnknownUriException {
-    // end::operatingSystemHeader[]
-        String hostname = systemInfo.getHostname();
-        SystemClient systemClient = getSystemClient(hostname);
-        return systemClient.getOperatingSystem();
-    }
-    // end::os[]
-
-    // tag::nonnull3[]
-    @NonNull
-    // end::nonnull3[]
-    // tag::javaFunction[]
-    // tag::javaHeader[]
-    public JavaInfo java(@Source @Name("system") SystemInfo systemInfo)
-        throws ProcessingException, UnknownUriException {
-    // end::javaHeader[]
-        String hostname = systemInfo.getHostname();
-        SystemClient systemClient = getSystemClient(hostname);
-        return systemClient.java();
-    }
-    // end::javaFunction[]
-
     // tag::mutation[]
     @Mutation("editNote")
     // end::mutation[]
@@ -149,6 +121,34 @@ public class GraphQLService {
         return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
     }
     // end::getSystemLoad[]
+
+    // Nested objects, these can be expensive to obtain
+    @NonNull
+    // tag::os[]
+    // tag::operatingSystemHeader[]
+    public OperatingSystem operatingSystem(
+        @Source @Name("system") SystemInfo systemInfo)
+        throws ProcessingException, UnknownUriException {
+    // end::operatingSystemHeader[]
+        String hostname = systemInfo.getHostname();
+        SystemClient systemClient = getSystemClient(hostname);
+        return systemClient.getOperatingSystem();
+    }
+    // end::os[]
+
+    // tag::nonnull3[]
+    @NonNull
+    // end::nonnull3[]
+    // tag::javaFunction[]
+    // tag::javaHeader[]
+    public JavaInfo java(@Source @Name("system") SystemInfo systemInfo)
+        throws ProcessingException, UnknownUriException {
+    // end::javaHeader[]
+        String hostname = systemInfo.getHostname();
+        SystemClient systemClient = getSystemClient(hostname);
+        return systemClient.java();
+    }
+    // end::javaFunction[]
 
     // tag::loadData[]
     // tag::loadDataHeader[]

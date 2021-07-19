@@ -239,50 +239,50 @@ The `mutation` operation type can create, delete, or modify data.
 
 The resolvers are defined in the [hotspot file=0]`GraphQLService.java` file.
 The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation 
-enables GraphQL to use the methods that are defined in this class as resolvers. 
+enables GraphQL to use the methods that are defined in this class as resolvers.
 
 Operations of the `query` type are read-only operations that retrieve data.
 They're defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
-There are two functions defined and mapped to `query` operations.
 
-The [hotspot=getSystemInfo file=0]`getSystemInfo()` function handles `system` requests.
+One of the `query` requests in this application is the `system` request.
+This request is handled by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
 It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
-The [hotspot=getSystemLoad file=0]`getSystemLoad()` function handles `systemLoad` requests.
-It will assemble an array of `SystemLoad` objects to describe the resource usage of `system` services.
+It uses an [hotspot=getSystemInfo file=0]`@Name` on one of its input parameters.
+The `@Name` annotation has different functions depending on the context in which it is used.
+In this context, it denotes input parameters for GraphQL operations.
+For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,
+it is used to input the `hostname` for the system you want to look up information for.
 
-Both of these functions have an [hotspot=getSystemLoadHeader hotspot=getSystemInfoHeader file=0]`@Name` annotation on their inputs.
-The `@Name` annotation is used to denote inputs for a GraphQL resolver.
-Here it is used to specify a `hostname` of a system to look up information for.
-In the case of the [hotspot=getSystemLoadHeader]`getSystemLoad()` function, it specifies an array `hostnames`
-to be input to retrieve information from multiple systems.
+Recall that the `SystemInfo` class contained nested objects.
+It contained a `JavaInfo` and an `OperatingSystem` object.
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation
+is used to add these nested objects as properties to the `SystemInfo` object.
 
-The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
-Operations of the `mutation` type modify data.
-They create, update, or delete data. 
-A single function is defined and mapped to a `mutation` operation.
+The other `query` request is the `systemLoad` request, 
+which is handled by the [hotspot=getSystemLoad file=0]`getSystemLoad()` function.
+The `systemLoad` request retrieves information about the resource usage of any number of system services.
+It accepts an array of `hostnames` as the input for the systems to look up.
+It's setup similarly to the `system` request, with the [hotspot=loadData file=0]`loadData` function
+used for the nested `SystemLoadData` object.
 
-The [hotspot=editNoteFunction file=0]`editNote()` function handles `editNote` operations.
-The [hotspot=editNoteHeader file=0]`@Name` annotation denotes a `hostname` input, which specifies which `hostname` is being edited.
-Another [hotspot=editNoteHeader file=0]`@Name` annotation is used for the `note` input,
-which is used to determine what note to write into the system properties of the given `hostname`. 
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Name` appears again here.
+In this context alongside the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation,
+it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
+object types to `system` requests and the `system` object type.
+
+Operations of the `mutation` type are be used to edit data.
+They can create, update, or delete data.
+They're defined by using the [hotspot=mutation file=0]`@Mutation` annotation.
+
+There is one `mutation` operation in this application - the `editNote` request.
+This request is handled by the [hotspot=editNoteFunction file=0]`editNote()` function.
+This request is used to write a note into the properties of a given system.
+There are inputs for the system you want to write into, and the note you want to write.
 
 Each resolver function has an [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
 annotation, which provides a description to be used for the schema. 
 Descriptions aren't required, but it's good practice to include them. 
-
-
-
-The [hotspot=operatingSystemHeader hotspot=javaHeader hotspot=loadDataHeader file=0]`@Source` annotation
-is used to add properties to object types.
-In this application, it adds the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
-object types as properties of the `system` object type.
-The [hotspot=loadDataHeader file=0]`@Source` annotation is also used to add the [hotspot=loadData file=0]`loadData`
-object type as a property of the `systemLoad` object type.
-
-The [hotspot=operatingSystemHeader hotspot=javaHeader hotspot=loadDataHeader file=0]`@Source` annotation
-is used for any properties that are expensive to calculate or search for.
-These properties are calculated or searched for only if requested, which saves processing time and resources.
 
 // file 0
 GraphQLService.java
