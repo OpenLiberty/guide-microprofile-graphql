@@ -199,7 +199,7 @@ The [hotspot=queryProperty file=0]`{property}` endpoint accesses system properti
 The [hotspot=java file=0]`java` endpoint assembles and returns an object describing the system's Java installation.
 The [hotspot=note file=0]`note` endpoint is used to write a note into the system properties.
 
-[role="code_command hotspot file=2" ,subs="quotes"]
+[role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Create the `SystemManagementResource` class.#
 `system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java`
