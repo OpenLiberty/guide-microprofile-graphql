@@ -259,17 +259,17 @@ It contained a `JavaInfo` and an `OperatingSystem` object.
 The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation
 is used to add these nested objects as properties to the `SystemInfo` object.
 
+The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Name` appears again here.
+In this context alongside the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation,
+it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
+object types to `system` requests and the `system` object type.
+
 The other `query` request is the `systemLoad` request, 
 which is handled by the [hotspot=getSystemLoad file=0]`getSystemLoad()` function.
 The `systemLoad` request retrieves information about the resource usage of any number of system services.
 It accepts an array of `hostnames` as the input for the systems to look up.
 It's setup similarly to the `system` request, with the [hotspot=loadData file=0]`loadData` function
 used for the nested `SystemLoadData` object.
-
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Name` appears again here.
-In this context alongside the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation,
-it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
-object types to `system` requests and the `system` object type.
 
 Operations of the `mutation` type are be used to edit data.
 They can create, update, or delete data.
