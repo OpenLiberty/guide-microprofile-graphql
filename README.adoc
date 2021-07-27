@@ -143,11 +143,11 @@ Instead, expensive properties are added as part of implementing GraphQL resolver
 
 To save time, the [hotspot=class file=3]`SystemLoad` class and
 [hotspot=class file=4]`SystemLoadData` class are provided for you.
-The [hotspot=class file=3]`SystemLoad` class maps to the `systemLoad`
+The `SystemLoad` class maps to the [hotspot=type file=3]`systemLoad`
 object type, which describes the resource usage of a `system` service.
-The [hotspot=class file=4]`SystemLoadData` class maps to the `loadData` object type.
+The `SystemLoadData` class maps to the [hotspot=type file=4]`loadData` object type.
 This will be a nested object inside the `systemLoad` object type.
-It will contain the details of the resource usage of a `system` service.
+Together, these will contain the details of the resource usage of a `system` service.
 
 // file 0
 JavaInfo.java
