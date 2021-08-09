@@ -208,7 +208,7 @@ The [hotspot=note file=0]`note` endpoint is used to write a note into the system
 The [hotspot file=1]`SystemMangaementResource` class provides information on the system's operating system and resource management.
 The [hotspot=operatingSystem file=1]`operatingSystem` endpoint assembles and returns an object describing the operating system.
 The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
-It will include how much of the JVM heap is being used and how load the processor is under.
+It will include the JVM heap load and processor load.
 
 // file 0
 SystemPropertiesResource.java
@@ -268,7 +268,7 @@ The other `query` request is the `systemLoad` request,
 which is handled by the [hotspot=getSystemLoad file=0]`getSystemLoad()` function.
 The `systemLoad` request retrieves information about the resource usage of any number of system services.
 It accepts an array of `hostnames` as the input for the systems to look up.
-It's setup similarly to the `system` request, with the [hotspot=loadData file=0]`loadData` function
+It's set up similarly to the `system` request, with the [hotspot=loadData file=0]`loadData` function
 used for the nested `SystemLoadData` object.
 
 Operations of the `mutation` type are be used to edit data.
