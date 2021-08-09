@@ -89,6 +89,7 @@ Navigate to the `start` directory to begin.
 
 Object types define the structure of the data returned by GraphQL. 
 Annotations that are applied to the declaration and properties of Java classes define object types.
+The object types are defined in their own Maven module which is included in the other modules.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
