@@ -13,7 +13,7 @@ LABEL \
   vendor="Open Liberty" \
   name="graphql" \
   version="$VERSION-$REVISION" \
-  summary="The graphql microservice from the Accessing and manipulating data with GraphQL guide" \
+  summary="The graphql microservice from the Querying and updating data with GraphQL" \
   description="This image contains the graphql microservice running with the Open Liberty runtime."
 
 COPY --chown=1001:0 src/main/liberty/config /config/
