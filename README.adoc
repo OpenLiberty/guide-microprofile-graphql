@@ -206,7 +206,7 @@ The [hotspot=note file=0]`note` endpoint is used to write a note into the system
 `system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java`
 ----
 
-The [hotspot file=1]`SystemMangaementResource` class provides information on the system's operating system and resource management.
+The [hotspot file=1]`SystemManagementResource` class provides information on the system's operating system and resource management.
 The [hotspot=operatingSystem file=1]`operatingSystem` endpoint assembles and returns an object describing the operating system.
 The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
 It will include the JVM heap load and processor load.
@@ -316,6 +316,8 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 The [hotspot=graphql file=1]`mpGraphQL-1.0` feature that is added to the [hotspot file=1]`server.xml` 
 enables the use of the https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
 feature in Open Liberty.
+Open Liberty's MicroProfile GraphQL feature includes GraphiQL.
+Enable it by setting the [hotspot=enableGraphiql file=1]`io.openliberty.enableGraphQLUI` variable to `true`.
 
 // file 0
 pom.xml
@@ -390,7 +392,7 @@ Object types described will have their fields and their types listed.
 If defined, descriptions of object types and operations will also be included.
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
-Access GraphiQL at the http://localhost:9082/graphiql.html[^] URL.
+Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
 You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
