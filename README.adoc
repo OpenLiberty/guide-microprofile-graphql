@@ -187,7 +187,12 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/System
 
 == Implementing system service
 
-GraphQL needs a way to access information about the `system` microservices for this example.
+The `system` microservices are backend services using JAX-RS.
+For more details on using JAX-RS, see our
+https://www.openliberty.io/guides/rest-intro.html[Creating a RESTful web service guide^].
+This `system` microservices report system properties.
+Multiple instances of them will be accessed and their information will be collated by GraphQL.
+In a real scenario, these could be multiple different databases or other services.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
