@@ -75,7 +75,7 @@ In the GraphiQL UI, you need to type only the body of the query for the purposes
 
 Before you begin, Docker needs to be installed.
 For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^].
-You will build and run the application in Docker containers.
+You'll build and run the application in Docker containers.
 
 Make sure to start your Docker daemon before you proceed.
 
@@ -94,7 +94,7 @@ Navigate to the `start` directory to begin.
 
 Object types define the structure of the data returned by GraphQL. 
 Annotations that are applied to the declaration and properties of Java classes define object types.
-The object types are defined in their own Maven module which is included in the other modules.
+The object types are defined in their own Maven module that is included in the other modules.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -152,8 +152,8 @@ To save time, the [hotspot=class file=3]`SystemLoad` class and
 The `SystemLoad` class maps to the [hotspot=type file=3]`systemLoad`
 object type, which describes the resource usage of a `system` service.
 The `SystemLoadData` class maps to the [hotspot=type file=4]`loadData` object type.
-This will be a nested object inside the `systemLoad` object type.
-Together, these will contain the details of the resource usage of a `system` service.
+The `loadData` object will be a nested object inside the `systemLoad` object type.
+Together, these objects will contain the details of the resource usage of a `system` service.
 
 // file 0
 JavaInfo.java
@@ -197,7 +197,7 @@ For more details on using JAX-RS, see our
 https://www.openliberty.io/guides/rest-intro.html[Creating a RESTful web service guide^].
 This `system` microservices report system properties.
 Multiple instances of them will be accessed and their information will be collated by GraphQL.
-In a real scenario, these could be multiple different databases or other services.
+In a real scenario, GraphQL might access multiple different databases or other services.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -260,10 +260,10 @@ This request is handled by the [hotspot=getSystemInfo file=0]`getSystemInfo()` f
 It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
 It uses an [hotspot=getSystemInfoHeader file=0]`@Name` on one of its input parameters.
-The `@Name` annotation has different functions depending on the context in which it is used.
+The `@Name` annotation has different functions depending on the context in which it's used.
 In this context, it denotes input parameters for GraphQL operations.
 For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,
-it is used to input the `hostname` for the system you want to look up information for.
+it's used to input the `hostname` for the system you want to look up information for.
 
 Recall that the `SystemInfo` class contained nested objects.
 It contained a `JavaInfo` and an `OperatingSystem` object.
@@ -286,7 +286,7 @@ Operations of the `mutation` type are be used to edit data.
 They can create, update, or delete data.
 They're defined by using the [hotspot=mutation file=0]`@Mutation` annotation.
 
-There is one `mutation` operation in this application - the `editNote` request.
+There's one `mutation` operation in this application - the `editNote` request.
 This request is handled by the [hotspot=editNoteFunction file=0]`editNote()` function.
 This request is used to write a note into the properties of a given system.
 There are inputs for the system you want to write into, and the note you want to write.
@@ -463,7 +463,7 @@ mutation {
 
 You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
 You can see the note that you added by running the following query operation.
-Notice that there is no need to run a full query, as you only want the `note` property.
+Notice that there's no need to run a full query, as you only want the `note` property.
 Thus, the request only contains the `note` property. 
 
 [role='command']
