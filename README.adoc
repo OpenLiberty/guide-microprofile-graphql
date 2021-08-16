@@ -53,6 +53,11 @@ It can then collate this data into a single object for the user.
 This simplifies data retrieval as the user only makes a single request to the GraphQL service,
 instead of multiple requests to the individual data sources.
 
+All of the available operations to retrieve or modify data are available in a single GraphQL schema.
+The GraphQL schema describes all the data types used in the GraphQL service.
+The schema also describes all of the available operations.
+As well, you can add names and text descriptions to the various object types and operations in the schema.
+
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
 You'll create a GraphQL application that retrieves data from multiple `system` services.
@@ -391,10 +396,7 @@ The containers may take some time to become available.
 == Running GraphQL queries
 
 Before making any requests, visit the http://localhost:9082/graphql/schema.graphql[^] URL.
-This URL contains the schema, which describes the GraphQL service.
-The schema details what operations are available and any object types that are returned.
-Object types described will have their fields and their types listed.
-If defined, descriptions of object types and operations will also be included.
+This URL returns the schema to describe the GraphQL service.
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
