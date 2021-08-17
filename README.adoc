@@ -35,7 +35,7 @@ You will learn how to build and use a simple GraphQL service with
 https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^]. 
 
 GraphQL is an open source data query language.
-Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint. 
+Unlike REST APIs, each HTTP request that is sent to a GraphQL service goes to a single HTTP endpoint.
 Create, read, update, and delete operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user specifies what properties of the data that they want returned. 
 For read operations, a JSON object is returned that contains only the data and properties that are specified.
@@ -53,6 +53,11 @@ It can then collate this data into a single object for the user.
 This simplifies data retrieval as the user only makes a single request to the GraphQL service,
 instead of multiple requests to the individual data sources.
 
+All of the available operations to retrieve or modify data are available in a single GraphQL schema.
+The GraphQL schema describes all the data types used in the GraphQL service.
+The schema also describes all of the available operations.
+As well, you can add names and text descriptions to the various object types and operations in the schema.
+
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
 You'll create a GraphQL application that retrieves data from multiple `system` services.
@@ -63,14 +68,14 @@ image::architecture.png[GraphQL architecture where multiple system microservices
 
 The guide application includes an interactive GraphQL tool called
 https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^].
-GraphiQL helps you make queries to a GraphQL service. 
+GraphiQL helps you make queries to a GraphQL service.
 In the GraphiQL UI, you need to type only the body of the query for the purposes of manual tests and examples. 
 
 == Additional prerequisites
 
 Before you begin, Docker needs to be installed.
 For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^].
-You will build and run the application in Docker containers.
+You'll build and run the application in Docker containers.
 
 Make sure to start your Docker daemon before you proceed.
 
@@ -89,7 +94,7 @@ Navigate to the `start` directory to begin.
 
 Object types define the structure of the data returned by GraphQL. 
 Annotations that are applied to the declaration and properties of Java classes define object types.
-The object types are defined in their own Maven module which is included in the other modules.
+The object types are defined in their own Maven module that is included in the other modules.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -147,8 +152,8 @@ To save time, the [hotspot=class file=3]`SystemLoad` class and
 The `SystemLoad` class maps to the [hotspot=type file=3]`systemLoad`
 object type, which describes the resource usage of a `system` service.
 The `SystemLoadData` class maps to the [hotspot=type file=4]`loadData` object type.
-This will be a nested object inside the `systemLoad` object type.
-Together, these will contain the details of the resource usage of a `system` service.
+The `loadData` object will be a nested object inside the `systemLoad` object type.
+Together, these objects will contain the details of the resource usage of a `system` service.
 
 // file 0
 JavaInfo.java
@@ -187,7 +192,12 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/System
 
 == Implementing system service
 
-GraphQL needs a way to access information about the `system` microservices for this example.
+The `system` microservices are backend services using JAX-RS.
+For more details on using JAX-RS, see our
+https://www.openliberty.io/guides/rest-intro.html[Creating a RESTful web service guide^].
+This `system` microservices report system properties.
+Multiple instances of them will be accessed and their information will be collated by GraphQL.
+In a real scenario, GraphQL might access multiple different databases or other services.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -206,7 +216,7 @@ The [hotspot=note file=0]`note` endpoint is used to write a note into the system
 `system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java`
 ----
 
-The [hotspot file=1]`SystemMangaementResource` class provides information on the system's operating system and resource management.
+The [hotspot file=1]`SystemManagementResource` class provides information on the system's operating system and resource management.
 The [hotspot=operatingSystem file=1]`operatingSystem` endpoint assembles and returns an object describing the operating system.
 The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
 It will include the JVM heap load and processor load.
@@ -250,10 +260,10 @@ This request is handled by the [hotspot=getSystemInfo file=0]`getSystemInfo()` f
 It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
 It uses an [hotspot=getSystemInfoHeader file=0]`@Name` on one of its input parameters.
-The `@Name` annotation has different functions depending on the context in which it is used.
+The `@Name` annotation has different functions depending on the context in which it's used.
 In this context, it denotes input parameters for GraphQL operations.
 For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,
-it is used to input the `hostname` for the system you want to look up information for.
+it's used to input the `hostname` for the system you want to look up information for.
 
 Recall that the `SystemInfo` class contained nested objects.
 It contained a `JavaInfo` and an `OperatingSystem` object.
@@ -276,7 +286,7 @@ Operations of the `mutation` type are be used to edit data.
 They can create, update, or delete data.
 They're defined by using the [hotspot=mutation file=0]`@Mutation` annotation.
 
-There is one `mutation` operation in this application - the `editNote` request.
+There's one `mutation` operation in this application - the `editNote` request.
 This request is handled by the [hotspot=editNoteFunction file=0]`editNote()` function.
 This request is used to write a note into the properties of a given system.
 There are inputs for the system you want to write into, and the note you want to write.
@@ -316,6 +326,8 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 The [hotspot=graphql file=1]`mpGraphQL-1.0` feature that is added to the [hotspot file=1]`server.xml` 
 enables the use of the https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
 feature in Open Liberty.
+Open Liberty's MicroProfile GraphQL feature includes GraphiQL.
+Enable it by setting the [hotspot=enableGraphiql file=1]`io.openliberty.enableGraphQLUI` variable to `true`.
 
 // file 0
 pom.xml
@@ -384,13 +396,10 @@ The containers may take some time to become available.
 == Running GraphQL queries
 
 Before making any requests, visit the http://localhost:9082/graphql/schema.graphql[^] URL.
-This URL contains the schema, which describes the GraphQL service.
-The schema details what operations are available and any object types that are returned.
-Object types described will have their fields and their types listed.
-If defined, descriptions of object types and operations will also be included.
+This URL returns the schema to describe the GraphQL service.
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
-Access GraphiQL at the http://localhost:9082/graphiql.html[^] URL.
+Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
 You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
@@ -454,7 +463,7 @@ mutation {
 
 You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
 You can see the note that you added by running the following query operation.
-Notice that there is no need to run a full query, as you only want the `note` property.
+Notice that there's no need to run a full query, as you only want the `note` property.
 Thus, the request only contains the `note` property. 
 
 [role='command']
