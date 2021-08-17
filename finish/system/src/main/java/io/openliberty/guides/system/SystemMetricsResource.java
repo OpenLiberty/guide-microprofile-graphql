@@ -22,30 +22,29 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemLoadData;
+import io.openliberty.guides.graphql.models.SystemMetrics;
 
 @ApplicationScoped
-@Path("management")
-public class SystemManagementResource {
+@Path("metrics")
+public class SystemMetricsResource {
 
     private static final OperatingSystemMXBean OS_MEAN =
                              ManagementFactory.getOperatingSystemMXBean();
 
     private static final MemoryMXBean MEM_BEAN = ManagementFactory.getMemoryMXBean();
 
-    // tag::operatingSystem[]
+    // tag::systemMetrics[]
     @GET
-    @Path("/operatingSystem")
     @Produces(MediaType.APPLICATION_JSON)
-    public OperatingSystem getOperatingSystem() {
-        OperatingSystem operatingSystem = new OperatingSystem();
-        operatingSystem.setArch(OS_MEAN.getArch());
-        operatingSystem.setName(OS_MEAN.getName());
-        operatingSystem.setVersion(OS_MEAN.getVersion());
-        return operatingSystem;
+    public SystemMetrics getSystemMetrics() {
+        SystemMetrics metrics = new SystemMetrics();
+        metrics.setProcessors(OS_MEAN.getAvailableProcessors());
+        metrics.setHeapSize(MEM_BEAN.getHeapMemoryUsage().getMax());
+        metrics.setNonHeapSize(MEM_BEAN.getNonHeapMemoryUsage().getMax());
+        return metrics;
     }
-    // end::operatingSystem[]
+    // end::systemMetrics[]
 
     // tag::systemLoad[]
     @GET
@@ -53,10 +52,9 @@ public class SystemManagementResource {
     @Produces(MediaType.APPLICATION_JSON)
     public SystemLoadData getSystemLoad() {
         SystemLoadData systemLoadData = new SystemLoadData();
-        systemLoadData.setProcessors(OS_MEAN.getAvailableProcessors());
         systemLoadData.setLoadAverage(OS_MEAN.getSystemLoadAverage());
-        systemLoadData.setHeapSize(MEM_BEAN.getHeapMemoryUsage().getMax());
         systemLoadData.setHeapUsed(MEM_BEAN.getHeapMemoryUsage().getUsed());
+        systemLoadData.setNonHeapUsed(MEM_BEAN.getNonHeapMemoryUsage().getUsed());
         return systemLoadData;
     }
     // end::systemLoad[]

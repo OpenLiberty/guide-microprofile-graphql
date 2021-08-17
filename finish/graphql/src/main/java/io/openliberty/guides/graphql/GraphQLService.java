@@ -40,6 +40,7 @@ import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
 import io.openliberty.guides.graphql.models.SystemLoadData;
+import io.openliberty.guides.graphql.models.SystemMetrics;
 
 // tag::graphqlapi[]
 @GraphQLApi
@@ -135,6 +136,18 @@ public class GraphQLService {
         return systemClient.getOperatingSystem();
     }
     // end::os[]
+
+    // Nested objects, these can be expensive to obtain
+    @NonNull
+    // tag::systemMetrics[]
+    public SystemMetrics systemMetrics(
+        @Source @Name("system") SystemInfo systemInfo)
+        throws ProcessingException, UnknownUriException {
+        String hostname = systemInfo.getHostname();
+        SystemClient systemClient = getSystemClient(hostname);
+        return systemClient.getSystemMetrics();
+    }
+    // end::systemMetrics[]
 
     // tag::nonnull3[]
     @NonNull

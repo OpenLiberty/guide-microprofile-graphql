@@ -37,6 +37,8 @@ public class SystemInfo {
 
     private OperatingSystem operatingSystem;
 
+    private SystemMetrics systemMetrics;
+
     public String getHostname() {
         return this.hostname;
     }
@@ -84,5 +86,14 @@ public class SystemInfo {
     public void setOperatingSystem(OperatingSystem operatingSystem) {
         this.operatingSystem = operatingSystem;
     }
+
+	public SystemMetrics getSystemMetrics() {
+		return systemMetrics;
+	}
+
+	public void setSystemMetrics(SystemMetrics systemMetrics) {
+		this.systemMetrics = systemMetrics;
+	}
+    
 }
 // end::class[]

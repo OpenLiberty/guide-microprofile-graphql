@@ -27,6 +27,7 @@ import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import io.openliberty.guides.graphql.models.JavaInfo;
 import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemLoadData;
+import io.openliberty.guides.graphql.models.SystemMetrics;
 
 @RegisterProvider(UnknownUriExceptionMapper.class)
 public interface SystemClient extends AutoCloseable {
@@ -44,20 +45,26 @@ public interface SystemClient extends AutoCloseable {
         throws UnknownUriException, ProcessingException;
 
     @POST
-    @Path("/properties/note")
+    @Path("/note")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     Response editNote(String text)
         throws UnknownUriException, ProcessingException;
 
     @GET
-    @Path("/management/operatingSystem")
+    @Path("/properties/os")
     @Produces(MediaType.APPLICATION_JSON)
     OperatingSystem getOperatingSystem()
         throws UnknownUriException, ProcessingException;
 
     @GET
-    @Path("/management/systemLoad")
+    @Path("/metrics")
+    @Produces(MediaType.APPLICATION_JSON)
+    SystemMetrics getSystemMetrics()
+        throws UnknownUriException, ProcessingException;
+
+    @GET
+    @Path("/metrics/systemLoad")
     @Produces(MediaType.APPLICATION_JSON)
     SystemLoadData getSystemLoad()
         throws UnknownUriException, ProcessingException;

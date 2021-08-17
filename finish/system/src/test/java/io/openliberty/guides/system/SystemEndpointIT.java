@@ -52,7 +52,7 @@ public class SystemEndpointIT {
     @Test
     @Order(1)
     public void testEditNote() throws MalformedURLException {
-        WebTarget target = client.target(URL + "system/properties/note");
+        WebTarget target = client.target(URL + "system/note");
         Response response = target.request().post(Entity.text("test edit note"));
         assertEquals(200, response.getStatus(),
                      "Incorrect response code from " + target.getUri().getPath());
@@ -100,7 +100,7 @@ public class SystemEndpointIT {
 
     @Test
     public void testGetOperatingSystem() throws MalformedURLException {
-        WebTarget target = client.target(URL + "system/management/operatingSystem");
+        WebTarget target = client.target(URL + "system/properties/os");
         Response response = target.request().get();
         assertEquals(200, response.getStatus(),
                      "Incorrect response code from " + target.getUri().getPath());
@@ -111,19 +111,32 @@ public class SystemEndpointIT {
                      "OS name should match");
         response.close();
     }
-
+    
     @Test
-    public void testGetSystemLoad() throws MalformedURLException {
-        WebTarget target = client.target(URL + "system/management/systemLoad");
+    public void testGetSystemMetrics() throws MalformedURLException {
+        WebTarget target = client.target(URL + "system/metrics");
         Response response = target.request().get();
         assertEquals(200, response.getStatus(),
                      "Incorrect response code from " + target.getUri().getPath());
 
-        JsonObject data = response.readEntity(JsonObject.class);
-        assertNotNull(data.getJsonNumber("heapSize"), "heapSize is null");
-        assertNotNull(data.getJsonNumber("heapUsed"), "heapUsed is null");
-        assertNotNull(data.getJsonNumber("processors"), "processors is null");
-        assertNotNull(data.getJsonNumber("loadAverage"), "loadAverage is null");
+        JsonObject metrics = response.readEntity(JsonObject.class);
+        assertNotNull(metrics.getJsonNumber("processors"), "processors is null");
+        assertNotNull(metrics.getJsonNumber("heapSize"), "heapSize is null");
+        assertNotNull(metrics.getJsonNumber("nonHeapSize"), "heapSize is null");
+        response.close();
+    }
+
+    @Test
+    public void testGetSystemLoad() throws MalformedURLException {
+        WebTarget target = client.target(URL + "system/metrics/systemLoad");
+        Response response = target.request().get();
+        assertEquals(200, response.getStatus(),
+                     "Incorrect response code from " + target.getUri().getPath());
+
+        JsonObject metrics = response.readEntity(JsonObject.class);
+        assertNotNull(metrics.getJsonNumber("heapUsed"), "heapUsed is null");
+        assertNotNull(metrics.getJsonNumber("nonHeapUsed"), "nonHeapUsed is null");
+        assertNotNull(metrics.getJsonNumber("loadAverage"), "loadAverage is null");
         response.close();
     }
 }

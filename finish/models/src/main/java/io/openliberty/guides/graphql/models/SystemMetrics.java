@@ -17,45 +17,45 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("loadData")
+@Type("metrics")
 // end::type[]
 // tag::description[]
-@Description("System usage data")
+@Description("System metrics")
 // end::description[]
 // tag::class[]
-public class SystemLoadData {
+public class SystemMetrics {
 
     @NonNull
-    private Double loadAverage;
+    private Integer processors;
 
     @NonNull
-    private Long heapUsed;
+    private Long heapSize;
 
     @NonNull
-    private Long nonHeapUsed;
+    private Long nonHeapSize;
 
-    public Double getLoadAverage() {
-        return loadAverage;
+    public Integer getProcessors() {
+        return processors;
     }
 
-    public void setLoadAverage(Double loadAverage) {
-        this.loadAverage = loadAverage;
+    public void setProcessors(int processors) {
+        this.processors = processors;
     }
 
-    public Long getHeapUsed() {
-        return heapUsed;
+    public Long getHeapSize() {
+        return heapSize;
     }
 
-    public void setHeapUsed(Long heapUsed) {
-        this.heapUsed = heapUsed;
+    public void setHeapSize(long heapSize) {
+        this.heapSize = heapSize;
     }
 
-	public Long getNonHeapUsed() {
-		return nonHeapUsed;
+	public Long getNonHeapSize() {
+		return nonHeapSize;
 	}
 
-	public void setNonHeapUsed(Long nonHeapUsed) {
-		this.nonHeapUsed = nonHeapUsed;
+	public void setNonHeapSize(Long nonHeapSize) {
+		this.nonHeapSize = nonHeapSize;
 	}
 
 }

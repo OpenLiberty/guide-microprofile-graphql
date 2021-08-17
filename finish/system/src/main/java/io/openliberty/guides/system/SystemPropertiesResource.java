@@ -23,14 +23,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.JavaInfo;
+import io.openliberty.guides.graphql.models.OperatingSystem;
 
 @ApplicationScoped
-@Path("properties")
+@Path("/")
 public class SystemPropertiesResource {
 
     // tag::queryProperty[]
     @GET
-    @Path("/{property}")
+    @Path("properties/{property}")
     @Produces(MediaType.TEXT_PLAIN)
     public String queryProperty(@PathParam("property") String property) {
         return System.getProperty(property);
@@ -39,7 +40,7 @@ public class SystemPropertiesResource {
 
     // tag::java[]
     @GET
-    @Path("java")
+    @Path("properties/java")
     @Produces(MediaType.APPLICATION_JSON)
     public JavaInfo java() {
         JavaInfo javaInfo = new JavaInfo();
@@ -48,6 +49,19 @@ public class SystemPropertiesResource {
         return javaInfo;
     }
     // end::java[]
+
+    // tag::operatingSystem[]
+    @GET
+    @Path("properties/os")
+    @Produces(MediaType.APPLICATION_JSON)
+    public OperatingSystem getOperatingSystem() {
+        OperatingSystem operatingSystem = new OperatingSystem();
+        operatingSystem.setArch(System.getProperty("os.arch"));
+        operatingSystem.setName(System.getProperty("os.name"));
+        operatingSystem.setVersion(System.getProperty("os.version"));
+        return operatingSystem;
+    }
+    // end::operatingSystem[]
 
     // tag::note[]
     @POST
