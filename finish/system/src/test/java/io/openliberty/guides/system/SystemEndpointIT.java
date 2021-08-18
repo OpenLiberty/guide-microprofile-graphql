@@ -97,21 +97,7 @@ public class SystemEndpointIT {
                      "java vendor should match");
         response.close();
     }
-
-    @Test
-    public void testGetOperatingSystem() throws MalformedURLException {
-        WebTarget target = client.target(URL + "system/properties/os");
-        Response response = target.request().get();
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code from " + target.getUri().getPath());
-
-        JsonObject os = response.readEntity(JsonObject.class);
-        assertEquals(System.getProperty("os.name"),
-                     os.getString("name"),
-                     "OS name should match");
-        response.close();
-    }
-    
+  
     @Test
     public void testGetSystemMetrics() throws MalformedURLException {
         WebTarget target = client.target(URL + "system/metrics");

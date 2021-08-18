@@ -23,7 +23,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.JavaInfo;
-import io.openliberty.guides.graphql.models.OperatingSystem;
 
 @ApplicationScoped
 @Path("/")
@@ -49,19 +48,6 @@ public class SystemPropertiesResource {
         return javaInfo;
     }
     // end::java[]
-
-    // tag::operatingSystem[]
-    @GET
-    @Path("properties/os")
-    @Produces(MediaType.APPLICATION_JSON)
-    public OperatingSystem getOperatingSystem() {
-        OperatingSystem operatingSystem = new OperatingSystem();
-        operatingSystem.setArch(System.getProperty("os.arch"));
-        operatingSystem.setName(System.getProperty("os.name"));
-        operatingSystem.setVersion(System.getProperty("os.version"));
-        return operatingSystem;
-    }
-    // end::operatingSystem[]
 
     // tag::note[]
     @POST

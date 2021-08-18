@@ -36,7 +36,6 @@ import io.openliberty.guides.graphql.client.SystemClient;
 import io.openliberty.guides.graphql.client.UnknownUriException;
 import io.openliberty.guides.graphql.client.UnknownUriExceptionMapper;
 import io.openliberty.guides.graphql.models.JavaInfo;
-import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
 import io.openliberty.guides.graphql.models.SystemLoadData;
@@ -72,8 +71,11 @@ public class GraphQLService {
         SystemInfo systemInfo = new SystemInfo();
         systemInfo.setHostname(hostname);
         systemInfo.setUsername(systemClient.queryProperty("user.name"));
-        systemInfo.setTimezone(systemClient.queryProperty("user.timezone"));
+        systemInfo.setOsName(systemClient.queryProperty("os.name"));
+        systemInfo.setOsArch(systemClient.queryProperty("os.arch"));
+        systemInfo.setOsVersion(systemClient.queryProperty("os.version"));
         systemInfo.setNote(systemClient.queryProperty("note"));
+
         return systemInfo;
     }
     // end::getSystemInfo[]
@@ -122,20 +124,6 @@ public class GraphQLService {
         return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
     }
     // end::getSystemLoad[]
-
-    // Nested objects, these can be expensive to obtain
-    @NonNull
-    // tag::os[]
-    // tag::operatingSystemHeader[]
-    public OperatingSystem operatingSystem(
-        @Source @Name("system") SystemInfo systemInfo)
-        throws ProcessingException, UnknownUriException {
-    // end::operatingSystemHeader[]
-        String hostname = systemInfo.getHostname();
-        SystemClient systemClient = getSystemClient(hostname);
-        return systemClient.getOperatingSystem();
-    }
-    // end::os[]
 
     // Nested objects, these can be expensive to obtain
     @NonNull

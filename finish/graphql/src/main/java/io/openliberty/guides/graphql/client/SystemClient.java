@@ -25,7 +25,6 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 
 import io.openliberty.guides.graphql.models.JavaInfo;
-import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemLoadData;
 import io.openliberty.guides.graphql.models.SystemMetrics;
 
@@ -49,12 +48,6 @@ public interface SystemClient extends AutoCloseable {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     Response editNote(String text)
-        throws UnknownUriException, ProcessingException;
-
-    @GET
-    @Path("/properties/os")
-    @Produces(MediaType.APPLICATION_JSON)
-    OperatingSystem getOperatingSystem()
         throws UnknownUriException, ProcessingException;
 
     @GET
