@@ -125,12 +125,13 @@ If needed, setter functions are also supported and automatically mapped.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `OperatingSystem` class.#
-`models/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
+#Create the `SystemMetrics` class.#
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java`
 ----
 
-The [hotspot=class file=1]`OperatingSystem` class is set up similarly.
-It maps to the [hotspot=type file=1]`operatingSystem` object type, which describes the operating system's information. 
+The [hotspot=class file=1]`SystemMetrics` class is set up similarly.
+It maps to the [hotspot=type file=1]`metrics` object type,
+which describes system information such as the number of processor cores and the heap size.
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -163,10 +164,10 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/JavaIn
 ----
 
 // file 1
-OperatingSystem.java
+OperatingMetrics.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/models/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java[]
 ----
 
 // file 2
@@ -212,12 +213,11 @@ The [hotspot=note file=0]`note` endpoint is used to write a note into the system
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `SystemManagementResource` class.#
-`system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java`
+#Create the `SystemMetricsResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java`
 ----
 
-The [hotspot file=1]`SystemManagementResource` class provides information on the system's operating system and resource management.
-The [hotspot=operatingSystem file=1]`operatingSystem` endpoint assembles and returns an object describing the operating system.
+The [hotspot file=1]`SystemMetricsResource` class provides information on the system's resources and their usage.
 The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
 It will include the JVM heap load and processor load.
 
@@ -229,10 +229,10 @@ include::finish/system/src/main/java/io/openliberty/guides/system/SystemProperti
 ----
 
 // file 1
-SystemManagementResource.java
+SystemMetricsResource.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java[]
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java[]
 ----
 
 == Implementing GraphQL resolvers
