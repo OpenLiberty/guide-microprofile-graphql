@@ -473,7 +473,7 @@ Thus, the request only contains the `note` property.
 [role='command']
 ----
 query {
-  system(hostname: "java8") {
+  system(hostname: "system-java8") {
     note
   }
 }
@@ -493,7 +493,7 @@ The response is similar to the following example:
 ----
 
 GraphQL returns only the `note` property, as it was the only property in the request.
-You can try out the operations using the hostname `java11` as well.
+You can try out the operations using the hostname `system-java11` as well.
 To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
 [role='command']
