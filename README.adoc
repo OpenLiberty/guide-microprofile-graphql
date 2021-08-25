@@ -125,12 +125,13 @@ If needed, setter functions are also supported and automatically mapped.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `OperatingSystem` class.#
-`models/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
+#Create the `SystemMetrics` class.#
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java`
 ----
 
-The [hotspot=class file=1]`OperatingSystem` class is set up similarly.
-It maps to the [hotspot=type file=1]`operatingSystem` object type, which describes the operating system's information. 
+The [hotspot=class file=1]`SystemMetrics` class is set up similarly.
+It maps to the [hotspot=type file=1]`systemMetrics` object type,
+which describes system information such as the number of processor cores and the heap size.
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -163,10 +164,10 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/JavaIn
 ----
 
 // file 1
-OperatingSystem.java
+SystemMetrics.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/models/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java[]
 ----
 
 // file 2
@@ -212,12 +213,11 @@ The [hotspot=note file=0]`note` endpoint is used to write a note into the system
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `SystemManagementResource` class.#
-`system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java`
+#Create the `SystemMetricsResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java`
 ----
 
-The [hotspot file=1]`SystemManagementResource` class provides information on the system's operating system and resource management.
-The [hotspot=operatingSystem file=1]`operatingSystem` endpoint assembles and returns an object describing the operating system.
+The [hotspot file=1]`SystemMetricsResource` class provides information on the system's resources and their usage.
 The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
 It will include the JVM heap load and processor load.
 
@@ -229,10 +229,10 @@ include::finish/system/src/main/java/io/openliberty/guides/system/SystemProperti
 ----
 
 // file 1
-SystemManagementResource.java
+SystemMetricsResource.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/system/src/main/java/io/openliberty/guides/system/SystemManagementResource.java[]
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java[]
 ----
 
 == Implementing GraphQL resolvers
@@ -267,12 +267,12 @@ it's used to input the `hostname` for the system you want to look up information
 
 Recall that the `SystemInfo` class contained nested objects.
 It contained a `JavaInfo` and an `OperatingSystem` object.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation
+The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation
 is used to add these nested objects as properties to the `SystemInfo` object.
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Name` appears again here.
-In this context alongside the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation,
-it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
+The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Name` appears again here.
+In this context alongside the [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation,
+it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=systemMetricsFunction file=0]`systemMetrics`
 object types to `system` requests and the `system` object type.
 
 The other `query` request is the `systemLoad` request, 
@@ -408,17 +408,19 @@ Run the following `query` operation in GraphiQL to get every system property fro
 [role='command']
 ----
 query {
-  system(hostname:"java8") {
+  system(hostname: "system-java8") {
     hostname
     username
-    timezone
+    osArch
+    osName
+    osVersion
+    systemMetrics {
+      processors
+      heapSize
+      nonHeapSize
+    }
     java {
       vendorName
-      version
-    }
-    operatingSystem {
-      arch
-      name
       version
     }
   }
@@ -432,17 +434,19 @@ The output is similar to the following example:
 {
   "data": {
     "system": {
-      "hostname": "java8",
+      "hostname": "system-java8",
       "username": "default",
-      "timezone": "Etc/UTC",
+      "osArch": "amd64",
+      "osName": "Linux",
+      "osVersion": "5.10.25-linuxkit",
+      "systemMetrics": {
+        "processors": 4,
+        "heapSize": 1031864320,
+        "nonHeapSize": -1
+      },
       "java": {
         "vendorName": "AdoptOpenJDK",
         "version": "1.8.0_292"
-      },
-      "operatingSystem": {
-        "arch": "amd64",
-        "name": "Linux",
-        "version": "5.10.25-linuxkit"
       }
     }
   }
@@ -455,7 +459,7 @@ Run the following mutation operation to add a note to the `system` service runni
 ----
 mutation {
   editNote(
-    hostname: "java8"
+    hostname: "system-java8"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
@@ -469,7 +473,7 @@ Thus, the request only contains the `note` property.
 [role='command']
 ----
 query {
-  system(hostname: "java8") {
+  system(hostname: "system-java8") {
     note
   }
 }
@@ -489,16 +493,17 @@ The response is similar to the following example:
 ----
 
 GraphQL returns only the `note` property, as it was the only property in the request.
-You can try out the operations using the hostname `java11` as well.
+You can try out the operations using the hostname `system-java11` as well.
 To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
 [role='command']
 ----
 query {
-  systemLoad(hostnames: ["java8", "java11"]) {
+  systemLoad(hostnames: ["system-java8", "system-java11"]) {
     hostname
     loadData {
       heapUsed
+      nonHeapUsed
       loadAverage
     }
   }
@@ -513,17 +518,19 @@ The response is similar to the following example:
   "data": {
     "systemLoad": [
       {
-        "hostname": "java8",
+        "hostname": "system-java8",
         "loadData": {
-          "heapUsed": 39762056,
-          "loadAverage": 0.42
+          "heapUsed": 32432048,
+          "nonHeapUsed": 85147084,
+          "loadAverage": 0.36
         }
       },
       {
-        "hostname": "java11",
+        "hostname": "system-java11",
         "loadData": {
-          "heapUsed": 38604048,
-          "loadAverage": 0.42
+          "heapUsed": 39373688,
+          "nonHeapUsed": 90736300,
+          "loadAverage": 0.36
         }
       }
     ]

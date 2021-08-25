@@ -65,9 +65,9 @@ public class GraphQLServiceIT {
             "{ \"query\": "
                 + "\"query($hostnameArg:String) { "
                     + "system (hostname: $hostnameArg) { "
-                        + "hostname username timezone "
+                        + "hostname username osName osArch osVersion "
                         + "java { version vendorName } "
-                        + "operatingSystem {arch name version} "
+                        + "systemMetrics {processors heapSize nonHeapSize} "
                     + "} "
                 + "}\","
             + "\"variables\": {\"hostnameArg\": \"" + hostname + "\"} "
@@ -164,7 +164,7 @@ public class GraphQLServiceIT {
                 + "\"query ($hostnamesArg: [String!]) { "
                     + "systemLoad (hostnames: $hostnamesArg) { "
                         + "hostname loadData {"
-                            + "heapUsed loadAverage processors heapSize"
+                            + "loadAverage heapUsed nonHeapUsed"
                         + "} "
                     + "}"
                 + "}\","
@@ -197,14 +197,11 @@ public class GraphQLServiceIT {
         Map<String, Object> systemLoadData =
             (Map<String, Object>) systemLoad.get("loadData");
         assertTrue(
-            systemLoadData.containsKey("heapSize"),
-            "systemLoadData should contain heapSize: " + queryResponseString);
-        assertTrue(
             systemLoadData.containsKey("heapUsed"),
             "systemLoadData should contain heapUsed: " + queryResponseString);
         assertTrue(
-            systemLoadData.containsKey("processors"),
-            "systemLoadData should contain processors: " + queryResponseString);
+            systemLoadData.containsKey("nonHeapUsed"),
+            "systemLoadData should contain nonHeapUsed: " + queryResponseString);
         assertTrue(
             systemLoadData.containsKey("loadAverage"),
             "systemLoadData should contain loadAverage: " + queryResponseString);

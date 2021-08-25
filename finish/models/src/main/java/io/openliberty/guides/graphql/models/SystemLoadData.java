@@ -32,18 +32,7 @@ public class SystemLoadData {
     private Long heapUsed;
 
     @NonNull
-    private Integer processors;
-
-    @NonNull
-    private Long heapSize;
-
-    public Integer getProcessors() {
-        return processors;
-    }
-
-    public void setProcessors(int processors) {
-        this.processors = processors;
-    }
+    private Long nonHeapUsed;
 
     public Double getLoadAverage() {
         return loadAverage;
@@ -53,14 +42,6 @@ public class SystemLoadData {
         this.loadAverage = loadAverage;
     }
 
-    public Long getHeapSize() {
-        return heapSize;
-    }
-
-    public void setHeapSize(long heapSize) {
-        this.heapSize = heapSize;
-    }
-
     public Long getHeapUsed() {
         return heapUsed;
     }
@@ -68,6 +49,14 @@ public class SystemLoadData {
     public void setHeapUsed(Long heapUsed) {
         this.heapUsed = heapUsed;
     }
+
+	public Long getNonHeapUsed() {
+		return nonHeapUsed;
+	}
+
+	public void setNonHeapUsed(Long nonHeapUsed) {
+		this.nonHeapUsed = nonHeapUsed;
+	}
 
 }
 // end::class[]

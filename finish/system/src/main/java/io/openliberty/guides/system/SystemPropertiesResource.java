@@ -25,12 +25,12 @@ import javax.ws.rs.core.Response;
 import io.openliberty.guides.graphql.models.JavaInfo;
 
 @ApplicationScoped
-@Path("properties")
+@Path("/")
 public class SystemPropertiesResource {
 
     // tag::queryProperty[]
     @GET
-    @Path("/{property}")
+    @Path("properties/{property}")
     @Produces(MediaType.TEXT_PLAIN)
     public String queryProperty(@PathParam("property") String property) {
         return System.getProperty(property);
@@ -39,7 +39,7 @@ public class SystemPropertiesResource {
 
     // tag::java[]
     @GET
-    @Path("java")
+    @Path("properties/java")
     @Produces(MediaType.APPLICATION_JSON)
     public JavaInfo java() {
         JavaInfo javaInfo = new JavaInfo();

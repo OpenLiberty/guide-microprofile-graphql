@@ -17,46 +17,46 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("operatingSystem")
+@Type("systemMetrics")
 // end::type[]
 // tag::description[]
-@Description("Information about an operating system")
+@Description("System metrics")
 // end::description[]
 // tag::class[]
-public class OperatingSystem {
+public class SystemMetrics {
 
     @NonNull
-    private String arch;
+    private Integer processors;
 
     @NonNull
-    private String name;
+    private Long heapSize;
 
     @NonNull
-    private String version;
+    private Long nonHeapSize;
 
-    public String getArch() {
-        return arch;
+    public Integer getProcessors() {
+        return processors;
     }
 
-    public void setArch(String arch) {
-        this.arch = arch;
+    public void setProcessors(int processors) {
+        this.processors = processors;
     }
 
-    public String getName() {
-        return name;
+    public Long getHeapSize() {
+        return heapSize;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHeapSize(long heapSize) {
+        this.heapSize = heapSize;
     }
 
-    public String getVersion() {
-        return version;
-    }
+	public Long getNonHeapSize() {
+		return nonHeapSize;
+	}
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
+	public void setNonHeapSize(Long nonHeapSize) {
+		this.nonHeapSize = nonHeapSize;
+	}
 
 }
 // end::class[]

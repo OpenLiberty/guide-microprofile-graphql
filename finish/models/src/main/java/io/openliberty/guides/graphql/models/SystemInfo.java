@@ -29,13 +29,17 @@ public class SystemInfo {
     @NonNull
     private String username;
 
-    private String timezone;
+    private String osName;
+
+    private String osArch;
+
+    private String osVersion;
 
     private String note;
 
     private JavaInfo java;
 
-    private OperatingSystem operatingSystem;
+    private SystemMetrics systemMetrics;
 
     public String getHostname() {
         return this.hostname;
@@ -53,15 +57,31 @@ public class SystemInfo {
         this.username = username;
     }
 
-    public String getTimezone() {
-        return this.timezone;
-    }
+    public String getOsName() {
+		return osName;
+	}
 
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
-    }
+	public void setOsName(String osName) {
+		this.osName = osName;
+	}
 
-    public String getNote() {
+	public String getOsArch() {
+		return osArch;
+	}
+
+	public void setOsArch(String osarch) {
+		this.osArch = osarch;
+	}
+
+	public String getOsVersion() {
+		return osVersion;
+	}
+
+	public void setOsVersion(String osVersion) {
+		this.osVersion = osVersion;
+	}
+
+	public String getNote() {
         return this.note;
     }
 
@@ -77,12 +97,13 @@ public class SystemInfo {
         this.java = java;
     }
 
-    public OperatingSystem getOperatingSystem() {
-        return operatingSystem;
-    }
+	public SystemMetrics getSystemMetrics() {
+		return systemMetrics;
+	}
 
-    public void setOperatingSystem(OperatingSystem operatingSystem) {
-        this.operatingSystem = operatingSystem;
-    }
+	public void setSystemMetrics(SystemMetrics systemMetrics) {
+		this.systemMetrics = systemMetrics;
+	}
+    
 }
 // end::class[]

@@ -36,10 +36,10 @@ import io.openliberty.guides.graphql.client.SystemClient;
 import io.openliberty.guides.graphql.client.UnknownUriException;
 import io.openliberty.guides.graphql.client.UnknownUriExceptionMapper;
 import io.openliberty.guides.graphql.models.JavaInfo;
-import io.openliberty.guides.graphql.models.OperatingSystem;
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
 import io.openliberty.guides.graphql.models.SystemLoadData;
+import io.openliberty.guides.graphql.models.SystemMetrics;
 
 // tag::graphqlapi[]
 @GraphQLApi
@@ -71,8 +71,11 @@ public class GraphQLService {
         SystemInfo systemInfo = new SystemInfo();
         systemInfo.setHostname(hostname);
         systemInfo.setUsername(systemClient.queryProperty("user.name"));
-        systemInfo.setTimezone(systemClient.queryProperty("user.timezone"));
+        systemInfo.setOsName(systemClient.queryProperty("os.name"));
+        systemInfo.setOsArch(systemClient.queryProperty("os.arch"));
+        systemInfo.setOsVersion(systemClient.queryProperty("os.version"));
         systemInfo.setNote(systemClient.queryProperty("note"));
+
         return systemInfo;
     }
     // end::getSystemInfo[]
@@ -123,22 +126,24 @@ public class GraphQLService {
     // end::getSystemLoad[]
 
     // Nested objects, these can be expensive to obtain
-    @NonNull
-    // tag::os[]
-    // tag::operatingSystemHeader[]
-    public OperatingSystem operatingSystem(
-        @Source @Name("system") SystemInfo systemInfo)
-        throws ProcessingException, UnknownUriException {
-    // end::operatingSystemHeader[]
-        String hostname = systemInfo.getHostname();
-        SystemClient systemClient = getSystemClient(hostname);
-        return systemClient.getOperatingSystem();
-    }
-    // end::os[]
-
     // tag::nonnull3[]
     @NonNull
-    // end::nonnull3[]
+    // tag::nonnull3[]
+    // tag::systemMetricsFunction[]
+    // tag::systemMetricsHeader[]
+    public SystemMetrics systemMetrics(
+        @Source @Name("system") SystemInfo systemInfo)
+        throws ProcessingException, UnknownUriException {
+    // end::systemMetricsHeader[]
+        String hostname = systemInfo.getHostname();
+        SystemClient systemClient = getSystemClient(hostname);
+        return systemClient.getSystemMetrics();
+    }
+    // end::systemMetricsFunction[]
+
+    // tag::nonnull4[]
+    @NonNull
+    // end::nonnull4[]
     // tag::javaFunction[]
     // tag::javaHeader[]
     public JavaInfo java(@Source @Name("system") SystemInfo systemInfo)
