@@ -97,7 +97,7 @@ public class SystemEndpointIT {
                      "java vendor should match");
         response.close();
     }
-  
+
     @Test
     public void testGetSystemMetrics() throws MalformedURLException {
         WebTarget target = client.target(URL + "system/metrics");

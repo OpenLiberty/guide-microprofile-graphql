@@ -50,13 +50,13 @@ public class SystemLoadData {
         this.heapUsed = heapUsed;
     }
 
-	public Long getNonHeapUsed() {
-		return nonHeapUsed;
-	}
+    public Long getNonHeapUsed() {
+        return nonHeapUsed;
+    }
 
-	public void setNonHeapUsed(Long nonHeapUsed) {
-		this.nonHeapUsed = nonHeapUsed;
-	}
+    public void setNonHeapUsed(Long nonHeapUsed) {
+        this.nonHeapUsed = nonHeapUsed;
+    }
 
 }
 // end::class[]

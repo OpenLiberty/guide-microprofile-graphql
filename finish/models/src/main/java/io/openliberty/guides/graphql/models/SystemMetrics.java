@@ -50,13 +50,13 @@ public class SystemMetrics {
         this.heapSize = heapSize;
     }
 
-	public Long getNonHeapSize() {
-		return nonHeapSize;
-	}
+    public Long getNonHeapSize() {
+        return nonHeapSize;
+    }
 
-	public void setNonHeapSize(Long nonHeapSize) {
-		this.nonHeapSize = nonHeapSize;
-	}
+    public void setNonHeapSize(Long nonHeapSize) {
+        this.nonHeapSize = nonHeapSize;
+    }
 
 }
 // end::class[]

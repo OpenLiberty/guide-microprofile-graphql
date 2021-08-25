@@ -58,30 +58,30 @@ public class SystemInfo {
     }
 
     public String getOsName() {
-		return osName;
-	}
+        return osName;
+    }
 
-	public void setOsName(String osName) {
-		this.osName = osName;
-	}
+    public void setOsName(String osName) {
+        this.osName = osName;
+    }
 
-	public String getOsArch() {
-		return osArch;
-	}
+    public String getOsArch() {
+        return osArch;
+    }
 
-	public void setOsArch(String osarch) {
-		this.osArch = osarch;
-	}
+    public void setOsArch(String osarch) {
+        this.osArch = osarch;
+    }
 
-	public String getOsVersion() {
-		return osVersion;
-	}
+    public String getOsVersion() {
+        return osVersion;
+    }
 
-	public void setOsVersion(String osVersion) {
-		this.osVersion = osVersion;
-	}
+    public void setOsVersion(String osVersion) {
+        this.osVersion = osVersion;
+    }
 
-	public String getNote() {
+    public String getNote() {
         return this.note;
     }
 
@@ -97,13 +97,13 @@ public class SystemInfo {
         this.java = java;
     }
 
-	public SystemMetrics getSystemMetrics() {
-		return systemMetrics;
-	}
+    public SystemMetrics getSystemMetrics() {
+        return systemMetrics;
+    }
 
-	public void setSystemMetrics(SystemMetrics systemMetrics) {
-		this.systemMetrics = systemMetrics;
-	}
-    
+    public void setSystemMetrics(SystemMetrics systemMetrics) {
+        this.systemMetrics = systemMetrics;
+    }
+
 }
 // end::class[]
