@@ -129,7 +129,7 @@ public class GraphQLService {
     // tag::nonnull3[]
     @NonNull
     // tag::nonnull3[]
-    // tag::systemMetrics[]
+    // tag::systemMetricsFunction[]
     // tag::systemMetricsHeader[]
     public SystemMetrics systemMetrics(
         @Source @Name("system") SystemInfo systemInfo)
@@ -139,7 +139,7 @@ public class GraphQLService {
         SystemClient systemClient = getSystemClient(hostname);
         return systemClient.getSystemMetrics();
     }
-    // end::systemMetrics[]
+    // end::systemMetricsFunction[]
 
     // tag::nonnull4[]
     @NonNull
