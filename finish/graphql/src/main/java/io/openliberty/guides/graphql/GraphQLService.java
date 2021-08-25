@@ -126,20 +126,24 @@ public class GraphQLService {
     // end::getSystemLoad[]
 
     // Nested objects, these can be expensive to obtain
+    // tag::nonnull3[]
     @NonNull
+    // tag::nonnull3[]
     // tag::systemMetrics[]
+    // tag::systemMetricsHeader[]
     public SystemMetrics systemMetrics(
         @Source @Name("system") SystemInfo systemInfo)
         throws ProcessingException, UnknownUriException {
+    // end::systemMetricsHeader[]
         String hostname = systemInfo.getHostname();
         SystemClient systemClient = getSystemClient(hostname);
         return systemClient.getSystemMetrics();
     }
     // end::systemMetrics[]
 
-    // tag::nonnull3[]
+    // tag::nonnull4[]
     @NonNull
-    // end::nonnull3[]
+    // end::nonnull4[]
     // tag::javaFunction[]
     // tag::javaHeader[]
     public JavaInfo java(@Source @Name("system") SystemInfo systemInfo)

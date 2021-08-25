@@ -164,7 +164,7 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/JavaIn
 ----
 
 // file 1
-OperatingMetrics.java
+SystemMetrics.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java[]
@@ -267,12 +267,12 @@ it's used to input the `hostname` for the system you want to look up information
 
 Recall that the `SystemInfo` class contained nested objects.
 It contained a `JavaInfo` and an `OperatingSystem` object.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation
+The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation
 is used to add these nested objects as properties to the `SystemInfo` object.
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Name` appears again here.
-In this context alongside the [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation,
-it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=os file=0]`operatingSystem`
+The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Name` appears again here.
+In this context alongside the [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation,
+it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=systemMetricsFunction file=0]`metrics`
 object types to `system` requests and the `system` object type.
 
 The other `query` request is the `systemLoad` request, 
