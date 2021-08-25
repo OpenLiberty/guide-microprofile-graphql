@@ -17,7 +17,7 @@ import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 // tag::type[]
-@Type("metrics")
+@Type("systemMetrics")
 // end::type[]
 // tag::description[]
 @Description("System metrics")

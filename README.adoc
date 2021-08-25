@@ -130,7 +130,7 @@ If needed, setter functions are also supported and automatically mapped.
 ----
 
 The [hotspot=class file=1]`SystemMetrics` class is set up similarly.
-It maps to the [hotspot=type file=1]`metrics` object type,
+It maps to the [hotspot=type file=1]`systemMetrics` object type,
 which describes system information such as the number of processor cores and the heap size.
 
 [role="code_command hotspot file=2" ,subs="quotes"]
@@ -272,7 +272,7 @@ is used to add these nested objects as properties to the `SystemInfo` object.
 
 The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Name` appears again here.
 In this context alongside the [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation,
-it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=systemMetricsFunction file=0]`metrics`
+it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=systemMetricsFunction file=0]`systemMetrics`
 object types to `system` requests and the `system` object type.
 
 The other `query` request is the `systemLoad` request, 
@@ -408,17 +408,19 @@ Run the following `query` operation in GraphiQL to get every system property fro
 [role='command']
 ----
 query {
-  system(hostname:"java8") {
+  system(hostname: "system-java8") {
     hostname
     username
-    timezone
+    osArch
+    osName
+    osVersion
+    systemMetrics {
+      processors
+      heapSize
+      nonHeapSize
+    }
     java {
       vendorName
-      version
-    }
-    operatingSystem {
-      arch
-      name
       version
     }
   }
@@ -432,17 +434,19 @@ The output is similar to the following example:
 {
   "data": {
     "system": {
-      "hostname": "java8",
+      "hostname": "system-java8",
       "username": "default",
-      "timezone": "Etc/UTC",
+      "osArch": "amd64",
+      "osName": "Linux",
+      "osVersion": "5.10.25-linuxkit",
+      "systemMetrics": {
+        "processors": 4,
+        "heapSize": 1031864320,
+        "nonHeapSize": -1
+      },
       "java": {
         "vendorName": "AdoptOpenJDK",
         "version": "1.8.0_292"
-      },
-      "operatingSystem": {
-        "arch": "amd64",
-        "name": "Linux",
-        "version": "5.10.25-linuxkit"
       }
     }
   }
@@ -455,7 +459,7 @@ Run the following mutation operation to add a note to the `system` service runni
 ----
 mutation {
   editNote(
-    hostname: "java8"
+    hostname: "system-java8"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
@@ -495,10 +499,11 @@ To see an example of using an array as an input for an operation, try the follow
 [role='command']
 ----
 query {
-  systemLoad(hostnames: ["java8", "java11"]) {
+  systemLoad(hostnames: ["system-java8", "system-java11"]) {
     hostname
     loadData {
       heapUsed
+      nonHeapUsed
       loadAverage
     }
   }
@@ -513,17 +518,19 @@ The response is similar to the following example:
   "data": {
     "systemLoad": [
       {
-        "hostname": "java8",
+        "hostname": "system-java8",
         "loadData": {
-          "heapUsed": 39762056,
-          "loadAverage": 0.42
+          "heapUsed": 32432048,
+          "nonHeapUsed": 85147084,
+          "loadAverage": 0.36
         }
       },
       {
-        "hostname": "java11",
+        "hostname": "system-java11",
         "loadData": {
-          "heapUsed": 38604048,
-          "loadAverage": 0.42
+          "heapUsed": 39373688,
+          "nonHeapUsed": 90736300,
+          "loadAverage": 0.36
         }
       }
     ]
