@@ -18,10 +18,11 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
-:page-seo-title: Implementing a microservice to query and update data using MicroProfile GraphQL
-:page-seo-description: A getting started tutorial with examples on how to implement a GraphQL microservice to query and update data from multiple services by using Eclipse MicroProfile GraphQL, and how to use the GraphiQL user interface to test GraphQL queries and mutations.
+:page-seo-title: Implementing an Eclipse MicroProfile GraphQL microservice to query and update web services.
+:page-seo-description: A getting started tutorial with examples on how to implement an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services, and how to test GraphQL queries and mutations using the GraphiQL user interface.
+
 :guide-author: Open Liberty
-= Querying and updating data with GraphQL
+= Building a GraphQL microservice to query web services 
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
@@ -143,7 +144,7 @@ The [hotspot=class file=2]`SystemInfo` class is similar to the previous two file
 It maps to the [hotspot=type file=2]`system` object type, 
 which describes other information Java can retrieve from the system properties.
 
-The `java` and `operatingSystem` object types are used as nested objects within the `system` object type.
+The [hotspot=java file=2]`java` and [hotspot=metrics file=2]`systemMetrics` object types are used as nested objects within the `system` object type.
 However, nested objects and other properties that are expensive to calculate or retrieve 
 are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
@@ -266,7 +267,7 @@ For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,
 it's used to input the `hostname` for the system you want to look up information for.
 
 Recall that the `SystemInfo` class contained nested objects.
-It contained a `JavaInfo` and an `OperatingSystem` object.
+It contained a `JavaInfo` and an `SystemMetrics` object.
 The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation
 is used to add these nested objects as properties to the `SystemInfo` object.
 

@@ -36,11 +36,12 @@ public class SystemInfo {
     private String osVersion;
 
     private String note;
-
+    // tag::java[]
     private JavaInfo java;
-
+    // end::java[]
+    // tag::metrics[]
     private SystemMetrics systemMetrics;
-
+    // end::metrics[]
     public String getHostname() {
         return this.hostname;
     }
