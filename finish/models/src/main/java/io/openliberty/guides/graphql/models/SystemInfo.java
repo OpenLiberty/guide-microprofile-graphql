@@ -30,18 +30,18 @@ public class SystemInfo {
     private String username;
 
     private String osName;
-
     private String osArch;
-
     private String osVersion;
-
     private String note;
+
     // tag::java[]
     private JavaInfo java;
     // end::java[]
+
     // tag::metrics[]
     private SystemMetrics systemMetrics;
     // end::metrics[]
+
     public String getHostname() {
         return this.hostname;
     }
