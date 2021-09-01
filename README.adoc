@@ -18,11 +18,10 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
-:page-seo-title: Implementing an Eclipse MicroProfile GraphQL microservice to query and update web services.
+:page-seo-title: Implementing an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services.
 :page-seo-description: A getting started tutorial with examples on how to implement an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services, and how to test GraphQL queries and mutations using the GraphiQL user interface.
-
 :guide-author: Open Liberty
-= Building a GraphQL microservice to query web services
+= Building a GraphQL microservice to query and update data
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
