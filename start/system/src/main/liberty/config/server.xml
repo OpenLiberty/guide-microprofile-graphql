@@ -1,4 +1,4 @@
-<server description="Query Service">
+<server description="System service">
 
   <featureManager>
     <feature>jaxrs-2.1</feature>
