@@ -9,53 +9,76 @@
 :projectid: graphql-intro
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2021-02-28
+:page-releasedate: 2021-07-29
 :page-essential: false
-:page-description: Learn how to create and test a GraphQL service using MicroProfile GraphQL and Open Liberty.
+:page-description: Learn how to use MicroProfile GraphQL to query and update data.
 :page-tags: ['MicroProfile', 'Jakarta EE']
 :page-related-guides: ['rest-intro', 'jpa-intro', 'mongodb-intro']
 :page-permalink: /guides/{projectid}
-:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
+:imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
-:page-seo-title: Accessing and manipulating data using MicroProfile GraphQL in Open Liberty
-:page-seo-description: Learn how to create an application that manipulates and returns data using the GraphQL query language implemented through MicroProfile GraphQL
+:page-seo-title: Implementing an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services.
+:page-seo-description: A getting started tutorial with examples on how to implement an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services, and how to test GraphQL queries and mutations using the GraphiQL user interface.
 :guide-author: Open Liberty
-= Accessing and manipulating data with GraphQL
+= Creating GraphQL microservice
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to use GraphQL to access and manipulate data using MicroProfile GraphQL on Open Liberty
+Learn how to use MicroProfile GraphQL to query and update data from multiple services,
+and how to test GraphQL queries and mutations using an interactive GraphQL tool (GraphiQL).
 
 == What you'll learn
 
-You will learn how to build and test a simple GraphQL service with MicroProfile GraphQL. 
+You will learn how to build and use a simple GraphQL service with 
+https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^]. 
 
-GraphQL is an open source data query language. 
-Unlike REST APIs, each `POST` request that is sent to a GraphQL service goes to a single HTTP endpoint.
-Create, read, update, and delete (CRUD) operations and their details are differentiated by the contents of the request.
+GraphQL is an open source data query language.
+Unlike REST APIs, each HTTP request that is sent to a GraphQL service goes to a single HTTP endpoint.
+Create, read, update, and delete operations and their details are differentiated by the contents of the request.
 If the operation returns data, the user specifies what properties of the data that they want returned. 
 For read operations, a JSON object is returned that contains only the data and properties that are specified.
 For other operations, a JSON object might be returned containing information such as a success message. 
 
-The returning of only the specified properties in a read operation is beneficial when you deal 
-with large resources or resources that contain properties that are expensive to calculate. 
-By returning only the requested properties, GraphQL reduces the size of the responses. 
-For resources that contain properties that are expensive to calculate, such as other nested resources, 
-GraphQL reduces processing time by calculating them only if requested. 
+Returning only the specified properties in a read operation has two benefits.
+If you're dealing with large amounts of data or large resources, 
+it reduces the size of the responses.
+If you have properties that are expensive to calculate or retrieve (such as nested objects), 
+it also saves processing time.
+GraphQL will only calculate these properties if they're requested.
+
+A GraphQL service can also be used to obtain data from multiple sources such as APIs, databases, or other services.
+It can then collate this data into a single object for the user.
+This simplifies data retrieval as the user only makes a single request to the GraphQL service,
+instead of multiple requests to the individual data sources.
+
+All of the available operations to retrieve or modify data are available in a single GraphQL schema.
+The GraphQL schema describes all the data types used in the GraphQL service.
+The schema also describes all of the available operations.
+As well, you can add names and text descriptions to the various object types and operations in the schema.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-The service that you'll create will respond to requests that are made to the `\http://localhost:9080/graphql` URL. 
-The operations that you'll implement will be a simple `query` operation and a `mutation` operation.
-The `query` operation will return system information.
-The `mutation` operation will save a note of your choice into the system information. 
+You'll create a GraphQL application that retrieves data from multiple `system` services.
+Users will make requests to the GraphQL service, which will then make requests to the `system` services.
+The GraphQL service will return a single JSON object containing all the system information from the `system` services.
 
-Manual testing of the application will be done by using https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^], which is included in the project.
-GraphiQL is a webpage that allows you to easily make requests to the GraphQL service and see the responses.
-In GraphiQL you need to type only the body of the request, which streamlines manual tests.
-You're also able to view a history of your previous requests and repeat any of them.
+image::architecture.png[GraphQL architecture where multiple system microservices are integrated behind one GraphQL service, align="center"]
+
+You'll enable the interactive GraphQL tool called
+https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^] in the Open Liberty server.
+GraphiQL helps you make queries to a GraphQL service.
+In the GraphiQL UI, you need to type only the body of the query for the purposes of manual tests and examples. 
+
+== Additional prerequisites
+
+Before you begin, Docker needs to be installed.
+For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^].
+You'll build and run the application in Docker containers.
+
+Make sure to start your Docker daemon before you proceed.
 
 ///////////////////////////
 // Getting started
@@ -64,55 +87,20 @@ You're also able to view a history of your previous requests and repeat any of t
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
-///////////////////////////
-// Try what you'll build
-///////////////////////////
-[role='command']
-include::{common-includes}/twyb-intro.adoc[]
-
-Access the application through GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-
-Enter the following `query` operation into the input box. 
-
-[role='command']
-----
-query {
-  system {
-    username
-  }
-}
-----
-
-Press `CTRL+enter` to run your `query` operation and generate output that is similar to the following example:
-
-[role='no_copy']
-----
-{
-  "data": {
-    "system": {
-      "username": "admin"
-    }
-  }
-}
-----
-
-[role='command']
-include::{common-includes}/twyb-end.adoc[]
+// No "Try what you'll build" because of multiple services, will take too long
 
 == Creating GraphQL object types
 
 Navigate to the `start` directory to begin.
 
-[role='command']
-include::{common-includes}/devmode-lmp33-start.adoc[]
-
 Object types define the structure of the data returned by GraphQL. 
 Annotations that are applied to the declaration and properties of Java classes define object types.
+The object types are defined in their own Maven module that is included in the other modules.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
 #Create the `JavaInfo` class.#
-`src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
+`models/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
 The [hotspot=class file=0]`JavaInfo` class is annotated with an `@Type` annotation. 
@@ -123,9 +111,11 @@ The [hotspot=description file=0]`@Description` annotation gives a description to
 This description is what appears in the schema and the documentation. 
 Descriptions aren't required, but it's good practice to include them. 
 
-The [hotspot=name file=0]`@Name` annotation maps the `vendor` property to the `vendorName` property of the `java` object type in GraphQL. 
-The [hotspot=name file=0]`@Name` annotation is used when mapping a property in a Java object to a property of a different name in the GraphQL object type.
-Without an [hotspot=name file=0]`@Name` annotation, the Java object property is automatically 
+The [hotspot=name file=0]`@Name` annotation maps the `vendor` property 
+to the `vendorName` property of the `java` object type in GraphQL. 
+The `@Name` annotation is used when mapping a property in a Java object 
+to a property of a different name in the GraphQL object type.
+Without an `@Name` annotation, the Java object property is automatically 
 mapped to a GraphQL object type property of the same name. 
 
 All data types in GraphQL are nullable by default.
@@ -136,45 +126,114 @@ If needed, setter functions are also supported and automatically mapped.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Create the `OperatingSystem` class.#
-`src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java`
+#Create the `SystemMetrics` class.#
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java`
 ----
 
-The [hotspot=class file=1]`OperatingSystem` class is set up similarly.
-It maps to the [hotspot=type file=1]`operatingSystem` object type, which describes the operating system's information. 
+The [hotspot=class file=1]`SystemMetrics` class is set up similarly.
+It maps to the [hotspot=type file=1]`systemMetrics` object type,
+which describes system information such as the number of processor cores and the heap size.
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
 #Create the `SystemInfo` class.#
-`src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
+`models/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
 The [hotspot=class file=2]`SystemInfo` class is similar to the previous two files. 
-It maps to the [hotspot=type file=2]`system` object type, which describes other information Java can retrieve from the system properties.
+It maps to the [hotspot=type file=2]`system` object type, 
+which describes other information Java can retrieve from the system properties.
 
-The `java` and `operatingSystem` object types are used as nested objects within the `system` object type.
-However, nested objects and other properties that are expensive to calculate or retrieve are not included in the class of an object type.
+The [hotspot=java file=2]`java` and [hotspot=metrics file=2]`systemMetrics` object types are used as nested objects within the `system` object type.
+However, nested objects and other properties that are expensive to calculate or retrieve 
+are not included in the class of an object type.
 Instead, expensive properties are added as part of implementing GraphQL resolvers. 
+
+To save time, the [hotspot=class file=3]`SystemLoad` class and
+[hotspot=class file=4]`SystemLoadData` class are provided for you.
+The `SystemLoad` class maps to the [hotspot=type file=3]`systemLoad`
+object type, which describes the resource usage of a `system` service.
+The `SystemLoadData` class maps to the [hotspot=type file=4]`loadData` object type.
+The `loadData` object will be a nested object inside the `systemLoad` object type.
+Together, these objects will contain the details of the resource usage of a `system` service.
 
 // file 0
 JavaInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java[]
 ----
 
 // file 1
-OperatingSystem.java
+SystemMetrics.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/OperatingSystem.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemMetrics.java[]
 ----
 
 // file 2
 SystemInfo.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java[]
+----
+
+// file 3
+SystemLoad.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemLoad.java[]
+----
+
+// file 4
+SystemLoadData.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/models/src/main/java/io/openliberty/guides/graphql/models/SystemLoadData.java[]
+----
+
+== Implementing system service
+
+The `system` microservices are backend services using JAX-RS.
+For more details on using JAX-RS, see our
+https://www.openliberty.io/guides/rest-intro.html[Creating a RESTful web service guide^].
+This `system` microservices report system properties.
+Multiple instances of them will be accessed and their information will be collated by GraphQL.
+In a real scenario, GraphQL might access multiple different databases or other services.
+
+[role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Create the `SystemPropertiesResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemPropertiesResource.java`
+----
+
+The [hotspot file=0]`SystemPropertiesResource` class provides endpoints to interact with the system properties.
+The [hotspot=queryProperty file=0]`{property}` endpoint accesses system properties.
+The [hotspot=java file=0]`java` endpoint assembles and returns an object describing the system's Java installation.
+The [hotspot=note file=0]`note` endpoint is used to write a note into the system properties.
+
+[role="code_command hotspot file=1" ,subs="quotes"]
+----
+#Create the `SystemMetricsResource` class.#
+`system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java`
+----
+
+The [hotspot file=1]`SystemMetricsResource` class provides information on the system's resources and their usage.
+The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
+It will include the JVM heap load and processor load.
+
+// file 0
+SystemPropertiesResource.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemPropertiesResource.java[]
+----
+
+// file 1
+SystemMetricsResource.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java[]
 ----
 
 == Implementing GraphQL resolvers
@@ -186,36 +245,62 @@ The `mutation` operation type can create, delete, or modify data.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
-#Create the `SystemResource` class.#
-`src/main/java/io/openliberty/guides/graphql/SystemResource.java`
+#Create the `GraphQLService` class.#
+`graphql/src/main/java/io/openliberty/guides/graphql/GraphQLService.java`
 ----
 
-The resolvers are defined in the [hotspot file=0]`SystemResource.java` file.
-The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation enables GraphQL to use the methods that are defined in this class as resolvers. 
+The resolvers are defined in the [hotspot file=0]`GraphQLService.java` file.
+The [hotspot=graphqlapi file=0]`@GraphQLApi` annotation 
+enables GraphQL to use the methods that are defined in this class as resolvers.
 
-The [hotspot=query file=0]`@Query` annotation maps functions to operations of the `query` type.
-This annotation maps the [hotspot=getSystemInfo file=0]`getSystemInfo()` function to handling `system` requests which retrieves the system information. 
+Operations of the `query` type are read-only operations that retrieve data.
+They're defined by using the [hotspot=query1 hotspot=query2 file=0]`@Query` annotation.
 
-The [hotspot=mutation file=0]`@Mutation` annotation maps functions to operations of the `mutation` type.
-This annotation maps the [hotspot=editNoteFunction file=0]`editNote()` function to handling `editNote` operations. 
-The [hotspot=editNoteHeader file=0]`@Name` annotation in this context denotes what inputs are used for the operation.
-Within the [hotspot=editNoteHeader file=0]`@Name` annotation, the `note` input specifies the note that is written into the system properties.
+One of the `query` requests in this application is the `system` request.
+This request is handled by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
+It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
-Each resolver function has an [hotspot=description1 hotspot=description2 file=0]`@Description` annotation, 
-which provides a description to be used for the schema. 
-Descriptions aren't required, but it's good practice to include. 
+It uses an [hotspot=getSystemInfoHeader file=0]`@Name` on one of its input parameters.
+The `@Name` annotation has different functions depending on the context in which it's used.
+In this context, it denotes input parameters for GraphQL operations.
+For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,
+it's used to input the `hostname` for the system you want to look up information for.
 
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used to add properties to object types. 
-This annotation adds [hotspot=javaFunction file=0]`java` 
-and [hotspot=os file=0]`operatingSystem` object types as properties of the `system` object type.
-The [hotspot=operatingSystemHeader hotspot=javaHeader file=0]`@Source` annotation is used for any properties that are expensive to calculate or search for.
-These properties are calculated or searched for only if requested, which saves time and resources.
+Recall that the `SystemInfo` class contained nested objects.
+It contained a `JavaInfo` and an `SystemMetrics` object.
+The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation
+is used to add these nested objects as properties to the `SystemInfo` object.
+
+The [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Name` appears again here.
+In this context alongside the [hotspot=systemMetricsHeader hotspot=javaHeader file=0]`@Source` annotation,
+it's used to connect the [hotspot=javaFunction file=0]`java` and [hotspot=systemMetricsFunction file=0]`systemMetrics`
+object types to `system` requests and the `system` object type.
+
+The other `query` request is the `systemLoad` request, 
+which is handled by the [hotspot=getSystemLoad file=0]`getSystemLoad()` function.
+The `systemLoad` request retrieves information about the resource usage of any number of system services.
+It accepts an array of `hostnames` as the input for the systems to look up.
+It's set up similarly to the `system` request, with the [hotspot=loadData file=0]`loadData` function
+used for the nested `SystemLoadData` object.
+
+Operations of the `mutation` type are be used to edit data.
+They can create, update, or delete data.
+They're defined by using the [hotspot=mutation file=0]`@Mutation` annotation.
+
+There's one `mutation` operation in this application - the `editNote` request.
+This request is handled by the [hotspot=editNoteFunction file=0]`editNote()` function.
+This request is used to write a note into the properties of a given system.
+There are inputs for the system you want to write into, and the note you want to write.
+
+Each resolver function has an [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
+annotation, which provides a description to be used for the schema. 
+Descriptions aren't required, but it's good practice to include them. 
 
 // file 0
-SystemResource.java
+GraphQLService.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/java/io/openliberty/guides/graphql/SystemResource.java[]
+include::finish/graphql/src/main/java/io/openliberty/guides/graphql/GraphQLService.java[]
 ----
 
 == Enabling GraphQL
@@ -225,7 +310,7 @@ To use GraphQL, the MicroProfile GraphQL dependencies and features need to be in
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Replace the Maven project file.#
-`pom.xml`
+`graphql/pom.xml`
 ----
 
 Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` 
@@ -236,53 +321,109 @@ The Open Liberty server needs to be configured to support the GraphQL query lang
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Replace the server configuration file.#
-`src/main/liberty/config/server.xml`
+`graphql/src/main/liberty/config/server.xml`
 ----
 
-The https://openliberty.io/docs/20.0.0.12/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] ([hotspot=graphql file=1]`mpGraphQL-1.0`) feature
-that is added to the [hotspot file=1]`server.xml` enables the use of the GraphQL feature in OpenLiberty.
+The [hotspot=graphql file=1]`mpGraphQL-1.0` feature that is added to the [hotspot file=1]`server.xml` 
+enables the use of the https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroProfile GraphQL^] 
+feature in Open Liberty.
+Open Liberty's MicroProfile GraphQL feature includes GraphiQL.
+Enable it by setting the [hotspot=enableGraphiql file=1]`io.openliberty.enableGraphQLUI` variable to `true`.
 
 // file 0
 pom.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/pom.xml[]
+include::finish/graphql/pom.xml[]
 ----
 
 // file 1
 server.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/main/liberty/config/server.xml[]
+include::finish/graphql/src/main/liberty/config/server.xml[]
 ----
 
-///////////////////////////
-// Running the application
-///////////////////////////
+== Building and running the application
+
+From the `start` directory, run the following commands:
 
 [role='command']
-include::{common-includes}/devmode-build.adoc[]
+----
+mvn -pl models install
+mvn clean package
+----
 
-GraphiQL has already been set up and included for you.
-Access GraphiQL at the http://localhost:9080/graphiql.html[^] URL.
-Queries that are made through GraphiQL are the same as queries that are made through HTTP requests. 
+The `mvn install` command compiles and packages the object types you created to a `.jar` file.
+This allows them to be used by the `system` and `graphql` services.
+The `mvn package` command packages the `system` and `graphql` services. 
 
-In GraphiQL, you can view the application documentation by clicking the `Docs` button on the menu bar. 
-The documentation describes the GraphQL schema.
-The schema gives details on the various operations that are available. 
-If any data types are mentioned, you can also see descriptions of them and the fields that are contained within them if applicable. 
-The schema is also visible at the http://localhost:9080/graphql/schema.graphql[^] URL. 
+Dockerfiles have already been set up for you.
+Build your Docker images with the following commands:
 
-Run the following `query` operation in GraphiQL to get every system property. 
+[role='command']
+----
+docker build -t system:1.0-java8-SNAPSHOT --build-arg JAVA_VERSION=java8 system/.
+docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
+docker build -t graphql:1.0-SNAPSHOT graphql/.
+----
+
+The `--build-arg` parameter is used to create two different `system` services.
+One will use Java 8, while the other will use Java 11.
+Run these Docker images using the provided `startContainers` script.
+The script will create a network for the services to communicate through.
+It will create the two `system` services and a GraphQL service. 
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+.\scripts\startContainers.bat
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/startContainers.sh
+```
+--
+
+The containers may take some time to become available.
+
+== Running GraphQL queries
+
+Before making any requests, visit the http://localhost:9082/graphql/schema.graphql[^] URL.
+This URL returns the schema to describe the GraphQL service.
+
+To access the GraphQL service, GraphiQL has already been set up and included for you.
+Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
+Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
+You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
+
+Run the following `query` operation in GraphiQL to get every system property from the container running on Java 8:
 
 [role='command']
 ----
 query {
-  system {
-    java { vendorName version }
-    operatingSystem { arch version name }
+  system(hostname: "system-java8") {
+    hostname
     username
-    timezone
+    osArch
+    osName
+    osVersion
+    systemMetrics {
+      processors
+      heapSize
+      nonHeapSize
+    }
+    java {
+      vendorName
+      version
+    }
   }
 }
 ----
@@ -294,37 +435,46 @@ The output is similar to the following example:
 {
   "data": {
     "system": {
+      "hostname": "system-java8",
+      "username": "default",
+      "osArch": "amd64",
+      "osName": "Linux",
+      "osVersion": "5.10.25-linuxkit",
+      "systemMetrics": {
+        "processors": 4,
+        "heapSize": 1031864320,
+        "nonHeapSize": -1
+      },
       "java": {
-        "vendorName": "N/A",
-        "version": "13.0.2"
-      },
-      "operatingSystem": {
-        "arch": "x86_64",
-        "version": "10.15.7",
-        "name": "Mac OS X"
-      },
-      "username": "admin",
-      "timezone": "America/Toronto"
+        "vendorName": "AdoptOpenJDK",
+        "version": "1.8.0_292"
+      }
     }
   }
 }
 ----
-Run the following mutation operation to add a note to the system.
+
+Run the following mutation operation to add a note to the `system` service running on Java 8:
 
 [role='command']
 ----
 mutation {
-  editNote(note: "I'm trying out GraphQL on OpenLiberty!")
+  editNote(
+    hostname: "system-java8"
+    note: "I'm trying out GraphQL on Open Liberty!"
+  )
 }
 ----
 
-You receive a response containing the boolean `true` to let you know that the request was successfully processed.
+You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
 You can see the note that you added by running the following query operation.
+Notice that there's no need to run a full query, as you only want the `note` property.
+Thus, the request only contains the `note` property. 
 
 [role='command']
 ----
 query {
-  system {
+  system(hostname: "system-java8") {
     note
   }
 }
@@ -337,68 +487,79 @@ The response is similar to the following example:
 {
   "data": {
     "system": {
-      "note": "I'm trying out GraphQL on OpenLiberty!"
+      "note": "I'm trying out GraphQL on Open Liberty!"
     }
   }
 }
 ----
 
-Notice that only the `note` property is returned, as it was the only property in the request. 
+GraphQL returns only the `note` property, as it was the only property in the request.
+You can try out the operations using the hostname `system-java11` as well.
+To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
-== Testing the application
-
-Manual tests can be done by using GraphiQL at the http://localhost:9080/graphiql.html[^] URL. 
-However, automated tests are a better approach because they trigger a failure if a change introduces a bug.
-
-You can write tests by using JUnit to call the application server directly. 
-
-[role="code_command hotspot file=0" ,subs="quotes"]
+[role='command']
 ----
-#Create the `SystemIT` class.#
-`src/test/java/io/openliberty/guides/graphql/SystemIT.java`
-----
-
-The [hotspot file=0]`SystemIT` class contains the test methods.
-
-Each test is annotated with the [hotspot=test1 hotspot=test2 file=0]`@Test` annotation. 
-
-The [hotspot=testGet file=0]`testGetSystem()` method makes a query using the `system` resolver through a `POST` request.
-JSON-B is used to parse the responses into Java objects.
-The test verifies that the response contains data, is responding to the correct operation, and is free of errors. 
-Then it checks the `username` property to ensure it is returned correctly.
-
-The [hotspot=testEdit file=0]`testEditNote()` method makes a query using the `editNote` resolver.
-It will try to set the note to be the current system time and ensures the response says there were no problems with the operation.
-Then, it makes a query using the `system` resolver to ensure the note was saved correctly. 
-
-// file 0
-SystemIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/src/test/java/io/openliberty/guides/graphql/SystemIT.java[]
+query {
+  systemLoad(hostnames: ["system-java8", "system-java11"]) {
+    hostname
+    loadData {
+      heapUsed
+      nonHeapUsed
+      loadAverage
+    }
+  }
+}
 ----
 
-// Running the tests
+The response is similar to the following example:
 
-[role=command]
-include::{common-includes}/devmode-test.adoc[]
-
-The tests show output similar to the following: 
-
-[source,role="no_copy"]
+[role='no_copy']
 ----
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.008 s - in io.openliberty.guides.graphql.SystemIT
-
-Results:
-
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+{
+  "data": {
+    "systemLoad": [
+      {
+        "hostname": "system-java8",
+        "loadData": {
+          "heapUsed": 32432048,
+          "nonHeapUsed": 85147084,
+          "loadAverage": 0.36
+        }
+      },
+      {
+        "hostname": "system-java11",
+        "loadData": {
+          "heapUsed": 39373688,
+          "nonHeapUsed": 90736300,
+          "loadAverage": 0.36
+        }
+      }
+    ]
+  }
+}
 ----
 
-[role=command]
-include::{common-includes}/devmode-quit.adoc[]
+== Tearing down the environment
+
+When you're done checking out the application, run the following script to stop the application:
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+.\scripts\stopContainers.bat
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/stopContainers.sh
+```
+--
 
 == Great work! You're done!
 
