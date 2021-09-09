@@ -38,10 +38,7 @@ https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroPro
 GraphQL is an open source data query language.
 Unlike REST APIs, each HTTP request that is sent to a GraphQL service goes to a single HTTP endpoint.
 Create, read, update, and delete operations and their details are differentiated by the contents of the request.
-Queries and mutations are the primary types of requests in GraphQL services. 
-A query fetches data and is similar to GET request.
-A mutation changes data and is similar to a POST, DELETE, or PUT request.
-If the operation returns data, the user specifies what properties of the data that they want returned.
+If the operation returns data, the user specifies what properties of the data that they want returned. 
 For read operations, a JSON object is returned that contains only the data and properties that are specified.
 For other operations, a JSON object might be returned containing information such as a success message. 
 
