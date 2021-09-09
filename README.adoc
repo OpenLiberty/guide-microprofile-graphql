@@ -8,7 +8,7 @@
 //
 :projectid: graphql-intro
 :page-layout: guide-multipane
-:page-duration: 25 minutes
+:page-duration: 30 minutes
 :page-releasedate: 2021-07-29
 :page-essential: false
 :page-description: Learn how to use MicroProfile GraphQL to query and update data.
@@ -38,7 +38,10 @@ https://openliberty.io/docs/latest/reference/feature/mpGraphQL-1.0.html[MicroPro
 GraphQL is an open source data query language.
 Unlike REST APIs, each HTTP request that is sent to a GraphQL service goes to a single HTTP endpoint.
 Create, read, update, and delete operations and their details are differentiated by the contents of the request.
-If the operation returns data, the user specifies what properties of the data that they want returned. 
+Queries and mutations are the primary types of requests in GraphQL services. 
+A query fetches data and is similar to GET request.
+A mutation changes data and is similar to a POST, DELETE, or PUT request.
+If the operation returns data, the user specifies what properties of the data that they want returned.
 For read operations, a JSON object is returned that contains only the data and properties that are specified.
 For other operations, a JSON object might be returned containing information such as a success message. 
 
@@ -120,6 +123,8 @@ mapped to a GraphQL object type property of the same name.
 
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
+The [hotspot=nonnull file=0]`@NonNull` annotation on the [hotspot=version file=0]`version` field ensures that, 
+when queried, a non-null value is returned by the GraphQL service. 
 The [hotspot=getVendor file=0]`getVendor()` and [hotspot=getVersion file=0]`getVersion()` getter functions 
 are automatically mapped to retrieve their respective properties in GraphQL. 
 If needed, setter functions are also supported and automatically mapped. 
@@ -454,7 +459,7 @@ The output is similar to the following example:
 }
 ----
 
-Run the following mutation operation to add a note to the `system` service running on Java 8:
+Run the following `mutation` operation to add a note to the `system` service running on Java 8:
 
 [role='command']
 ----
