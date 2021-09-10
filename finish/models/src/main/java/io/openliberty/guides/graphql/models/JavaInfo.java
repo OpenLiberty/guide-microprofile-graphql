@@ -34,7 +34,9 @@ public class JavaInfo {
     // tag::nonnull[]
     @NonNull
     // end::nonnull[]
+    // tag::version[]
     private String version;
+    // end::version[]
 
     // tag::getVendor[]
     public String getVendor() {
