@@ -210,8 +210,8 @@ In a real scenario, GraphQL might access multiple different databases or other s
 ----
 
 The [hotspot file=0]`SystemPropertiesResource` class provides endpoints to interact with the system properties.
-The [hotspot=queryProperty file=0]`{property}` endpoint accesses system properties.
-The [hotspot=java file=0]`java` endpoint assembles and returns an object describing the system's Java installation.
+The [hotspot=queryProperty file=0]`properties/{property}` endpoint accesses system properties.
+The [hotspot=java file=0]`properties/java` endpoint assembles and returns an object describing the system's Java installation.
 The [hotspot=note file=0]`note` endpoint is used to write a note into the system properties.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
