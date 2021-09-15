@@ -6,10 +6,10 @@
 // Contributors:
 //     IBM Corporation
 //
-:projectid: graphql-intro
+:projectid: microprofile-graphql
 :page-layout: guide-multipane
 :page-duration: 30 minutes
-:page-releasedate: 2021-07-29
+:page-releasedate: 2021-10-04
 :page-essential: false
 :page-description: Learn how to use MicroProfile GraphQL to query and update data.
 :page-tags: ['MicroProfile', 'Jakarta EE']
@@ -21,7 +21,7 @@
 :page-seo-title: Implementing an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services.
 :page-seo-description: A getting started tutorial with examples on how to implement an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services, and how to test GraphQL queries and mutations using the GraphiQL user interface.
 :guide-author: Open Liberty
-= Creating GraphQL microservice
+= Optimizing REST queries for microservices with GraphQL
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form,
