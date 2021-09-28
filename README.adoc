@@ -52,8 +52,9 @@ GraphQL calculates these properties only if they are requested.
 A GraphQL service can also be used to obtain data from multiple sources such as APIs, databases, and other services. 
 It can then collate this data into a single object for the user, simplifying the data retrieval. 
 The user makes only a single request to the GraphQL service, instead of multiple requests to the individual data sources.
-Compared to REST, GraphQL services require less data fetching resulting in lower applications loading times and lower data transfer costs, 
-while allowing clients to better customize requests to the server.
+GraphQL services require less data fetching than REST services, 
+which results in lower application load times and lower data transfer costs. 
+GraphQL also enables clients to better customize requests to the server.
 
 All of the available operations to retrieve or modify data are available in a single GraphQL schema.
 The GraphQL schema describes all the data types that are used in the GraphQL service.
@@ -97,7 +98,7 @@ Navigate to the `start` directory to begin.
 Object types determine the structure of the data that GraphQL returns. 
 These object types are defined by annotations that are applied to the declaration and properties of Java classes. 
 
-You will define object types `java`, `systemMetrics`, and `systemInfo` by creating and applying annotations to the `JavaInfo`, `SystemMetrics`, and `SystemInfo` classes respectively. 
+You will define `java`, `systemMetrics`, and `systemInfo` object types by creating and applying annotations to the `JavaInfo`, `SystemMetrics`, and `SystemInfo` classes respectively. 
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
