@@ -52,7 +52,7 @@ GraphQL calculates these properties only if they are requested.
 A GraphQL service can also be used to obtain data from multiple sources such as APIs, databases, and other services. 
 It can then collate this data into a single object for the user, simplifying the data retrieval. 
 The user makes only a single request to the GraphQL service, instead of multiple requests to the individual data sources.
-Compared to REST, Graphql requires less data fetching leader to lower to applications loading tiems and data transfer costs, 
+Compared to REST, Graphql requires less data fetching resulting in lower applications loading times and lower data transfer costs, 
 while allowing clients to better customize requests to the server.
 
 All of the available operations to retrieve or modify data are available in a single GraphQL schema.
