@@ -47,28 +47,29 @@ If you're dealing with large amounts of data or large resources,
 it reduces the size of the responses.
 If you have properties that are expensive to calculate or retrieve (such as nested objects), 
 it also saves processing time.
-GraphQL will only calculate these properties if they're requested.
+GraphQL calculates these properties only if they are requested. 
 
-A GraphQL service can also be used to obtain data from multiple sources such as APIs, databases, or other services.
-It can then collate this data into a single object for the user.
-This simplifies data retrieval as the user only makes a single request to the GraphQL service,
-instead of multiple requests to the individual data sources.
+A GraphQL service can also be used to obtain data from multiple sources such as APIs, databases, and other services. 
+It can then collate this data into a single object for the user, simplifying the data retrieval. 
+The user makes only a single request to the GraphQL service, instead of multiple requests to the individual data sources.
+Compared to REST, Graphql requires less data fetching leader to lower to applications loading tiems and data transfer costs, 
+while allowing clients to better customize requests to the server.
 
 All of the available operations to retrieve or modify data are available in a single GraphQL schema.
-The GraphQL schema describes all the data types used in the GraphQL service.
+The GraphQL schema describes all the data types that are used in the GraphQL service.
 The schema also describes all of the available operations.
 As well, you can add names and text descriptions to the various object types and operations in the schema.
 
 You can learn more about GraphQL at the https://graphql.org/[GraphQL website^].
 
-You'll create a GraphQL application that retrieves data from multiple `system` services.
-Users will make requests to the GraphQL service, which will then make requests to the `system` services.
-The GraphQL service will return a single JSON object containing all the system information from the `system` services.
+You'll create a GraphQL application that retrieves data from multiple `system` services. 
+Users make requests to the GraphQL service, which then makes requests to the `system` services. 
+The GraphQL service returns a single JSON object containing all the system information from the `system` services.
 
 image::architecture.png[GraphQL architecture where multiple system microservices are integrated behind one GraphQL service, align="center"]
 
-You'll enable the interactive GraphQL tool called
-https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^] in the Open Liberty server.
+You'll enable the interactive
+https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^] tool in the Open Liberty server.
 GraphiQL helps you make queries to a GraphQL service.
 In the GraphiQL UI, you need to type only the body of the query for the purposes of manual tests and examples. 
 
@@ -93,9 +94,10 @@ include::{common-includes}/gitclone.adoc[]
 
 Navigate to the `start` directory to begin.
 
-Object types define the structure of the data returned by GraphQL. 
-Annotations that are applied to the declaration and properties of Java classes define object types.
-The object types are defined in their own Maven module that is included in the other modules.
+Object types determine the structure of the data that GraphQL returns. 
+These object types are defined by annotations that are applied to the declaration and properties of Java classes. 
+
+You will define object types `java`, `systemMetrics`, and `systemInfo` by creating and applying annotations to the `JavaInfo`, `SystemMetrics`, and `SystemInfo` classes respectively. 
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -103,7 +105,7 @@ The object types are defined in their own Maven module that is included in the o
 `models/src/main/java/io/openliberty/guides/graphql/models/JavaInfo.java`
 ----
 
-The [hotspot=class file=0]`JavaInfo` class is annotated with an `@Type` annotation. 
+The [hotspot=class file=0]`JavaInfo` class is annotated with a `@Type` annotation. 
 The [hotspot=type file=0]`@Type("java")` annotation maps this class to define the `java` object type in GraphQL.
 The `java` object type gives information on the Java installation of the system. 
 
@@ -112,11 +114,11 @@ This description is what appears in the schema and the documentation.
 Descriptions aren't required, but it's good practice to include them. 
 
 The [hotspot=name file=0]`@Name` annotation maps the `vendor` property 
-to the `vendorName` property of the `java` object type in GraphQL. 
-The `@Name` annotation is used when mapping a property in a Java object 
-to a property of a different name in the GraphQL object type.
-Without an `@Name` annotation, the Java object property is automatically 
+to the `vendorName` name of the `java` object type in GraphQL. 
+The `@Name` annotation can be used to change the name of the property used in the schema.
+Without a `@Name` annotation, the Java object property is automatically 
 mapped to a GraphQL object type property of the same name. 
+In this case, without the `@Name` annotation, the property would be displayed as `vendor` in the schema.
 
 All data types in GraphQL are nullable by default.
 Non-nullable properties are annotated with the [hotspot=nonnull file=0]`@NonNull` annotation.
@@ -196,12 +198,12 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/System
 
 == Implementing system service
 
-The `system` microservices are backend services using JAX-RS.
-For more details on using JAX-RS, see our
+The `system` microservices are backend services that use JAX-RS.
+For more details on using JAX-RS, see the
 https://www.openliberty.io/guides/rest-intro.html[Creating a RESTful web service guide^].
 This `system` microservices report system properties.
-Multiple instances of them will be accessed and their information will be collated by GraphQL.
-In a real scenario, GraphQL might access multiple different databases or other services.
+GraphQL can access multiple instances of these `system` microservices and collate their information.
+In a real scenario, GraphQL might access multiple databases or other services.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -220,9 +222,9 @@ The [hotspot=note file=0]`note` endpoint is used to write a note into the system
 `system/src/main/java/io/openliberty/guides/system/SystemMetricsResource.java`
 ----
 
-The [hotspot file=1]`SystemMetricsResource` class provides information on the system's resources and their usage.
-The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object describing the system load.
-It will include the JVM heap load and processor load.
+The [hotspot file=1]`SystemMetricsResource` class provides information on the system resources and their usage.
+The [hotspot=systemLoad file=1]`systemLoad` endpoint assembles and returns an object that describes the system load. 
+It includes the JVM heap load and processor load.
 
 // file 0
 SystemPropertiesResource.java
@@ -262,7 +264,7 @@ One of the `query` requests in this application is the `system` request.
 This request is handled by the [hotspot=getSystemInfo file=0]`getSystemInfo()` function.
 It retrieves and bundles system information into a `SystemInfo` object that is returned.
 
-It uses an [hotspot=getSystemInfoHeader file=0]`@Name` on one of its input parameters.
+It uses a [hotspot=getSystemInfoHeader file=0]`@Name` on one of its input parameters.
 The `@Name` annotation has different functions depending on the context in which it's used.
 In this context, it denotes input parameters for GraphQL operations.
 For the [hotspot=getSystemInfo file=0]`getSystemInfo()` function,
@@ -285,7 +287,7 @@ It accepts an array of `hostnames` as the input for the systems to look up.
 It's set up similarly to the `system` request, with the [hotspot=loadData file=0]`loadData` function
 used for the nested `SystemLoadData` object.
 
-Operations of the `mutation` type are be used to edit data.
+Operations of the `mutation` type are used to edit data. 
 They can create, update, or delete data.
 They're defined by using the [hotspot=mutation file=0]`@Mutation` annotation.
 
@@ -294,8 +296,8 @@ This request is handled by the [hotspot=editNoteFunction file=0]`editNote()` fun
 This request is used to write a note into the properties of a given system.
 There are inputs for the system you want to write into, and the note you want to write.
 
-Each resolver function has an [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
-annotation, which provides a description to be used for the schema. 
+Each resolver function has a [hotspot=description1 hotspot=description2 hotspot=description3 file=0]`@Description` 
+annotation, which provides a description that is used for the schema.
 Descriptions aren't required, but it's good practice to include them. 
 
 // file 0
@@ -371,10 +373,10 @@ docker build -t graphql:1.0-SNAPSHOT graphql/.
 ----
 
 The `--build-arg` parameter is used to create two different `system` services.
-One will use Java 8, while the other will use Java 11.
-Run these Docker images using the provided `startContainers` script.
-The script will create a network for the services to communicate through.
-It will create the two `system` services and a GraphQL service. 
+One uses Java 8, while the other uses Java 11.
+Run these Docker images using the provided `startContainers` script. 
+The script creates a network for the services to communicate through. 
+It creates two `system` services and a GraphQL service.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -398,8 +400,8 @@ The containers may take some time to become available.
 
 == Running GraphQL queries
 
-Before making any requests, visit the http://localhost:9082/graphql/schema.graphql[^] URL.
-This URL returns the schema to describe the GraphQL service.
+Before you make any requests, see the http://localhost:9082/graphql/schema.graphql[^] URL.
+This URL returns the schema that describes the GraphQL service.
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
 Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
