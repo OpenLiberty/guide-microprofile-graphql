@@ -457,6 +457,7 @@ query {
   }
 }
 ```
+{: codeblock}
 
 The output is similar to the following example:
 
@@ -495,6 +496,7 @@ mutation {
   )
 }
 ```
+{: codeblock}
 
 You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
 You can see the note that you added by running the following query operation.
@@ -509,6 +511,7 @@ query {
   }
 }
 ```
+{: codeblock}
 
 The response is similar to the following example:
 
@@ -540,6 +543,7 @@ query {
   }
 }
 ```
+{: codeblock}
 
 The response is similar to the following example:
 
