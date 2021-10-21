@@ -9,7 +9,7 @@
 :projectid: microprofile-graphql
 :page-layout: guide-multipane
 :page-duration: 30 minutes
-:page-releasedate: 2021-10-04
+:page-releasedate: 2021-10-22
 :page-essential: false
 :page-description: Learn how to use MicroProfile GraphQL to query and update data.
 :page-tags: ['MicroProfile']
