@@ -9,17 +9,17 @@
 :projectid: microprofile-graphql
 :page-layout: guide-multipane
 :page-duration: 30 minutes
-:page-releasedate: 2021-10-04
+:page-releasedate: 2021-10-22
 :page-essential: false
 :page-description: Learn how to use MicroProfile GraphQL to query and update data.
-:page-tags: ['MicroProfile', 'Jakarta EE']
+:page-tags: ['MicroProfile']
 :page-related-guides: ['rest-intro', 'jpa-intro', 'mongodb-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
-:page-seo-title: Implementing an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services.
-:page-seo-description: A getting started tutorial with examples on how to implement an Eclipse MicroProfile GraphQL microservice to query and update data from multiple services, and how to test GraphQL queries and mutations using the GraphiQL user interface.
+:page-seo-title: Implementing a GraphQL microservice using MicroProfile API to query and update data from multiple services.
+:page-seo-description: A getting started tutorial with examples on how to implement a GraphQL microservice using Java and Eclipse MicroProfile API to query and update data from multiple RESTful services, and how to test GraphQL queries and mutations using the GraphiQL user interface.
 :guide-author: Open Liberty
 = Optimizing REST queries for microservices with GraphQL
 
@@ -70,7 +70,7 @@ The GraphQL service returns a single JSON object containing all the system infor
 image::architecture.png[GraphQL architecture where multiple system microservices are integrated behind one GraphQL service, align="center"]
 
 You'll enable the interactive
-https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^] tool in the Open Liberty server.
+https://github.com/graphql/graphiql/tree/main/packages/graphiql[GraphiQL^] tool in the Open Liberty runtime.
 GraphiQL helps you make queries to a GraphQL service.
 In the GraphiQL UI, you need to type only the body of the query for the purposes of manual tests and examples. 
 
@@ -145,7 +145,7 @@ which describes system information such as the number of processor cores and the
 `models/src/main/java/io/openliberty/guides/graphql/models/SystemInfo.java`
 ----
 
-The [hotspot=class file=2]`SystemInfo` class is similar to the previous two files. 
+The [hotspot=class file=2]`SystemInfo` class is similar to the previous two classes. 
 It maps to the [hotspot=type file=2]`system` object type, 
 which describes other information Java can retrieve from the system properties.
 
@@ -202,7 +202,7 @@ include::finish/models/src/main/java/io/openliberty/guides/graphql/models/System
 The `system` microservices are backend services that use JAX-RS.
 For more details on using JAX-RS, see the
 https://www.openliberty.io/guides/rest-intro.html[Creating a RESTful web service guide^].
-This `system` microservices report system properties.
+These `system` microservices report system properties.
 GraphQL can access multiple instances of these `system` microservices and collate their information.
 In a real scenario, GraphQL might access multiple databases or other services.
 
