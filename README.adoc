@@ -94,6 +94,13 @@ include::{common-includes}/gitclone.adoc[]
 == Creating GraphQL object types
 
 Navigate to the `start` directory to begin.
+// cloud hosted instructions
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-bean-validation/start
+```
+{: codeblock}
+endif::[]
 
 Object types determine the structure of the data that GraphQL returns. 
 These object types are defined by annotations that are applied to the declaration and properties of Java classes. 
