@@ -410,17 +410,17 @@ The containers may take some time to become available.
 // static guide content
 ifndef::cloud-hosted[]
 Before you make any requests, see the http://localhost:9082/graphql/schema.graphql[^] URL.
+This URL returns the schema that describes the GraphQL service.
 endif::[]
 // cloud-hosted guide content
 ifdef::cloud-hosted[]
 Before you make any requests, select **Terminal** > **New Terminal** from the menu of the IDE to open another command-line session.
-Run the following command and visit the resulting URL.
+Run the following command to get the schema that describes the GraphQL service:
 ```
-echo http://${USERNAME}-9082.$(echo $TOOL_DOMAIN | sed 's/\.labs\./.proxy./g')/graphql/schema.graphql
+curl -s http://localhost:9082/graphql/schema.graphql
 ```
 {: codeblock}
 endif::[]
-This URL returns the schema that describes the GraphQL service.
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
 // static guide content
@@ -435,6 +435,7 @@ echo http://${USERNAME}-9082.$(echo $TOOL_DOMAIN | sed 's/\.labs\./.proxy./g')/g
 ```
 {: codeblock}
 endif::[]
+
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
 You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
