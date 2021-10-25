@@ -416,19 +416,18 @@ endif::[]
 This URL returns the schema that describes the GraphQL service.
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
+// static guide content
 ifndef::cloud-hosted[]
 Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
 endif::[]
-
+// cloud-hosted guide content
 ifdef::cloud-hosted[]
 To access GraphiQL, run the following command and visit the resulting URL.
 ```
 echo http://${USERNAME}-9082.$(echo $TOOL_DOMAIN | sed 's/\.labs\./.proxy./g')/graphql-ui
 ```
 {: codeblock}
-
 endif::[]
-
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
 You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
