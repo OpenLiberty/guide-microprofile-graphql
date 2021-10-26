@@ -429,7 +429,7 @@ Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
 endif::[]
 // cloud-hosted guide content
 ifdef::cloud-hosted[]
-To access GraphiQL, run the following command and visit the resulting URL.
+To access GraphiQL, run the following command and visit the resulting URL:
 ```
 echo http://${USERNAME}-9082.$(echo $TOOL_DOMAIN | sed 's/\.labs\./.proxy./g')/graphql-ui
 ```
