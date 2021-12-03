@@ -94,6 +94,13 @@ include::{common-includes}/gitclone.adoc[]
 == Creating GraphQL object types
 
 Navigate to the `start` directory to begin.
+// cloud hosted instructions
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-microprofile-graphql/start
+```
+{: codeblock}
+endif::[]
 
 Object types determine the structure of the data that GraphQL returns. 
 These object types are defined by annotations that are applied to the declaration and properties of Java classes. 
@@ -400,19 +407,43 @@ include::{common-includes}/os-tabs.adoc[]
 The containers may take some time to become available.
 
 == Running GraphQL queries
-
+// static guide content
+ifndef::cloud-hosted[]
 Before you make any requests, see the http://localhost:9082/graphql/schema.graphql[^] URL.
 This URL returns the schema that describes the GraphQL service.
+endif::[]
+// cloud-hosted guide content
+ifdef::cloud-hosted[]
+Before you make any requests, select **Terminal** > **New Terminal** from the menu of the IDE to open another command-line session.
+Run the following command to get the schema that describes the GraphQL service:
+```
+curl -s http://localhost:9082/graphql/schema.graphql
+```
+{: codeblock}
+endif::[]
 
 To access the GraphQL service, GraphiQL has already been set up and included for you.
+// static guide content
+ifndef::cloud-hosted[]
 Access GraphiQL at the http://localhost:9082/graphql-ui[^] URL.
+endif::[]
+// cloud-hosted guide content
+ifdef::cloud-hosted[]
+To access GraphiQL, run the following command and visit the resulting URL:
+```
+echo http://${USERNAME}-9082.$(echo $TOOL_DOMAIN | sed 's/\.labs\./.proxy./g')/graphql-ui
+```
+{: codeblock}
+endif::[]
+
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests.
 You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
 Run the following `query` operation in GraphiQL to get every system property from the container running on Java 8:
 
+ifndef::cloud-hosted[]
 [role='command']
-----
+```
 query {
   system(hostname: "system-java8") {
     hostname
@@ -431,7 +462,33 @@ query {
     }
   }
 }
-----
+```
+endif::[]
+
+ifdef::cloud-hosted[]
+```
+query {
+  system(hostname: "system-java8") {
+    hostname
+    username
+    osArch
+    osName
+    osVersion
+    systemMetrics {
+      processors
+      heapSize
+      nonHeapSize
+    }
+    java {
+      vendorName
+      version
+    }
+  }
+}
+```
+{: codeblock}
+
+endif::[]
 
 The output is similar to the following example:
 
@@ -461,29 +518,58 @@ The output is similar to the following example:
 
 Run the following `mutation` operation to add a note to the `system` service running on Java 8:
 
+ifndef::cloud-hosted[]
 [role='command']
-----
+```
 mutation {
   editNote(
     hostname: "system-java8"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
-----
+```
+endif::[]
+
+ifdef::cloud-hosted[]
+```
+mutation {
+  editNote(
+    hostname: "system-java8"
+    note: "I'm trying out GraphQL on Open Liberty!"
+  )
+}
+```
+{: codeblock}
+
+endif::[]
 
 You receive a response containing the Boolean `true` to let you know that the request was successfully processed.
 You can see the note that you added by running the following query operation.
 Notice that there's no need to run a full query, as you only want the `note` property.
 Thus, the request only contains the `note` property. 
 
+ifndef::cloud-hosted[]
 [role='command']
-----
+```
 query {
   system(hostname: "system-java8") {
     note
   }
 }
-----
+```
+endif::[]
+
+ifdef::cloud-hosted[]
+```
+query {
+  system(hostname: "system-java8") {
+    note
+  }
+}
+```
+{: codeblock}
+
+endif::[]
 
 The response is similar to the following example:
 
@@ -502,8 +588,9 @@ GraphQL returns only the `note` property, as it was the only property in the req
 You can try out the operations using the hostname `system-java11` as well.
 To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
+ifndef::cloud-hosted[]
 [role='command']
-----
+```
 query {
   systemLoad(hostnames: ["system-java8", "system-java11"]) {
     hostname
@@ -514,7 +601,25 @@ query {
     }
   }
 }
-----
+```
+endif::[]
+
+ifdef::cloud-hosted[]
+```
+query {
+  systemLoad(hostnames: ["system-java8", "system-java11"]) {
+    hostname
+    loadData {
+      heapUsed
+      nonHeapUsed
+      loadAverage
+    }
+  }
+}
+```
+{: codeblock}
+
+endif::[]
 
 The response is similar to the following example:
 
