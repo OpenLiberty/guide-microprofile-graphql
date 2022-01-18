@@ -370,12 +370,7 @@ The `mvn install` command compiles and packages the object types you created to 
 This allows them to be used by the `system` and `graphql` services.
 The `mvn package` command packages the `system` and `graphql` services to `.war` files.
 
-Run the following command to download or update to the latest Open Liberty Docker image:
-
-[role='command']
-----
-docker pull icr.io/appcafe/open-liberty:full-java11-openj9-ubi
-----
+include::{common-includes}/ol-icr-full-docker-pull.adoc[]
 
 Dockerfiles have already been set up for you.
 Build your Docker images with the following commands:
