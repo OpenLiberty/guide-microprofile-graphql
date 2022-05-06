@@ -328,6 +328,7 @@ endif::[]
 // cloud-hosted guide content
 ifdef::cloud-hosted[]
 Click the following button to access GraphiQL:
+
 ::startApplication{port="9082" display="external" name="Launch GraphiQL" route="/graphql-ui"}
 endif::[]
 
