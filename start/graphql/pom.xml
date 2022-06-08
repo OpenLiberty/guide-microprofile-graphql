@@ -88,7 +88,7 @@
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.6</version>
+                <version>3.5.2</version>
                 <configuration>
                     <looseApplication>false</looseApplication>
                 </configuration>
