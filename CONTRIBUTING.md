@@ -58,3 +58,4 @@ After we obtain the signed CLA, you are welcome to open a pull request against t
 ## Questions and concerns
 
 If you have any questions or concerns about the guides or about Open Liberty, you can visit [Gitter for Open Liberty](https://gitter.im/OpenLiberty/) and post your questions in the relevant rooms. You can also join the Open Liberty group on [Groups.io](https://groups.io/g/openliberty) to discuss any issues you have.
+
