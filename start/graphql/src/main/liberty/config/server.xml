@@ -6,9 +6,6 @@
         <feature>cdi-3.0</feature>
         <feature>mpConfig-3.0</feature>
         <feature>mpRestClient-3.0</feature>
-        <!-- tag::graphql[] -->
-        <feature>mpGraphQL-2.0</feature>
-        <!-- end::graphql[] -->
     </featureManager>
 
     <variable name="default.http.port" defaultValue="9082"/>
