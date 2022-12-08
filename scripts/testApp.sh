@@ -6,26 +6,26 @@ set -euxo pipefail
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    -pl system liberty:create liberty:install-feature liberty:deploy
+    -ntp -pl system liberty:create liberty:install-feature liberty:deploy
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    -pl graphql liberty:create liberty:install-feature liberty:deploy
+    -ntp -pl graphql liberty:create liberty:install-feature liberty:deploy
 
-mvn -pl system liberty:start
-mvn -pl graphql liberty:start
+mvn -ntp -pl system liberty:start
+mvn -ntp -pl graphql liberty:start
 
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    -pl system failsafe:integration-test
+    -ntp -pl system failsafe:integration-test
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    -pl graphql failsafe:integration-test
+    -ntp -pl graphql failsafe:integration-test
 
-mvn -pl system failsafe:verify
-mvn -pl graphql failsafe:verify
+mvn -ntp -pl system failsafe:verify
+mvn -ntp -pl graphql failsafe:verify
 
-mvn -pl system liberty:stop
-mvn -pl graphql liberty:stop
+mvn -ntp -pl system liberty:stop
+mvn -ntp -pl graphql liberty:stop
