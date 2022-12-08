@@ -15,8 +15,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Liberty configuration -->
-        <liberty.var.default.http.port>9080</liberty.var.default.http.port>
-        <liberty.var.default.https.port>9443</liberty.var.default.https.port>
+        <liberty.var.default.http.port>9082</liberty.var.default.http.port>
+        <liberty.var.default.https.port>9445</liberty.var.default.https.port>
     </properties>
 
     <dependencies>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>9.1.0</version>
+            <version>10.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -41,17 +41,18 @@
            <artifactId>guide-microprofile-graphql-models</artifactId>
            <version>1.0-SNAPSHOT</version>
         </dependency>
-        
+
         <!-- For tests -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.7.2</version>
+            <version>5.9.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -63,7 +64,7 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-json-binding-provider</artifactId>
-            <version>6.0.0.Final</version>
+            <version>6.2.1.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -75,7 +76,7 @@
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>yasson</artifactId>
-            <version>1.0.9</version>
+            <version>3.0.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -87,7 +88,10 @@
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.5.2</version>
+                <version>3.7.1</version>
+                <configuration>
+                    <looseApplication>false</looseApplication>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -97,13 +101,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M7</version>
             </plugin>
             <!-- Plugin to run functional tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M7</version>
                 <configuration>
                     <systemPropertyVariables>
                         <http.port>${liberty.var.default.http.port}</http.port>
