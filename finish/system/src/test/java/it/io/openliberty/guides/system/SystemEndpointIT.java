@@ -38,12 +38,12 @@ public class SystemEndpointIT {
     private static Client client;
 
     @BeforeAll
-    public static void setup() {
+    private static void setup() {
         client = ClientBuilder.newClient();
     }
 
     @AfterAll
-    public  static void teardown() { 
+    private static void teardown() {
         client.close();
     }
 
