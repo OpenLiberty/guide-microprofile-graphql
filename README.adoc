@@ -1,4 +1,4 @@
-// Copyright (c) 2021, 2022 IBM Corporation and others.
+// Copyright (c) 2021, 2023 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -279,12 +279,12 @@ Dockerfiles have already been set up for you. Build your Docker images with the 
 
 [role='command']
 ----
-docker build -t system:1.0-java8-SNAPSHOT --build-arg JAVA_VERSION=java8 system/.
 docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
+docker build -t system:1.0-java17-SNAPSHOT --build-arg JAVA_VERSION=java17 system/.
 docker build -t graphql:1.0-SNAPSHOT graphql/.
 ----
 
-The `--build-arg` parameter is used to create two different `system` services. One uses Java 8, while the other uses Java 11. Run these Docker images using the provided `startContainers` script. The script creates a network for the services to communicate through. It creates two `system` services and a GraphQL service.
+The `--build-arg` parameter is used to create two different `system` services. One uses Java 11, while the other uses Java 17. Run these Docker images using the provided `startContainers` script. The script creates a network for the services to communicate through. It creates two `system` services and a GraphQL service.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -334,13 +334,13 @@ endif::[]
 
 Queries that are made through GraphiQL are the same as queries that are made through HTTP requests. You can also view the schema through GraphiQL by clicking the `Docs` button on the menu bar.
 
-Run the following `query` operation in GraphiQL to get every system property from the container running on Java 8:
+Run the following `query` operation in GraphiQL to get every system property from the container running on Java 11:
 
 ifndef::cloud-hosted[]
 [role='command']
 ```
 query {
-  system(hostname: "system-java8") {
+  system(hostname: "system-java11") {
     hostname
     username
     osArch
@@ -363,7 +363,7 @@ endif::[]
 ifdef::cloud-hosted[]
 ```
 query {
-  system(hostname: "system-java8") {
+  system(hostname: "system-java11") {
     hostname
     username
     osArch
@@ -392,7 +392,7 @@ The output is similar to the following example:
 {
   "data": {
     "system": {
-      "hostname": "system-java8",
+      "hostname": "system-java11",
       "username": "default",
       "osArch": "amd64",
       "osName": "Linux",
@@ -404,21 +404,21 @@ The output is similar to the following example:
       },
       "java": {
         "vendorName": "AdoptOpenJDK",
-        "version": "1.8.0_292"
+        "version": "11.0.18"
       }
     }
   }
 }
 ----
 
-Run the following `mutation` operation to add a note to the `system` service running on Java 8:
+Run the following `mutation` operation to add a note to the `system` service running on Java 11:
 
 ifndef::cloud-hosted[]
 [role='command']
 ```
 mutation {
   editNote(
-    hostname: "system-java8"
+    hostname: "system-java11"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
@@ -429,7 +429,7 @@ ifdef::cloud-hosted[]
 ```
 mutation {
   editNote(
-    hostname: "system-java8"
+    hostname: "system-java11"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
@@ -442,7 +442,7 @@ ifndef::cloud-hosted[]
 [role='command']
 ```
 query {
-  system(hostname: "system-java8") {
+  system(hostname: "system-java11") {
     note
   }
 }
@@ -452,7 +452,7 @@ endif::[]
 ifdef::cloud-hosted[]
 ```bash
 query {
-  system(hostname: "system-java8") {
+  system(hostname: "system-java11") {
     note
   }
 }
@@ -472,13 +472,13 @@ The response is similar to the following example:
 }
 ----
 
-GraphQL returns only the `note` property, as it was the only property in the request. You can try out the operations using the hostname `system-java11` as well. To see an example of using an array as an input for an operation, try the following operation to get system loads:
+GraphQL returns only the `note` property, as it was the only property in the request. You can try out the operations using the hostname `system-java17` as well. To see an example of using an array as an input for an operation, try the following operation to get system loads:
 
 ifndef::cloud-hosted[]
 [role='command']
 ```
 query {
-  systemLoad(hostnames: ["system-java8", "system-java11"]) {
+  systemLoad(hostnames: ["system-java11", "system-java17"]) {
     hostname
     loadData {
       heapUsed
@@ -493,7 +493,7 @@ endif::[]
 ifdef::cloud-hosted[]
 ```
 query {
-  systemLoad(hostnames: ["system-java8", "system-java11"]) {
+  systemLoad(hostnames: ["system-java11", "system-java17"]) {
     hostname
     loadData {
       heapUsed
@@ -513,7 +513,7 @@ The response is similar to the following example:
   "data": {
     "systemLoad": [
       {
-        "hostname": "system-java8",
+        "hostname": "system-java11",
         "loadData": {
           "heapUsed": 32432048,
           "nonHeapUsed": 85147084,
@@ -521,7 +521,7 @@ The response is similar to the following example:
         }
       },
       {
-        "hostname": "system-java11",
+        "hostname": "system-java17",
         "loadData": {
           "heapUsed": 39373688,
           "nonHeapUsed": 90736300,
