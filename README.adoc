@@ -243,11 +243,11 @@ include::finish/graphql/pom.xml[]
 
 Adding the [hotspot=graphQLDependency file=0]`microprofile-graphql-api` dependency to the [hotspot file=0]`pom.xml` enables the GraphQL annotations that are used to develop the application. 
 
-The Open Liberty instance needs to be configured to support the GraphQL query language. 
+The Open Liberty needs to be configured to support the GraphQL query language. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
-#Replace the server configuration file.#
+#Replace the Liberty server.xml configuration file.#
 `graphql/src/main/liberty/config/server.xml`
 ----
 
