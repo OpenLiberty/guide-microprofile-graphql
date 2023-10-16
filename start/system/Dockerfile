@@ -1,7 +1,7 @@
-FROM icr.io/appcafe/open-liberty:kernel-slim-java11-openj9-ubi
-
+ARG JAVA_VERSION=java11
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
+FROM icr.io/appcafe/open-liberty:kernel-slim-java11-openj9-ubi
 
 LABEL \
   org.opencontainers.image.authors="Your Name" \
@@ -13,7 +13,7 @@ LABEL \
   vendor="Open Liberty" \
   name="system" \
   version="$VERSION-java11-$REVISION" \
-  summary="The system microservice from the Querying and updating data with GraphQL" \
+  summary="The system microservice from the Querying and updating data with GraphQL guide" \
   description="This image contains the system microservice running with the Open Liberty runtime."
 
 COPY --chown=1001:0 src/main/liberty/config /config/
