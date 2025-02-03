@@ -296,7 +296,15 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./scripts/startContainers.sh
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
@@ -548,7 +556,15 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./scripts/stopContainers.sh
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
