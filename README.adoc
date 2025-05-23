@@ -271,8 +271,8 @@ include::{common-includes}/os-tabs.adoc[]
 --
 [role='command']
 ```
-mvn.cmd -pl models install
-mvn.cmd package
+mvnw.cmd -pl models install
+mvnw.cmd package
 ```
 --
 
