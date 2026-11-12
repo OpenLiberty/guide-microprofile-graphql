@@ -1,4 +1,4 @@
-// Copyright (c) 2021, 2025 IBM Corporation and others.
+// Copyright (c) 2021, 2026 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -301,7 +301,7 @@ Dockerfiles have already been set up for you. Build your Docker images with the 
 
 [role='command']
 ----
-docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
+docker build -t system:1.0-java25-SNAPSHOT --build-arg JAVA_VERSION=java25 system/.
 docker build -t system:1.0-java17-SNAPSHOT --build-arg JAVA_VERSION=java17 system/.
 docker build -t graphql:1.0-SNAPSHOT graphql/.
 ----
@@ -370,7 +370,7 @@ ifndef::cloud-hosted[]
 [role='command']
 ```
 query {
-  system(hostname: "system-java11") {
+  system(hostname: "system-java25") {
     hostname
     username
     osArch
@@ -393,7 +393,7 @@ endif::[]
 ifdef::cloud-hosted[]
 ```
 query {
-  system(hostname: "system-java11") {
+  system(hostname: "system-java25") {
     hostname
     username
     osArch
@@ -422,7 +422,7 @@ The output is similar to the following example:
 {
   "data": {
     "system": {
-      "hostname": "system-java11",
+      "hostname": "system-java25",
       "username": "default",
       "osArch": "amd64",
       "osName": "Linux",
@@ -448,7 +448,7 @@ ifndef::cloud-hosted[]
 ```
 mutation {
   editNote(
-    hostname: "system-java11"
+    hostname: "system-java25"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
@@ -459,7 +459,7 @@ ifdef::cloud-hosted[]
 ```
 mutation {
   editNote(
-    hostname: "system-java11"
+    hostname: "system-java25"
     note: "I'm trying out GraphQL on Open Liberty!"
   )
 }
@@ -472,7 +472,7 @@ ifndef::cloud-hosted[]
 [role='command']
 ```
 query {
-  system(hostname: "system-java11") {
+  system(hostname: "system-java25") {
     note
   }
 }
@@ -482,7 +482,7 @@ endif::[]
 ifdef::cloud-hosted[]
 ```bash
 query {
-  system(hostname: "system-java11") {
+  system(hostname: "system-java25") {
     note
   }
 }
@@ -508,7 +508,7 @@ ifndef::cloud-hosted[]
 [role='command']
 ```
 query {
-  systemLoad(hostnames: ["system-java11", "system-java17"]) {
+  systemLoad(hostnames: ["system-java25", "system-java17"]) {
     hostname
     loadData {
       heapUsed
@@ -523,7 +523,7 @@ endif::[]
 ifdef::cloud-hosted[]
 ```
 query {
-  systemLoad(hostnames: ["system-java11", "system-java17"]) {
+  systemLoad(hostnames: ["system-java25", "system-java17"]) {
     hostname
     loadData {
       heapUsed
@@ -543,7 +543,7 @@ The response is similar to the following example:
   "data": {
     "systemLoad": [
       {
-        "hostname": "system-java11",
+        "hostname": "system-java25",
         "loadData": {
           "heapUsed": 32432048,
           "nonHeapUsed": 85147084,

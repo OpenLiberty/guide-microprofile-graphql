@@ -1,7 +1,7 @@
-ARG JAVA_VERSION=java11
+ARG JAVA_VERSION=java25
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
-FROM icr.io/appcafe/open-liberty:kernel-slim-${JAVA_VERSION}-openj9-ubi
+FROM icr.io/appcafe/open-liberty:kernel-slim-${JAVA_VERSION}-openj9-ubi-minimal
 
 LABEL \
   org.opencontainers.image.authors="Your Name" \
@@ -12,7 +12,7 @@ LABEL \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
   name="system" \
-  version="$VERSION-java11-$REVISION" \
+  version="$VERSION-java25-$REVISION" \
   summary="The system microservice from the Optimizing REST queries for microservices with GraphQL guide" \
   description="This image contains the system microservice running with the Open Liberty runtime."
 
