@@ -6,10 +6,10 @@ docker network create $NETWORK
 
 docker run -d \
   --network=$NETWORK \
-  --name=system-java11 \
-  --hostname=java11 \
+  --name=system-java25 \
+  --hostname=java25 \
   --rm \
-  system:1.0-java11-SNAPSHOT &
+  system:1.0-java25-SNAPSHOT &
 
 docker run -d \
   --network=$NETWORK \
